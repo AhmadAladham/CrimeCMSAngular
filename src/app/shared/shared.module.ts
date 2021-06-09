@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatTableModule} from '@angular/material/table';  
-import {HttpClientModule} from '@angular/common/http';
-import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';  
+import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule}  from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -12,14 +17,24 @@ import {MatButtonModule} from '@angular/material/button';
     MatTableModule,
     HttpClientModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports:[
     CommonModule,
     MatTableModule,
     HttpClientModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class SharedModule { 

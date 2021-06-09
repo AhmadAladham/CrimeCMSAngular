@@ -13,7 +13,7 @@ export interface Station {
 }
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-list-stations',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
@@ -28,6 +28,10 @@ export class ListComponent implements OnInit {
 
   ngOnInit():void {
     this.getAllStations();
+    this.stationService.refresh.subscribe(()=>{
+      this.getAllStations();
+    }
+    )
   }
   displayedColumns: string[] = ['stationName', 'stationAddress', 'phoneNumber', 'totalStaff', 'actions'];
 

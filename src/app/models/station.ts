@@ -3,5 +3,5 @@ export class Station{
     stationName: string | undefined;
     phoneNumber:string | undefined;
     stationAdress:string | undefined;
-    totalStaff:number | undefined;
+    totalStaff: number | undefined;
 }

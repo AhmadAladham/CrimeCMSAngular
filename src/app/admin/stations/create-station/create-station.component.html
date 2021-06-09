@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Create station</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="container">
+        <form [formGroup]="formGroup">
+            <ol>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Station Name</mat-label>
+                        <input type="text" matInput formControlName="stationName" placeholder="Ex. LA Police Station">
+                        <mat-error *ngIf="formGroup.controls.stationName.hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Station Phone Number</mat-label>
+                        <input type="text" matInput formControlName="phoneNumber" placeholder="Ex. 070000000xx">
+                        <mat-error *ngIf="formGroup.controls.phoneNumber.hasError('required')">
+                            Phone is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Station Address</mat-label>
+                        <input type="text" matInput formControlName="stationAddress" placeholder="Ex. St.9 Building 9">
+                        <mat-error *ngIf="formGroup.controls.stationAddress.hasError('required')">
+                            Address is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Total Staff</mat-label>
+                        <input type="number" matInput formControlName="totalStaff" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.totalStaff.hasError('required')">
+                            Total Staff is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                
+            </ol>
+            
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial
+        [disabled]="formGroup.invalid">Save</button>
+</mat-dialog-actions>
