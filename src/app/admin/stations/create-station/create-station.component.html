@@ -39,14 +39,13 @@
                         </mat-error>
                     </mat-form-field>
                 </li>
-                
+
             </ol>
-            
+
         </form>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial
-        [disabled]="formGroup.invalid">Save</button>
+    <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
 </mat-dialog-actions>

@@ -9,7 +9,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
+
   ],
   imports: [
     BrowserModule,

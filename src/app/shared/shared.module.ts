@@ -9,6 +9,8 @@ import { MatDialogModule}  from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [],
@@ -22,7 +24,9 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    Ng2SearchPipeModule,
+    OrderModule
   ],
   exports:[
     CommonModule,
@@ -34,7 +38,9 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    Ng2SearchPipeModule,
+    OrderModule
   ]
 })
 export class SharedModule { 

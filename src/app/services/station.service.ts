@@ -61,6 +61,26 @@ export class StationService {
       this.toastr.error('Something went wrong, Please login again.');
     })
   }
+
+
+  updateStation(station: Station) {
+    // this.spinner.show();
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/stations', station ).subscribe((result) => {
+      console.log(JSON.stringify(result));
+      if (result.data == 1) {
+        this.toastr.success('Station Updated Successfuly');
+        this.stations = this.stations.filter(s => s.stationId != station.stationId);
+        this.refresh.next(new Date().getTime());
+        // refresh
+      } else {
+        this.toastr.error('Could not update the item');
+      }
+      // this.spinner.hide();
+    }, err => {
+      // this.spinner.hide();
+      this.toastr.error('Something went wrong, Please login again.');
+    })
+  }
   
 }
 

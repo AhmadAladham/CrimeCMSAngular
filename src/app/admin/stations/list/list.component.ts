@@ -1,16 +1,20 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Station } from 'src/app/models/station';
 import { StationService } from 'src/app/services/station.service';
+import { CreateStationComponent } from '../create-station/create-station.component';
 
-export interface Station {
-  stationName: string;
-  phoneNumber: string;
-  stationAddress: number;
-  totalStaff: string;
-}
+// export interface Station {
+//   stationId : number;
+//   stationName: string;
+//   phoneNumber: string;
+//   stationAddress: string;
+//   totalStaff: number;
+// }
 
 @Component({
   selector: 'app-list-stations',
@@ -19,10 +23,14 @@ export interface Station {
 })
 
 export class ListComponent implements OnInit {
+  stationName : any;
+  key = 'stationName';
+  reverse : boolean = false
   constructor(
     private router : Router,
     public stationService:StationService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private dialog: MatDialog
     ) {
      }
 
@@ -50,5 +58,41 @@ export class ListComponent implements OnInit {
     } else {
       this.toastr.warning('This item cannot be deleted');
     }
+  }
+
+  updateStation(id : number) {
+    const station = this.stationService.stations.find(s=> s.stationId == id)
+    
+    // const dt = {
+    //   id: stationName.stationId,
+    //   name: stationName,
+    //   phoneNumber : station.phoneNumber,
+    //   address : station.stationAddress,
+    //   totalStaff: station.totalStaff
+    // }
+    this.dialog.open(CreateStationComponent, {
+      data: station
+    }).afterClosed().subscribe((result) => {
+      if (result) {
+        result.stationId = station?.stationId
+        this.stationService.updateStation(result);
+      }
+    });
+  }
+
+  Search() {
+    if(this.stationName == "") {
+      this.ngOnInit();
+    }else {
+      this.stationService.stations = this.stationService.stations.filter(s => {
+        return s.stationName?.toLocaleLowerCase().match(this.stationName.toLocaleLowerCase());
+      });
+    }
+  }
+  
+ 
+  Sort(key : any) {
+    this.key = key;
+    this.reverse = ! this.reverse;
   }
 }

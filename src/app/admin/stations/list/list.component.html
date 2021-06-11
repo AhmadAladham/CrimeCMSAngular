@@ -1,47 +1,56 @@
+<div class="example-container">
+    <mat-form-field>
+        <input matInput placeholder="Station Name" type="text" [(ngModel)]="stationName" (ngModelChange)="Search()">
+        <span matPrefix> <mat-icon>search</mat-icon> &nbsp;</span>
+    </mat-form-field>
+</div>
 
-<table mat-table [dataSource]="this.stationService.stations" class="mat-elevation-z8">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- Position Column -->
+<table mat-table [dataSource]="this.stationService.stations | orderBy : key : reverse" class="mat-elevation-z8">
+
+
     <ng-container matColumnDef="stationName">
-      <th mat-header-cell *matHeaderCellDef>Station Name</th>
-      <td mat-cell *matCellDef="let element"> {{element.stationName}} </td>
+        <th mat-header-cell *matHeaderCellDef>Station Name
+            <button mat-icon-button style=" margin: 0; color:black;" (click)="Sort('stationName')">
+            <mat-icon > sort_by_alpha </mat-icon>
+           </button>
+        </th>
+        <td mat-cell *matCellDef="let element"> {{element.stationName}} </td>
     </ng-container>
-  
-    <!-- Name Column -->
+
+
     <ng-container matColumnDef="stationAddress">
-      <th mat-header-cell *matHeaderCellDef>Address</th>
-      <td mat-cell *matCellDef="let element"> {{element.stationAddress}} </td>
+        <th mat-header-cell *matHeaderCellDef>Address</th>
+        <td mat-cell *matCellDef="let element"> {{element.stationAddress}} </td>
     </ng-container>
-  
-    <!-- Weight Column -->
+
+
     <ng-container matColumnDef="phoneNumber">
-      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
-      <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+        <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+        <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
     </ng-container>
-  
-    <!-- Symbol Column -->
+
+
     <ng-container matColumnDef="totalStaff">
-      <th mat-header-cell *matHeaderCellDef>Total Staff</th>
-      <td mat-cell *matCellDef="let element"> {{element.totalStaff}} </td>
+        <th mat-header-cell *matHeaderCellDef>Total Staff</th>
+        <td mat-cell *matCellDef="let element"> {{element.totalStaff}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-         <button mat-fab color="warn" aria-label="list stations"  >
-            <mat-icon (click) = "deleteStation(element.stationId)">delete</mat-icon>
-        </button>
-     </td>
-      <!-- <mat-cell *matCellDef="let row">
-        <button mat-icon-button><mat-icon>launch</mat-icon></button>
-        <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
-      </mat-cell> -->
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+
+            <button mat-mini-fab color="warn" aria-label="list stations">
+                <mat-icon (click) = "deleteStation(element.stationId)">delete</mat-icon>
+            </button>
+            <button mat-mini-fab color="primary" aria-label="list stations">
+                <mat-icon (click) = "updateStation(element.stationId)">edit</mat-icon>
+            </button>
+        </td>
     </ng-container>
-  
+
+
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
+</table>

@@ -23,7 +23,7 @@ export class CreateStationComponent implements OnInit {
     if (this.data) {
       this.formGroup.controls.stationName.setValue(this.data.stationName);
       this.formGroup.controls.phoneNumber.setValue(this.data.phoneNumber);
-      this.formGroup.controls.stationAddress.setValue(this.data.stationAdress);
+      this.formGroup.controls.stationAddress.setValue(this.data.stationAddress);
       this.formGroup.controls.totalStaff.setValue(this.data.totalStaff);
     }
   }
