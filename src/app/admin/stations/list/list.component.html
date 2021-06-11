@@ -5,7 +5,7 @@
     </mat-form-field>
 </div>
 
-
+<!-- : reverse | paginate: {itemsPerPage:2,currentPage:p}; -->
 <table mat-table [dataSource]="this.stationService.stations | orderBy : key : reverse" class="mat-elevation-z8">
 
 
@@ -53,4 +53,23 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
 </table>
+
+<!-- <table>
+    <thead>
+        <tr>
+            <th>Station Name</th>
+            <th>Station Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let element of this.stationService.stations | paginate: {itemsPerPage:2,currentPage:p};">
+            <td> {{element.stationName}} </td>
+            <td> {{element.stationAddress}} </td>
+
+        </tr>
+    </tbody>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</table> -->

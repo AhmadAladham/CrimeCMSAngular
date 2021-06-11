@@ -6,7 +6,7 @@ import { ListComponent } from './list/list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateStationComponent } from './create-station/create-station.component';
 import { IndexComponent } from './index/index.component';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import { IndexComponent } from './index/index.component';
   imports: [
     CommonModule,
     StationsRoutingModule,
-    SharedModule
+    SharedModule,
+    MatPaginatorModule
   ]
 })
 export class StationsModule { }

@@ -93,6 +93,6 @@ export class ListComponent implements OnInit {
  
   Sort(key : any) {
     this.key = key;
-    this.reverse = ! this.reverse;
+    this.reverse = !this.reverse
   }
 }

@@ -24,6 +24,7 @@
     "jwt-decode": "^3.1.2",
     "ng2-search-filter": "^0.5.1",
     "ngx-order-pipe": "^2.1.1",
+    "ngx-pagination": "^5.1.1",
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
