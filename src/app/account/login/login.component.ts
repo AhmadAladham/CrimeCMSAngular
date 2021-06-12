@@ -14,7 +14,7 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 })
 export class LoginComponent implements OnInit {
   emailControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordControl = new FormControl('', [Validators.required, Validators.minLength(8)])
+  passwordControl = new FormControl('', [Validators.required])
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;
@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
      { }
 
   ngOnInit(): void {
+    
   }
    
   // showSuccess() {
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
   // }
 
   submit() {
-    this.authService.login(this.emailControl.value, this.passwordControl.value);
+    this.authService.Login(this.emailControl.value, this.passwordControl.value);
   }
 
   goToRegisterPage() {

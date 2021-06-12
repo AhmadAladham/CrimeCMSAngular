@@ -1,33 +1,30 @@
-<div class="container">
-    <div class="loginCard">
-        <h3 style="font-size: 4em; text-align: center;margin-top: 40px;">Login</h3>
-        <div class="form" style="margin-top: 100px;">
-            <mat-form-field class="example-full-width">
-                <mat-label>Email</mat-label>
-                <input matInput [formControl]="emailControl" style="font-size: x-large;" placeholder="Ex. pat@example.com">
-                <mat-error *ngIf="emailControl.hasError('email') && !emailControl.hasError('required')">
-                    Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="emailControl.hasError('required')">
-                    Email is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width">
-                <mat-label>Password</mat-label>
-                <input type="password" matInput [formControl]="passwordControl" style="font-size: x-large;">
-                <mat-error *ngIf="passwordControl.hasError('minlength') && !passwordControl.hasError('required')">
-                    Password length must be more than 8 characters.
-                </mat-error>
-                <mat-error *ngIf="passwordControl.hasError('required')">
-                    Password is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <button [disabled]="!emailControl.valid || !passwordControl.valid" mat-raised-button (click)="submit()" style="flex: 1;width: 100%;margin-top: 50px;" color="default">
-                Login
+<div class="loginCard">
+    <p class="sign" align="center">Sign in</p>
+    <form class="form1">
+        <mat-form-field class="email" align="center">
+            <mat-label>Email</mat-label>
+            <input matInput [formControl]="emailControl" placeholder="Ex. pat@example.com">
+            <mat-error *ngIf="emailControl.hasError('email') && !emailControl.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="emailControl.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="password" align="center">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput [formControl]="passwordControl">
+            <mat-error *ngIf="passwordControl.hasError('minlength') && !passwordControl.hasError('required')">
+                Password length must be more than 8 characters.
+            </mat-error>
+            <mat-error *ngIf="passwordControl.hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button class="submit" align="center" [disabled]="!emailControl.valid || !passwordControl.valid" mat-raised-button (click)="submit()">
+                   <span style="color: white;">Sign in</span> 
             </button>
-        </div>
-
-        <p (click)="goToRegisterPage()" style="cursor: pointer;text-align: center; font-size: 1.7em;margin-top: 40px;">
-            Create new account</p>
-    </div>
+        <p class="register" align="center">
+            <span style="color: #f00d2b">Don't have an account? &nbsp;<strong  (click)="goToRegisterPage()" >Register here</strong></span> </p>
+    </form>
 </div>

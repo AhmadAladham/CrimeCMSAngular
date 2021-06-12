@@ -10,13 +10,17 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
+    registerForm: FormGroup = new FormGroup({
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    address: new FormControl('', [Validators.required]),
+    userName: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl(''),
+    dateOfBirth: new FormControl(''),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    gender: new FormControl('', [Validators.required]),
+    roleId: new FormControl('')
   });
   isPasswordConfirmMatch: boolean = false;
   constructor(
@@ -32,14 +36,9 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    this.spinner.show();
     const formValue = this.registerForm.value;
     console.log(formValue)
     console.log(this.registerForm.controls)
-    setTimeout(() => {
-      this.router.navigate(['c']);
-      this.spinner.hide();
-    }, 3000);
   }
 
 }
