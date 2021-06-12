@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="loginCard">
+        <h3 style="font-size: 4em; text-align: center;margin-top: 40px;">Register</h3>
+        <div class="form" style="margin-top: 100px;">
+            <form [formGroup]="registerForm" (submit)="registerUser()">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Full Name</mat-label>
+                    <input matInput formControlName="fullName" style="font-size: x-large;" placeholder="Ex. John Doe">
+                    <mat-error *ngIf="registerForm.controls.fullName.hasError('required')">
+                        Full Name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" style="font-size: x-large;" placeholder="Ex. pat@example.com">
+                    <mat-error *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="registerForm.controls.email.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address" style="font-size: x-large;" placeholder="Ex. WI Street">
+                    <mat-error *ngIf="registerForm.controls.address.hasError('required')">
+                        Address is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phoneNumber" style="font-size: x-large;" placeholder="Ex. 079000000">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" style="font-size: x-large;" type="password">
+                    <mat-error *ngIf="registerForm.controls.password.hasError('minlength') && !registerForm.controls.password.hasError('required')">
+                        Please enter a valid password
+                    </mat-error>
+                    <mat-error *ngIf="registerForm.controls.password.hasError('required')">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput formControlName="passwordConfirm" style="font-size: x-large;" type="password">
+                    <mat-error *ngIf="registerForm.controls.passwordConfirm.hasError('minlength') && !registerForm.controls.passwordConfirm.hasError('required')">
+                        Please enter a valid password
+                    </mat-error>
+                    <mat-error *ngIf="registerForm.controls.passwordConfirm.hasError('required')">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="registerForm.controls.passwordConfirm.value != registerForm.controls.password.value">
+                        Password and password confirm does not <strong>match</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+            </form>
+        </div>
+
+        <p (click)="goToLoginPage()" style="cursor: pointer;text-align: center; font-size: 1.7em;margin-top: 40px;">
+            Already have account? Login here</p>
+    </div>
+</div>

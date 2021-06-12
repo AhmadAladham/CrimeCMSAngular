@@ -8,14 +8,6 @@ import { Station } from 'src/app/models/station';
 import { StationService } from 'src/app/services/station.service';
 import { CreateStationComponent } from '../create-station/create-station.component';
 
-// export interface Station {
-//   stationId : number;
-//   stationName: string;
-//   phoneNumber: string;
-//   stationAddress: string;
-//   totalStaff: number;
-// }
-
 @Component({
   selector: 'app-list-stations',
   templateUrl: './list.component.html',
@@ -62,15 +54,7 @@ export class ListComponent implements OnInit {
 
   updateStation(id : number) {
     const station = this.stationService.stations.find(s=> s.stationId == id)
-    
-    // const dt = {
-    //   id: stationName.stationId,
-    //   name: stationName,
-    //   phoneNumber : station.phoneNumber,
-    //   address : station.stationAddress,
-    //   totalStaff: station.totalStaff
-    // }
-    this.dialog.open(CreateStationComponent, {
+     this.dialog.open(CreateStationComponent, {
       data: station
     }).afterClosed().subscribe((result) => {
       if (result) {

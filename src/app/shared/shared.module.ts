@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [],
@@ -27,8 +27,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatFormFieldModule,
     MatInputModule,
     Ng2SearchPipeModule,
-    OrderModule,
-    NgxPaginationModule   
+    OrderModule
   ],
   exports:[
     CommonModule,
@@ -42,8 +41,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatFormFieldModule,
     MatInputModule,
     Ng2SearchPipeModule,
-    OrderModule,
-    NgxPaginationModule
+    OrderModule
   ]
 })
 export class SharedModule { 
