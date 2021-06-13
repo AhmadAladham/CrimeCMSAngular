@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +23,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     SharedModule,
     ToastrModule.forRoot({positionClass: 'toast-top-center'}),
     FlexLayoutModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

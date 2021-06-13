@@ -59,8 +59,6 @@ export class AuthService {
   }
 
   Register(registerDTO:RegisterDTO) {
-    // api request login
-    // show loader
     this.spinner.show();
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/register', registerDTO).subscribe((result) => {
       if(result.status == '201'){
@@ -68,7 +66,6 @@ export class AuthService {
       }
       else if(result.status == '401'){
         this.toastr.error('Please try again' ,'Invalid Email or Password');
-        
       }
       this.spinner.hide();
     },err=>{

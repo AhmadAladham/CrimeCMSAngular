@@ -1,6 +1,5 @@
 export class RegisterDTO{
     email: string | undefined;
-    userName: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;
     phoneNumber: string | undefined;
