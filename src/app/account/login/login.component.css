@@ -1,4 +1,3 @@
-
 div.loginCard {
     background-color: #FFFFFF;
     width: 400px;
@@ -13,7 +12,7 @@ p.sign {
     color: #f00d2b;
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
-    font-size: 23px;
+    font-size: 26px;
 }
 
 .email {
