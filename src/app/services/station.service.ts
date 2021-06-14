@@ -21,11 +21,13 @@ export class StationService {
     private http:HttpClient,
     private toastr: ToastrService,
     private route: Router
-    ) { }
+    ) 
+    { 
+      
+    }
 
   getAllStations(){
     return this.http.get('https://localhost:5001/api/Stations', {
-      
     });
   }
 
@@ -61,7 +63,6 @@ export class StationService {
       this.toastr.error('Something went wrong, Please login again.');
     })
   }
-
 
   updateStation(station: Station) {
     // this.spinner.show();

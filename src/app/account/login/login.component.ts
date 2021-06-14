@@ -40,6 +40,6 @@ export class LoginComponent implements OnInit {
 
   goToRegisterPage() {
     // Go to register page
-    this.router.navigate(['register']);
+    this.router.navigate(['account/register']);
   }
 }
