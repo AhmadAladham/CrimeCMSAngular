@@ -32,7 +32,7 @@ export class StationService {
   }
 
   deleteStation(id:number) {
-    this.http.delete('https://localhost:5001/api/Stations/' + id).subscribe((result: any) => {
+    this.http.delete<ServiceResult>('https://localhost:5001/api/Stations/' + id).subscribe((result) => {
       
       if (result.isSucceed == true) {
         this.toastr.success('Station Deleted Successfuly!!');

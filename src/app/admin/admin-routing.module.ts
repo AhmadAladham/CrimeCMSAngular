@@ -5,7 +5,12 @@ const routes: Routes = [
   {
     path: 'stations',
     loadChildren:() => import('./stations/stations.module').then(m=>m.StationsModule) 
+  },
+  {
+    path: 'crimecategories',
+    loadChildren:() => import('./crime-categories/crime-categories.module').then(m=>m.CrimeCategoriesModule)
   }
+
 ];
 
 @NgModule({

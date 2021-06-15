@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Create Crime Category</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="container">
+        <form>
+            <ol>
+                <li>
+                    <mat-form-field class="example-full-width ">
+                        <mat-label>Crime Category Name</mat-label>
+                        <input type="text " matInput [formControl]="crimeCategoryName " placeholder="Ex. LA Police Station ">
+                        <mat-error *ngIf="crimeCategoryName.hasError( 'required') ">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+            </ol>
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end ">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true " (click)="saveItem()" cdkFocusInitial [disabled]="crimeCategoryName.invalid ">Save</button>
+</mat-dialog-actions>

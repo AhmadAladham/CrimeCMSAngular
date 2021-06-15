@@ -1,3 +1,4 @@
+import {MatTableModule} from '@angular/material/table';
 import { DataSource } from '@angular/cdk/collections';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,7 +28,7 @@ export class ListComponent implements OnInit {
      }
 
   ngOnInit():void {
-    this.getAllStations();
+    //this.getAllStations();
     this.stationService.refresh.subscribe(()=>{
       this.getAllStations();
     }
