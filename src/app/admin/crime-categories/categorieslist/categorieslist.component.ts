@@ -30,7 +30,7 @@ export class CategorieslistComponent implements OnInit {
     })
   }
 
-  displayedColumns: string[] = ['crimeCategoryId', 'crimeCategoryName'];
+  displayedColumns: string[] = ['crimeCategoryId', 'crimeCategoryName', 'actions'];
 
   getAllCrimeCategories() {
     this.crimeCategoryService.getAllCategories().subscribe(
@@ -51,13 +51,13 @@ export class CategorieslistComponent implements OnInit {
   }
 
   updateCrimeCategory(id : number) {
-    const crimeCategory = this.crimeCategoryService.crimeCategories.find(s=> s.crimeCategoryId == id)
+    const crimeCategory = this.crimeCategoryService.crimeCategories.find(cc=> cc.crimeCategoryId == id)
      this.dialog.open(CreateCategoryComponent, {
       data: crimeCategory
     }).afterClosed().subscribe((result) => {
       if (result) {
         result.crimeCategoryId = crimeCategory?.crimeCategoryId
-        this.crimeCategoryService.updateStation(result);
+        this.crimeCategoryService.updateCategory(result);
       }
     });
   }

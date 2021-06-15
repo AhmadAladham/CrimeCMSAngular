@@ -1,7 +1,8 @@
+import { ValueTransformer } from '@angular/compiler/src/util';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { crimeCategory } from 'src/app/models/CrimeCategory';
+import { CrimeCategory } from 'src/app/models/CrimeCategory';
 
 @Component({
   selector: 'app-create-category',
@@ -12,7 +13,7 @@ export class CreateCategoryComponent implements OnInit {
  
     crimeCategoryName= new FormControl('', [Validators.required]);
    
-  constructor(@Inject(MAT_DIALOG_DATA) public data: crimeCategory, 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: CrimeCategory, 
   private dialog: MatDialogRef<CreateCategoryComponent>) 
   { }
 
@@ -23,13 +24,14 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   saveItem() {
-    const value  = this.crimeCategoryName.value;
+    let crimeCategory  = new CrimeCategory();
+    crimeCategory.crimeCategoryName = this.crimeCategoryName.value;
     if (this.data) {
       this.dialog.close({
-        ...value
+        ...crimeCategory
       })
     } else {
-      this.dialog.close(value)
+      this.dialog.close(crimeCategory)
     }
   }
 
