@@ -1,22 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinner, NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { crimeCategory } from '../models/CrimeCategory';
+import { CrimeCategory } from '../models/CrimeCategory';
 import { ServiceResult } from '../models/ServiceResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrimeCategoryService {
- crimeCategories : crimeCategory[] = []
+ crimeCategories : CrimeCategory[] = []
  refresh = new BehaviorSubject(0)
   constructor(
     private http:HttpClient,
     private toastr: ToastrService,
-    private route: Router
+    private route: Router,
+    private spinner:NgxSpinnerService
   ) { }
 
   getAllCategories() {
@@ -37,7 +39,7 @@ export class CrimeCategoryService {
     })
   }
 
-  createCategory(crimeCategory : crimeCategory) {
+  createCategory(crimeCategory : CrimeCategory) {
     this.http.post<ServiceResult>(environment.apiUrl + 'api/CrimeCategories', crimeCategory).subscribe((result) => {
       if (result.data == 1) {
         this.toastr.success('Crime Category Created Successfuly');
@@ -54,9 +56,10 @@ export class CrimeCategoryService {
   }
 
 
-  updateStation(crimeCategory: crimeCategory) {
-    // this.spinner.show();
-    this.http.put<ServiceResult>(environment.apiUrl + 'api/stations', crimeCategory ).subscribe((result) => {
+  updateCategory(crimeCategory: CrimeCategory) {
+    console.log(crimeCategory)
+    this.spinner.show();
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/crimecategories', crimeCategory ).subscribe((result) => {
       console.log(JSON.stringify(result));
       if (result.data == 1) {
         this.toastr.success('Crime Category Updated Successfuly');
@@ -66,9 +69,9 @@ export class CrimeCategoryService {
       } else {
         this.toastr.error('Could not update the item');
       }
-      // this.spinner.hide();
+      this.spinner.hide();
     }, err => {
-      // this.spinner.hide();
+     this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
   }

@@ -1,4 +1,4 @@
-export class crimeCategory {
+export class CrimeCategory {
     crimeCategoryId : number | undefined;
     crimeCategoryName : string | undefined;
 }
