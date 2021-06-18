@@ -27,7 +27,7 @@ export class StationService {
     }
 
   getAllStations(){
-    return this.http.get('https://localhost:5001/api/Stations', {
+    return this.http.get<ServiceResult>('https://localhost:5001/api/Stations', {
     });
   }
 
@@ -67,7 +67,6 @@ export class StationService {
   updateStation(station: Station) {
     // this.spinner.show();
     this.http.put<ServiceResult>(environment.apiUrl + 'api/stations', station ).subscribe((result) => {
-      console.log(JSON.stringify(result));
       if (result.data == 1) {
         this.toastr.success('Station Updated Successfuly');
         this.stations = this.stations.filter(s => s.stationId != station.stationId);
