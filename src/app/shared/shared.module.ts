@@ -15,6 +15,7 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { MatNativeDateModule } from '@angular/material/core';
      NgbAlertModule,
      MatRadioModule,
      MatDatepickerModule,
-     MatNativeDateModule
+     MatNativeDateModule,
+     MatPaginatorModule
   ],
   exports:[
     CommonModule,
@@ -54,7 +56,8 @@ import { MatNativeDateModule } from '@angular/material/core';
      NgbAlertModule,
      MatRadioModule,
      MatDatepickerModule,
-     MatNativeDateModule
+     MatNativeDateModule,
+     MatPaginatorModule
   ]
 })
 export class SharedModule { 

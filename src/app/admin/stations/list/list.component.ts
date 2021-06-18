@@ -28,7 +28,6 @@ export class ListComponent implements OnInit {
      }
 
   ngOnInit():void {
-    //this.getAllStations();
     this.stationService.refresh.subscribe(()=>{
       this.getAllStations();
     }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,10 @@ const routes: Routes = [
   {
     path: 'crimecategories',
     loadChildren:() => import('./crime-categories/crime-categories.module').then(m=>m.CrimeCategoriesModule)
+  },
+  {
+    path: 'users',
+    component:UserComponent
   }
 
 ];

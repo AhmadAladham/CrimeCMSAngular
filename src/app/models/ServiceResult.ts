@@ -4,4 +4,5 @@ export class ServiceResult{
     status: string | undefined;
     errors: string [] | undefined;
     hasErrors: boolean | undefined;
+    headers : any;
 }

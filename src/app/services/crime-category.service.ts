@@ -60,7 +60,6 @@ export class CrimeCategoryService {
     console.log(crimeCategory)
     this.spinner.show();
     this.http.put<ServiceResult>(environment.apiUrl + 'api/crimecategories', crimeCategory ).subscribe((result) => {
-      console.log(JSON.stringify(result));
       if (result.data == 1) {
         this.toastr.success('Crime Category Updated Successfuly');
         this.crimeCategories = this.crimeCategories.filter(s => s.crimeCategoryId != crimeCategory.crimeCategoryId);
