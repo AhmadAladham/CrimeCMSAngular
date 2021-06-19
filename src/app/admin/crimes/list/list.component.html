@@ -1,62 +1,67 @@
 <h1 style="text-align: center;">All Crimes</h1>
 
-<div *ngIf="this.crimeService.crimeData.items">
-    <mat-table [dataSource]="this.crimeService.crimeData.items">
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+<form class="date-block" [formGroup]="filterForm">
+    <div class="date-block__list">
+        <mat-form-field>
+            <input matInput [matDatepicker]="fromDate" placeholder="From Date" formControlName="fromDate">
+            <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="date-block__list">
+        <mat-form-field>
+            <input matInput [matDatepicker]="toDate" placeholder="To Date" formControlName="toDate">
+            <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <button mat-button color="primary" class="primary" (click)="applyFilter()">Save</button>
+</form>
 
-        <ng-container matColumnDef="crimeTtile">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Ttile</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.crimeTtile}}</mat-cell>
-        </ng-container>
+<div class="example-container mat-elevation-z8">
+    <div *ngIf="this.crimeService.crimeData.items">
+        <mat-table [dataSource]="this.crimeService.crimeData.items" matSort (matSortChange)="sortCrimes($event)" matSortActive="crimeTtile" matSortDisableClear matSortDirection="desc">
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
-        <ng-container matColumnDef="crimeCategoryName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Category Name</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.crimeCategoryName}}</mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="crimeTtile">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Ttile</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.crimeTtile}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="crimeDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Crime Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.crimeDate | date}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="isClosed">
+                <mat-header-cell *matHeaderCellDef>Is Closed</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.isClosed}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="closeDate">
+                <mat-header-cell *matHeaderCellDef>Close Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.closeDate | date}}</mat-cell>
+            </ng-container>
 
 
-        <ng-container matColumnDef="crimeEntryDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Entry Date</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.crimeEntryDate | date}}</mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="location">
+                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.location}}</mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="crimeDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Crime Date</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.crimeDate | date}}</mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="crimeCategoryName">
+                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.crimeCategoryName}}</mat-cell>
+            </ng-container>
 
-        <ng-container matColumnDef="closeDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Close Date</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.closeDate | date}}</mat-cell>
-        </ng-container>
+            <ng-container matColumnDef="stationName">
+                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.stationName}}</mat-cell>
+            </ng-container>
+        </mat-table>
 
-        <ng-container matColumnDef="isClosed">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Is Closed</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.isClosed}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="crimeDescription">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.crimeDescription}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="location">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Location</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.location}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="criminalFirstName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Criminal Name</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.criminalFirstName}} {{row.criminalLastName}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="stationName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Station Name</mat-header-cell>
-            <mat-cell *matCellDef="let row">{{row.stationName}}</mat-cell>
-        </ng-container>
-    </mat-table>
-
-    <mat-paginator [length]="this.crimeService.crimeData.meta.totalItems" [pageSize]="this.crimeService.crimeData.meta.itemsPerPage" [pageSizeOptions]="[2,4,8,10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
-    </mat-paginator>
+        <mat-paginator [length]="this.crimeService.crimeData.meta.totalItems" [pageSize]="this.crimeService.crimeData.meta.itemsPerPage" [pageSizeOptions]="[2,4,8,10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
+    </div>
 </div>

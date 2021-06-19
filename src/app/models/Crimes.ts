@@ -1,7 +1,10 @@
 export class Crime {
+    CrimeId : number | undefined;
+    CrimeCategoryId : number | undefined;
+    StationId : number | undefined;
     CrimeTtile: string | undefined;
     CrimeEntryDate : Date | undefined;
-    CrimeDate : Date | undefined;
+    CrimeDate? : Date | undefined;
     CloseDate: Date | undefined;
     IsClosed  : boolean | undefined;
     CrimeDescription : string | undefined;
@@ -10,4 +13,5 @@ export class Crime {
     CriminalFirstName: string | undefined;
     CriminalLastName: string | undefined;
     StationName: string | undefined;
+    Image : string | undefined;
 }

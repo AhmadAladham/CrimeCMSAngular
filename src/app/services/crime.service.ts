@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Crime } from '../models/Crimes';
 import { CrimeData } from '../models/PaginationData';
+import { ServiceResult } from '../models/ServiceResult';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,22 @@ export class CrimeService {
       this.toastr.error('Something went wrong.');
     })
   };
+
+  createCrime(crime: Crime) {
+    // this.spinner.show();
+    this.http.post<ServiceResult>(environment.apiUrl + 'api/crimes', crime)
+    .subscribe((result) => {
+      if (result.data == 1) {
+        this.toastr.success('Crime Created Successfuly');
+        this.refresh.next(new Date().getTime());
+        // refresh
+      } else {
+        this.toastr.error('Could not create the item');
+      }
+      // this.spinner.hide();
+    }, err => {
+      // this.spinner.hide();
+      this.toastr.error('Something went wrong, Please login again.');
+    })
+  }
 }
