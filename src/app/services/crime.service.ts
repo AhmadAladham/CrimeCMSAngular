@@ -1,33 +1,26 @@
-import { DataSource } from '@angular/cdk/collections';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ServiceResult } from '../models/ServiceResult';
-import { User } from '../models/user';
-import { UserData } from '../models/PaginationData';
+import { Crime } from '../models/Crimes';
+import { CrimeData } from '../models/PaginationData';
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class UserServiceService {
-  userData:UserData = new UserData();
+export class CrimeService {
+  crimeData:CrimeData = new CrimeData();
   refresh = new BehaviorSubject(0);
-  dataSource:MatTableDataSource<User> = new MatTableDataSource<User>();
-  
+  dataSource:MatTableDataSource<Crime> = new MatTableDataSource<Crime>();
+
   constructor(
     private http: HttpClient,
-    private toastr: ToastrService,
-    private route: Router
-  ) 
-  { 
-  }
+    private toastr: ToastrService
+  ) { }
 
-  getAllUsers(page: number, size: number, sortingColumn? : string, sortType? : string) {
+  getAllCrimes(page: number, size: number, sortingColumn? : string, sortType? : string) {
     // this.spinner.show();
     let params = new HttpParams();
 
@@ -36,17 +29,17 @@ export class UserServiceService {
     params = params.append('PageNumber', String(page));
      params = params.append('PageSize', String(size));
 
-    this.http.get<any>(environment.apiUrl + 'api/users',{params,  observe: 'response'}).subscribe((result) => {
+    this.http.get<any>(environment.apiUrl + 'api/Crimes',{params,  observe: 'response'}).subscribe((result) => {
       if (result.body.isSucceed == true) {
         let xPagination = '1';
         xPagination = result.headers.get('x-pagination') || 'a';
         let meta =JSON.parse(xPagination);
-        this.userData.meta.currentPage = meta.CurrentPage;
-        this.userData.meta.itemCount = meta.TotalCount;
-        this.userData.meta.itemsPerPage = meta.PageSize;
-        this.userData.meta.totalItems = meta.TotalCount;
-        this.userData.meta.totalPages = meta.TotalPages;
-        this.userData.items = result.body.data;
+        this.crimeData.meta.currentPage = meta.CurrentPage;
+        this.crimeData.meta.itemCount = meta.TotalCount;
+        this.crimeData.meta.itemsPerPage = meta.PageSize;
+        this.crimeData.meta.totalItems = meta.TotalCount;
+        this.crimeData.meta.totalPages = meta.TotalPages;
+        this.crimeData.items = result.body.data;
         //this.refresh.next(new Date().getTime());
       } else {
         this.toastr.error('Could not pull');
