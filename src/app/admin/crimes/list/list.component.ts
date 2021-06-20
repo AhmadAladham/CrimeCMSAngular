@@ -98,6 +98,11 @@ export class ListComponent implements AfterViewInit {
     if(filterValues.dateTo)filterValues.dateTo =new Date(this.datePipe.transform(filterValues.dateTo, 'yyyy-MM-dd')||'3100-01-01');
     console.log(filterValues)
     this.crimeService.searchCrimes(filterValues);
+    
+  }
+
+  resetFilter() {
+    this.filterForm.reset();
   }
 }
 

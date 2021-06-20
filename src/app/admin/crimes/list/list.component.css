@@ -12,24 +12,41 @@ th {
     width: 25%;
 }
 
-.mat-form-field {
-    margin-top: 5px;
-}
-
-form {
-    padding-bottom: 30px;
-}
-
-.primary {
-    background: orange;
-    color: white;
-}
-
 .date-block {
+    border-radius: 2px;
+    margin: 1px;
     display: flex;
+    flex-flow: row;
+    justify-content: center;
 }
 
-.date-block__list {
-    flex-basis: 150px;
-    margin-right: 15px;
+.select {
+    width: 30%;
+    margin: 5px;
+    padding: 5px;
+    border: 5px;
+}
+
+.s1 {
+    padding: 10px;
+}
+
+.date {
+    width: 30%;
+    margin: 5px;
+    padding: 5px;
+    border: 5px;
+    padding-top: 17px;
+}
+
+.d1 {
+    padding: 10px;
+}
+
+.search {
+    width: 11%;
+    margin: 5px;
+    padding: 5px;
+    border: 5px;
+    padding-top: 28px;
 }
