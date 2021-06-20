@@ -54,14 +54,13 @@ export class CrimeService {
     this.http.post<any>(environment.apiUrl + 'api/Crimes/CrimeSearch', crimeSearch,{observe: 'response'}).subscribe((result) => {
       if (result.body.isSucceed == true) {
         let xPagination = result.headers.get('x-pagination') || 'a';
-        let meta =JSON.parse(xPagination);
+        let meta = JSON.parse(xPagination);
         this.crimeData.meta.currentPage = meta.CurrentPage;
         this.crimeData.meta.itemCount = meta.TotalCount;
         this.crimeData.meta.itemsPerPage = meta.PageSize;
         this.crimeData.meta.totalItems = meta.TotalCount;
         this.crimeData.meta.totalPages = meta.TotalPages;
         this.crimeData.items = result.body.data;
-        //this.refresh.next(new Date().getTime());
       } else {
         this.toastr.error('Could not pull');
       }

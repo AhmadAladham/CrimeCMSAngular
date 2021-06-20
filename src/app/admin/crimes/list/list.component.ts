@@ -22,6 +22,9 @@ export class ListComponent implements AfterViewInit {
   displayedColumns: string[] = ['crimeTtile', 'crimeDate','isClosed', 'closeDate' ,'location', 'crimeCategoryName', 'stationName'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
+  sortingColumn:string = 'title';
+  sortType:string = 'asc';
+
 
   filterForm = new FormGroup({
     dateFrom: new FormControl(),
@@ -46,6 +49,7 @@ export class ListComponent implements AfterViewInit {
       this.getCrimes();
     })
     this.filterForm.valueChanges.subscribe(() => {
+      this.paginator.pageIndex = 0;
       this.applyFilter();
   })
 
@@ -80,25 +84,50 @@ export class ListComponent implements AfterViewInit {
     let page = event.pageIndex;
     let size = event.pageSize;
     page = page +1;
-      this.getCrimes(page, size);
-      //this.applyFilter()
+
+    if(this.filterForm.controls.dateFrom.value ||
+       this.filterForm.controls.dateTo.value ||
+       this.filterForm.controls.crimeCategoryId.value||
+       this.filterForm.controls.stationId.value||
+       this.filterForm.controls.crimeTtile.value){
+      this.applyFilter(page, size);
+    }
+    else{
+      this.getCrimes(page, size, this.sortingColumn, this.sortType);
+    }
   }
 
   sortCrimes(event:Sort){
     this.paginator.pageIndex = 0;
-    var sortType = event.direction;
-    var sortingColumn  = event.active;
-    if(sortingColumn =='crimeTtile') sortingColumn = 'title'
-    this.getCrimes(1,this.crimeService.crimeData.meta.itemsPerPage, sortingColumn, sortType);
+    this.sortType = event.direction;
+    this.sortingColumn = event.active;
+    if(this.sortingColumn =='crimeTtile') this.sortingColumn = 'title';
+
+    if(this.filterForm.controls.dateFrom.value ||
+      this.filterForm.controls.dateTo.value ||
+      this.filterForm.controls.crimeCategoryId.value||
+      this.filterForm.controls.stationId.value||
+      this.filterForm.controls.crimeTtile.value){
+        this.applyFilter(1, this.crimeService.crimeData.meta.itemsPerPage);
+        console.log(1)
+      }
+      else{
+        
+        this.getCrimes(1,this.crimeService.crimeData.meta.itemsPerPage, this.sortingColumn, this.sortType);
+      }
   }
 
-  applyFilter() {
-    let filterValues:CrimeSearch = this.filterForm.value;
-    if(filterValues.dateFrom) filterValues.dateFrom =new Date(this.datePipe.transform(filterValues.dateFrom, 'yyyy-MM-dd')||'1000-01-01');
-    if(filterValues.dateTo)filterValues.dateTo =new Date(this.datePipe.transform(filterValues.dateTo, 'yyyy-MM-dd')||'3100-01-01');
-    console.log(filterValues)
-    this.crimeService.searchCrimes(filterValues);
+  applyFilter(pageNumber:number = 1, pageSize:number = 10) {
     
+    let filterValues:CrimeSearch = this.filterForm.value;
+    filterValues.sortType = this.sortType;
+    filterValues.sortingColumn = this.sortingColumn ;
+    filterValues.pageNumber = pageNumber;
+    filterValues.pageSize = pageSize;
+    if(filterValues.dateFrom) filterValues.dateFrom = new Date(this.datePipe.transform(filterValues.dateFrom, 'yyyy-MM-dd')||'1000-01-01');
+    if(filterValues.dateTo)filterValues.dateTo = new Date(this.datePipe.transform(filterValues.dateTo, 'yyyy-MM-dd')||'3100-01-01');
+    console.log(filterValues);
+    this.crimeService.searchCrimes(filterValues);
   }
 
   resetFilter() {

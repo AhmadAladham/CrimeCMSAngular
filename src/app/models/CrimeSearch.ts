@@ -6,5 +6,7 @@ export class CrimeSearch{
     crimeCategoryId?:number;
     stationId?:number;
     pageNumber?:number;
-    PageSize?:number;
+    pageSize?:number;
+    sortingColumn?:string;
+    sortType?:string;
 }

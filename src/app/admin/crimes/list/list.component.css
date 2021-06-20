@@ -11,7 +11,12 @@ td,
 th {
     width: 25%;
 }
-
+.form-container{
+    border-radius: 1%;
+    border-width: 1px;
+    border-color: cornflowerblue;
+    border-style:ridge;
+}
 .date-block {
     border-radius: 2px;
     margin: 1px;
