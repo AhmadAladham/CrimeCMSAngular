@@ -51,5 +51,4 @@ export class UserComponent implements AfterViewInit {
       console.log(sortingColumn)
       this.getUsers(1,this.userService.userData.meta.itemsPerPage, sortingColumn, sortType);
     }
-
   }

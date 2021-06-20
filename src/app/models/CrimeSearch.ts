@@ -1,5 +1,5 @@
 export class CrimeSearch{
-    crimeTitle?:number;
+    crimeTitle?:string;
     dateFrom?:Date;
     dateTo?:Date;
     location?:string;

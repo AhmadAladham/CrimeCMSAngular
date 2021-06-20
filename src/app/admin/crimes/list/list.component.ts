@@ -6,6 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CrimeSearch } from 'src/app/models/CrimeSearch';
 import { DatePipe } from '@angular/common';
+import { Station } from 'src/app/models/station';
+import { CrimeCategory } from 'src/app/models/CrimeCategory';
+import { StationService } from 'src/app/services/station.service';
+import { CrimeCategoryService } from 'src/app/services/crime-category.service';
 
 
 @Component({
@@ -21,22 +25,20 @@ export class ListComponent implements AfterViewInit {
 
   filterForm = new FormGroup({
     dateFrom: new FormControl(),
-    dateTo: new FormControl(),  
+    dateTo: new FormControl(),
+    crimeCategoryId : new FormControl(),
+    stationId : new FormControl(),
+    crimeTtile: new FormControl()
   });
 
-  // get fromDate() { return this.filterForm.get('fromDate')?.value; }
-  // get toDate() { return this.filterForm.get('toDate')?.value; }
-
   constructor(
-    public crimeService:CrimeService,private datePipe: DatePipe) 
+    public crimeService:CrimeService,
+    private datePipe: DatePipe,
+    public stationService : StationService, 
+    public crimeCategoryService : CrimeCategoryService 
+    ) 
     {  
-      // this.crimeService.dataSource.filterPredicate = (data, filter) =>{
-      //   if (this.fromDate && this.toDate) {
-      //     return data.CrimeDate! >= this.fromDate && data.CrimeDate! <= this.toDate;
-      //   }
-      //   console.log(data.CrimeDate)
-      //   return true;
-      // }
+      
     }
 
   ngAfterViewInit(): void {
@@ -46,7 +48,28 @@ export class ListComponent implements AfterViewInit {
     this.filterForm.valueChanges.subscribe(() => {
       this.applyFilter();
   })
+
+   this.getAllStations()
+   this.getAllCrimeCategories()
   
+  }
+
+  getAllStations(){
+    this.stationService.getAllStations().subscribe(
+      (results : any)=>{
+        this.stationService.stations = results.data;
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  getAllCrimeCategories() {
+    this.crimeCategoryService.getAllCategories().subscribe(
+      (results : any)=>{
+        this.crimeCategoryService.crimeCategories = results.data;
+    }, err=>{
+      console.log(err);
+    });
   }
 
   getCrimes(page: number = 1, size: number = 10, sortingColum? : string, sortType? : string){
@@ -58,6 +81,7 @@ export class ListComponent implements AfterViewInit {
     let size = event.pageSize;
     page = page +1;
       this.getCrimes(page, size);
+      //this.applyFilter()
   }
 
   sortCrimes(event:Sort){
@@ -72,8 +96,7 @@ export class ListComponent implements AfterViewInit {
     let filterValues:CrimeSearch = this.filterForm.value;
     if(filterValues.dateFrom) filterValues.dateFrom =new Date(this.datePipe.transform(filterValues.dateFrom, 'yyyy-MM-dd')||'1000-01-01');
     if(filterValues.dateTo)filterValues.dateTo =new Date(this.datePipe.transform(filterValues.dateTo, 'yyyy-MM-dd')||'3100-01-01');
-
-    console.log(filterValues);
+    console.log(filterValues)
     this.crimeService.searchCrimes(filterValues);
   }
 }
