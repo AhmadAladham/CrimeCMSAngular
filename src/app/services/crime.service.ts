@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Crime } from '../models/Crimes';
+import { CrimeSearch } from '../models/CrimeSearch';
 import { CrimeData } from '../models/PaginationData';
 import { ServiceResult } from '../models/ServiceResult';
 
@@ -34,6 +35,25 @@ export class CrimeService {
       if (result.body.isSucceed == true) {
         let xPagination = '1';
         xPagination = result.headers.get('x-pagination') || 'a';
+        let meta =JSON.parse(xPagination);
+        this.crimeData.meta.currentPage = meta.CurrentPage;
+        this.crimeData.meta.itemCount = meta.TotalCount;
+        this.crimeData.meta.itemsPerPage = meta.PageSize;
+        this.crimeData.meta.totalItems = meta.TotalCount;
+        this.crimeData.meta.totalPages = meta.TotalPages;
+        this.crimeData.items = result.body.data;
+      } else {
+        this.toastr.error('Could not pull');
+      }
+    }, err => {
+      this.toastr.error('Something went wrong.');
+    })
+  };
+  
+  searchCrimes(crimeSearch:CrimeSearch) {
+    this.http.post<any>(environment.apiUrl + 'api/Crimes/CrimeSearch', crimeSearch,{observe: 'response'}).subscribe((result) => {
+      if (result.body.isSucceed == true) {
+        let xPagination = result.headers.get('x-pagination') || 'a';
         let meta =JSON.parse(xPagination);
         this.crimeData.meta.currentPage = meta.CurrentPage;
         this.crimeData.meta.itemCount = meta.TotalCount;

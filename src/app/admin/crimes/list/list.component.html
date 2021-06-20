@@ -3,16 +3,16 @@
 <form class="date-block" [formGroup]="filterForm">
     <div class="date-block__list">
         <mat-form-field>
-            <input matInput [matDatepicker]="fromDate" placeholder="From Date" formControlName="fromDate">
-            <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-            <mat-datepicker #fromDate></mat-datepicker>
+            <input matInput type="datetime" date-time [matDatepicker]="dateFrom" placeholder="Date From" formControlName="dateFrom" format="yyyy-MM-dd" view="date" min-view="date" auto-close="true">
+            <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+            <mat-datepicker #dateFrom></mat-datepicker>
         </mat-form-field>
     </div>
     <div class="date-block__list">
         <mat-form-field>
-            <input matInput [matDatepicker]="toDate" placeholder="To Date" formControlName="toDate">
-            <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-            <mat-datepicker #toDate></mat-datepicker>
+            <input matInput [matDatepicker]="dateTo" placeholder="Date to" formControlName="dateTo">
+            <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+            <mat-datepicker #dateTo></mat-datepicker>
         </mat-form-field>
     </div>
     <button mat-button color="primary" class="primary" (click)="applyFilter()">Save</button>
@@ -51,12 +51,12 @@
             </ng-container>
 
             <ng-container matColumnDef="crimeCategoryName">
-                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Categoty</mat-header-cell>
                 <mat-cell *matCellDef="let row">{{row.crimeCategoryName}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="stationName">
-                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>Station</mat-header-cell>
                 <mat-cell *matCellDef="let row">{{row.stationName}}</mat-cell>
             </ng-container>
         </mat-table>
