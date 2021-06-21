@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Crime } from 'src/app/models/Crimes';
+import { CrimeCategoryService } from 'src/app/services/crime-category.service';
+import { StationService } from 'src/app/services/station.service';
 
 @Component({
   selector: 'app-create',
@@ -11,24 +13,27 @@ import { Crime } from 'src/app/models/Crimes';
 export class CreateComponent implements OnInit {
   formGroup = new FormGroup({
     crimeTtile: new FormControl('', [Validators.required]),
-    crimeEntryDate: new FormControl('', [Validators.required]),
     crimeDate: new FormControl('', [Validators.required]),
-    closeDate: new FormControl('', [Validators.required]),
-    isClosed: new FormControl('', [Validators.required]),
-    crimeDescription: new FormControl('', [Validators.required]),
+    closeDate: new FormControl('',),
+    //isClosed: new FormControl('', [Validators.required]),
+    crimeDescription: new FormControl('', [Validators.required]),//
+    criminalDescription: new FormControl('', [Validators.required]),//
     location: new FormControl('', [Validators.required]),
-    crimeCategoryName: new FormControl('', [Validators.required]),
-    criminalFirstName: new FormControl('', [Validators.required]),
-    criminalLastName: new FormControl('', [Validators.required]),
-    stationName: new FormControl('', [Validators.required]),
-    image: new FormControl('', [Validators.required])
+    crimeCategoryId: new FormControl('', [Validators.required]),
+    criminalNationalId: new FormControl('',),
+    stationId: new FormControl('', [Validators.required]),
+    image: new FormControl('', [Validators.required])//
   })
   constructor(@Inject(MAT_DIALOG_DATA)
   public data: Crime, 
-  private dialog: MatDialogRef<CreateComponent>
+  private dialog: MatDialogRef<CreateComponent>,
+  public crimeCategoryService:CrimeCategoryService,
+  public stationService:StationService
   ) { }
 
   ngOnInit(): void {
+  this.crimeCategoryService.getAllCategories();
+  this.stationService.getAllStations();
     if (this.data) {
       this.formGroup.controls.crimeTtile.setValue(this.data.CrimeTtile);
       this.formGroup.controls.crimeEntryDate.setValue(this.data.CrimeEntryDate);
@@ -54,6 +59,24 @@ export class CreateComponent implements OnInit {
     } else {
       this.dialog.close(value)
     }
+  }
+  getAllCrimeCategories() {
+    this.crimeCategoryService.getAllCategories().subscribe(
+      (results : any)=>{
+        this.crimeCategoryService.crimeCategories = results.data;
+        //console.log(JSON.stringify(this.crimeCategoryService.crimeCategories))
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  getAllStations(){
+    this.stationService.getAllStations().subscribe(
+      (results : any)=>{
+        this.stationService.stations = results.data;
+    }, err=>{
+      console.log(err);
+    });
   }
 }
 

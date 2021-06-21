@@ -18,6 +18,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   declarations: [],
@@ -41,7 +43,8 @@ import { MatSelectModule } from '@angular/material/select';
      MatNativeDateModule,
      MatPaginatorModule,
      MatSortModule,
-     MatSelectModule
+     MatSelectModule,
+     MatSlideToggleModule
   ],
   exports:[
     CommonModule,
@@ -63,7 +66,8 @@ import { MatSelectModule } from '@angular/material/select';
      MatNativeDateModule,
      MatPaginatorModule,
      MatSortModule,
-     MatSelectModule
+     MatSelectModule,
+     MatSlideToggleModule
   ]
 })
 export class SharedModule { 
