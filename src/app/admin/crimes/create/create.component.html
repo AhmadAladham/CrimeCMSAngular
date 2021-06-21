@@ -47,7 +47,7 @@
                 <li>
                     <mat-form-field class="example-full-width">
                         <mat-label>Crime Description</mat-label>
-                        <textarea rows="5" cols="40" type="text" matInput formControlName="crimeDescription" placeholder="Describe Crime here"></textarea>
+                        <textarea  type="text" matInput formControlName="crimeDescription" placeholder="Describe Crime here"></textarea>
                         <mat-error *ngIf="formGroup.controls.crimeDescription.hasError('required')">
                             Crime Description <strong>required</strong>
                         </mat-error>
@@ -56,7 +56,7 @@
                 <li>
                     <mat-form-field class="example-full-width">
                         <mat-label>Criminal Description</mat-label>
-                        <textarea rows="5" cols="40" type="text" matInput formControlName="criminalDescription" placeholder="Describe Criminal here"></textarea>
+                        <textarea type="text" matInput formControlName="criminalDescription" placeholder="Describe Criminal here"></textarea>
                         <mat-error *ngIf="formGroup.controls.criminalDescription.hasError('required')">
                             Criminal Description <strong>required</strong>
                         </mat-error>
