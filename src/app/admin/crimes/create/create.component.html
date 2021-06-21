@@ -1,85 +1,95 @@
-<!-- <div class="CeateCard">
-    <p class="sign" align="center">Add New Crime</p>
-    <form class="form1">
-        <form [formGroup]="registerForm" (submit)="registerUser()">
-            <div class="row">
-                <mat-form-field class="email first-name" align="center">
-                    <mat-label>First Name</mat-label>
-                    <input matInput formControlName="firstName" placeholder="Ex. John Doe">
-                    <mat-error *ngIf="registerForm.controls.firstName.hasError('required')">
-                        First Name is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field class="email last-name" align="center">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastName" placeholder="Ex. John Doe">
-                    <mat-error *ngIf="registerForm.controls.lastName.hasError('required')">
-                        Last Name is <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <mat-form-field class="email" align="center">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="email" placeholder="Ex. pat@example.com">
-                <mat-error *ngIf="registerForm.controls.email.hasError('email') && !registerForm.controls.email.hasError('required')">
-                    Please enter a valid email address
-                </mat-error>
-                <mat-error *ngIf="registerForm.controls.email.hasError('required')">
-                    Email is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            
-            <mat-form-field class="email" align="center">
-                <mat-label>Phone Number</mat-label>
-                <input matInput formControlName="phoneNumber" placeholder="Ex. 079000000">
-                <mat-error *ngIf="registerForm.controls.phoneNumber.hasError('required')">
-                    Phone Number is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-          
-            <mat-form-field class="password" align="center">
-                <mat-label>Password</mat-label>
-                <input matInput formControlName="password" type="password">
-                <mat-error *ngIf="registerForm.controls.password.hasError('minlength') && !registerForm.controls.password.hasError('required')">
-                    Please enter a password that is at least 8 cahracters long
-                </mat-error>
-                <mat-error *ngIf="registerForm.controls.password.hasError('required')">
-                    Password is <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="password confirm-password" align="center">
-                <mat-label>Confirm Password</mat-label>
-                <input matInput formControlName="passwordConfirm" type="password">
-            </mat-form-field>
-            <div style="margin-bottom: 10px;;" align="center" *ngIf="registerForm.errors?.passwordMatch" class="cross-validation-error-message alert alert-danger">
-                <mat-error>
-                    Password and Password confirm do not macth
-                </mat-error>
-            </div>
-            <mat-form-field appearance="fill" class="email" align="center">
-                <mat-label>Date Of Birth</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="registerForm.controls.dateOfBirth.hasError('required')">Date of Birth is required</mat-error>
-              </mat-form-field>
+<h2 mat-dialog-title>Create Crime</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="container">
+        <form [formGroup]="formGroup">
+            <ol>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Crime Title</mat-label>
+                        <input type="text" matInput formControlName="crimeTtile" placeholder="Ex. LA Police Station">
+                        <mat-error *ngIf="formGroup.controls.crimeTtile.hasError('required')">
+                            Title is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Entry Date</mat-label>
+                        <input type="date" matInput formControlName="crimeEntryDate" placeholder="Ex. 070000000xx">
+                        <mat-error *ngIf="formGroup.controls.crimeEntryDate.hasError('required')">
+                            Entry Date is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Crime Date</mat-label>
+                        <input type="date" matInput formControlName="crimeDate" placeholder="Ex. St.9 Building 9">
+                        <mat-error *ngIf="formGroup.controls.crimeDate.hasError('required')">
+                            Crime Date is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Close Date</mat-label>
+                        <input type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.closeDate.hasError('required')">
+                            Close Date is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Location</mat-label>
+                        <input type="text" matInput formControlName="location" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.Location.hasError('required')">
+                            Location is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Category Name</mat-label>
+                        <input type="text" matInput formControlName="crimeCategoryName" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.CrimeCategoryName.hasError('required')">
+                            Category Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Criminal First Name</mat-label>
+                        <input type="text" matInput formControlName="criminalFirstName" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.criminalFirstName.hasError('required')">
+                            First Name is <strong>required</strong>
 
-            <div class = "radio" align="center">
-                <mat-label>Gedner: </mat-label>
-                <mat-radio-group aria-label="Select an option" formControlName="gender">
-                    <mat-radio-button value="f">Female</mat-radio-button>
-                    <mat-radio-button value="m">Male</mat-radio-button>
-                    <mat-error *ngIf="registerForm.controls.gender.hasError('required')">Gender is required</mat-error>
-                  </mat-radio-group>
-            </div>
-            
-            <button mat-raised-button class="submit" type="submit" align="center" >
-                    <span style="color: white; cursor: pointer;">Register</span> </button>
-            <p class="register" align="center">
-                <span style="color: #f00d2b">Already have an account? &nbsp;<strong  
-                            (click)="goToLoginPage()" style="cursor: pointer;" >Login here</strong></span></p>
-                            
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Criminal Last Name</mat-label>
+                        <input type="text" matInput formControlName="criminalLastName" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.criminalLastName.hasError('required')">
+                            Last Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+                <li>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Station Name</mat-label>
+                        <input type="text" matInput formControlName="stationName" placeholder="Ex. 125">
+                        <mat-error *ngIf="formGroup.controls.stationName.hasError('required')">
+                            Station Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </li>
+            </ol>
         </form>
-        
-    </form>
-</div> -->
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
+</mat-dialog-actions>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -19,7 +20,8 @@ export class CrimeService {
 
   constructor(
     private http: HttpClient,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   getAllCrimes(page: number, size: number, sortingColumn? : string, sortType? : string) {
@@ -70,19 +72,18 @@ export class CrimeService {
   };
 
   createCrime(crime: Crime) {
-    // this.spinner.show();
-    this.http.post<ServiceResult>(environment.apiUrl + 'api/crimes', crime)
-    .subscribe((result) => {
-      if (result.data == 1) {
-        this.toastr.success('Crime Created Successfuly');
+     this.spinner.show();
+     this.http.post<ServiceResult>(environment.apiUrl + 'api/crimes', crime).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.toastr.success('Station Created Successfuly');
         this.refresh.next(new Date().getTime());
         // refresh
       } else {
         this.toastr.error('Could not create the item');
       }
-      // this.spinner.hide();
+       this.spinner.hide();
     }, err => {
-      // this.spinner.hide();
+       this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
   }

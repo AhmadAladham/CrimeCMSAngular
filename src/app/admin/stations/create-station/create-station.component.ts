@@ -17,7 +17,8 @@ export class CreateStationComponent implements OnInit {
     totalStaff: new FormControl('', [Validators.required]),
   })
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Station, 
+  constructor(@Inject(MAT_DIALOG_DATA) 
+  public data: Station, 
   private dialog: MatDialogRef<CreateStationComponent>
   ) { }
 

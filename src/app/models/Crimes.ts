@@ -4,7 +4,7 @@ export class Crime {
     StationId : number | undefined;
     CrimeTtile: string | undefined;
     CrimeEntryDate : Date | undefined;
-    CrimeDate? : Date | undefined;
+    CrimeDate : Date | undefined;
     CloseDate: Date | undefined;
     IsClosed  : boolean | undefined;
     CrimeDescription : string | undefined;
