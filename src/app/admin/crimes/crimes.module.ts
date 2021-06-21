@@ -5,12 +5,14 @@ import { CrimesRoutingModule } from './crimes-routing.module';
 import { ListComponent } from './list/list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateComponent } from './create/create.component';
+import { ViewComponent } from './view/view.component';
 
 
 @NgModule({
   declarations: [
     ListComponent,
-    CreateComponent
+    CreateComponent,
+    ViewComponent
   ],
   imports: [
     CommonModule,

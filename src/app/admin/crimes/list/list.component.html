@@ -24,13 +24,13 @@
         </div>
         <div class="date">
             <mat-form-field class="d1">
-                <input matInput type="datetime" date-time [matDatepicker]="dateFrom" placeholder="Date From" formControlName="dateFrom" format="yyyy-MM-dd" view="date" min-view="date" auto-close="true">
+                <input readonly matInput type="datetime" date-time [matDatepicker]="dateFrom" placeholder="Date From" formControlName="dateFrom" format="yyyy-MM-dd" view="date" min-view="date" auto-close="true">
                 <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
                 <mat-datepicker #dateFrom></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field class="d1">
-                <input matInput [matDatepicker]="dateTo" placeholder="Date to" formControlName="dateTo">
+                <input readonly matInput [matDatepicker]="dateTo" placeholder="Date to" formControlName="dateTo">
                 <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
                 <mat-datepicker #dateTo></mat-datepicker>
             </mat-form-field>
