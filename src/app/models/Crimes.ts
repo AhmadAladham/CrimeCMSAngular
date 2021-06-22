@@ -14,4 +14,5 @@ export class Crime {
     criminalLastName: string | undefined;
     stationName: string | undefined;
     image? : ArrayBuffer | string | null;
+    criminalId?:number;
 }

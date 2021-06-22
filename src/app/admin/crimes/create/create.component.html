@@ -23,9 +23,9 @@
                         </mat-form-field>
                     </li>
                     <li>
-                        <mat-radio-group formControlName="isClosed">
-                            <mat-radio-button class="example-margin" [value]=true>Closed</mat-radio-button>
-                            <mat-radio-button class="example-margin" [value]=false>Under Investigation</mat-radio-button>
+                        <mat-radio-group  formControlName="isClosed" (change)="isCloseChange($event)">
+                            <mat-radio-button class="example-margin"  [value]=true>Closed</mat-radio-button>
+                            <mat-radio-button class="example-margin"   [value]=false>Under Investigation</mat-radio-button>
                             <mat-error *ngIf="formGroup.controls.isClosed.hasError('required')">
                                 Status is <strong>required</strong>
                             </mat-error>
@@ -34,7 +34,7 @@
                     <li>
                         <mat-form-field class="example-full-width">
                             <mat-label>Close Date</mat-label>
-                            <input type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
+                            <input  type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
                             <mat-error *ngIf="formGroup.controls.closeDate.hasError('required')">
                                 Close Date is <strong>required</strong>
                             </mat-error>
@@ -48,9 +48,21 @@
                             Criminal National ID is <strong>required</strong>
                         </mat-error> -->
                         </mat-form-field>
-                        <mat-slide-toggle [checked]="formGroup.controls.criminalNationalId.disabled" (change)="formGroup.controls.criminalNationalId.disabled ? formGroup.controls.criminalNationalId.enable() : formGroup.controls.criminalNationalId.disable();formGroup.controls.criminalNationalId.setValue(null)">
+                        <mat-slide-toggle [checked]="formGroup.controls.criminalNationalId.disabled" (change)="formGroup.controls.criminalNationalId.disabled ? formGroup.controls.criminalNationalId.enable() : formGroup.controls.criminalNationalId.disable();formGroup.controls.criminalNationalId.setValue(null);">
                             Criminal Not Known
                         </mat-slide-toggle>
+                        <div *ngIf = "this.criminal" class="criminal-info">
+                            <div class="right">
+                                <img class="criminal-image" src="{{this.criminal.image}}">
+                            </div>
+                            <div class="left">
+                                <p><b>Full Name:</b> {{this.criminal.criminalFirstName}} {{this.criminal.criminalLastName}}</p>
+                                <p><b>Height:</b> {{this.criminal.height}}cm</p>
+                                <p><b>Weight:</b> {{this.criminal.weight}}Kg</p>
+                                <p><b>Date Of Birth:</b> {{this.criminal.dateOfBirth | date}}</p>
+                                <p><b>Phone Number:</b> {{this.criminal.phoneNumber}}</p>
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <mat-form-field class="example-full-width">

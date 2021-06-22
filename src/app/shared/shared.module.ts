@@ -20,7 +20,6 @@ import {MatSortModule} from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AngularFileUploaderModule } from "angular-file-uploader";
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 
@@ -50,7 +49,6 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
      MatSlideToggleModule,
      MatButtonModule,
      MatToolbarModule,
-     AngularFileUploaderModule,
      NgxMatFileInputModule
   ],
   exports:[
@@ -77,7 +75,6 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
      MatSlideToggleModule,
      MatButtonModule,
      MatToolbarModule,
-     AngularFileUploaderModule,
      NgxMatFileInputModule
   ]
 })

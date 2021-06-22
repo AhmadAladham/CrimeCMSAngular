@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFileUploaderModule } from "angular-file-uploader";
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
     FlexLayoutModule,
     NgxSpinnerModule,
     NgbModule,
-    AngularFileUploaderModule,
     NgxMatFileInputModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

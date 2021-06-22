@@ -1,9 +1,18 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import { Crime } from 'src/app/models/Crimes';
+import { Criminal } from 'src/app/models/Criminal';
 import { CrimeCategoryService } from 'src/app/services/crime-category.service';
+import { CriminalsService } from 'src/app/services/criminals.service';
 import { StationService } from 'src/app/services/station.service';
+
+const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password')!.value;
+  const passwordConfirm = control.get('passwordConfirm')!.value;
+  return password != passwordConfirm ? { passwordMatch: true } : null;
+};
 
 @Component({
   selector: 'app-create',
@@ -12,27 +21,33 @@ import { StationService } from 'src/app/services/station.service';
 })
 export class CreateComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
+  criminal?:Criminal;
+  selectedRadio = "true";
   formGroup = new FormGroup({
     crimeTtile: new FormControl('', [Validators.required]),
     crimeDate: new FormControl('', [Validators.required]),
     closeDate: new FormControl('',),
-    isClosed: new FormControl('', [Validators.required]),
-    crimeDescription: new FormControl('', [Validators.required]),//
-    criminalDescription: new FormControl('', [Validators.required]),//
+    isClosed: new FormControl(true, [Validators.required]),
+    crimeDescription: new FormControl('', []),
+    criminalDescription: new FormControl('', []),
     location: new FormControl('', [Validators.required]),
     crimeCategoryId: new FormControl('', [Validators.required]),
-    criminalNationalId: new FormControl('',),
+    criminalNationalId: new FormControl('',Validators.maxLength(10)),
     stationId: new FormControl('', [Validators.required]),
-    image: new FormControl('Choose Image', [Validators.required])//
+    image: new FormControl('Choose Image', [Validators.required])
   })
   constructor(@Inject(MAT_DIALOG_DATA)
-  public data: Crime, 
+  public data: Crime | null, 
   private dialog: MatDialogRef<CreateComponent>,
   public crimeCategoryService:CrimeCategoryService,
-  public stationService:StationService
+  public stationService:StationService,
+  public criminalsService:CriminalsService
   ) { }
 
   ngOnInit(): void {
+    this.formGroup.controls.criminalNationalId.valueChanges.subscribe(()=>{
+      this.CheckNationalNumber();
+    });
   this.crimeCategoryService.getAllCategories();
   this.stationService.getAllStations();
     if (this.data) {
@@ -44,8 +59,6 @@ export class CreateComponent implements OnInit {
       this.formGroup.controls.crimeDescription.setValue(this.data.crimeDescription);
       this.formGroup.controls.location.setValue(this.data.location);
       this.formGroup.controls.crimeCategoryName.setValue(this.data.crimeCategoryName);
-      this.formGroup.controls.criminalFirstName.setValue(this.data.criminalFirstName);
-      this.formGroup.controls.criminalLastName.setValue(this.data.criminalLastName);
       this.formGroup.controls.stationName.setValue(this.data.stationName);
       this.formGroup.controls.image.setValue(this.data.image);
     }
@@ -55,10 +68,14 @@ export class CreateComponent implements OnInit {
   saveItem() {
     const value : Crime = this.formGroup.value;
     const reader = new FileReader();
-    reader.readAsDataURL(this.formGroup.controls.image.value);
-    reader.onload = () => {
-      value.image = reader.result
-      };
+    value.criminalId = this.criminal?.criminalId;
+    if(this.formGroup.controls.image.value)//cehcking if image was uploaded 
+    {
+      reader.readAsDataURL(this.formGroup.controls.image.value);
+      reader.onload = () => {
+        value.image = reader.result
+        };
+    }
     if (this.data) {
       this.dialog.close({
         ...value
@@ -84,6 +101,34 @@ export class CreateComponent implements OnInit {
     }, err=>{
       console.log(err);
     });
+  }
+
+  isCloseChange(event:MatRadioChange){
+    if(!event.value){
+      this.formGroup.controls.closeDate.disable();
+      this.formGroup.controls.closeDate.setValue('');
+    }
+    else this.formGroup.controls.closeDate.enable();
+  }
+  getCriminalByNationalNumber(nationalNumber:string) {
+    this.criminalsService.getCriminalByNationalNumber(nationalNumber).subscribe(
+      (results : any)=>{
+        this.criminal = results.data;
+        // console.log(this.criminal)
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  CheckNationalNumber(){
+    let nationalNumber:string = this.formGroup.controls.criminalNationalId.value;
+    if(nationalNumber){    
+    if(nationalNumber.length == 10){
+      this.getCriminalByNationalNumber(nationalNumber);
+    }
+    else this.criminal = undefined;
+  }
+    
   }
 }
 
