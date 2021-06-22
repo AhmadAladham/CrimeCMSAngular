@@ -34,33 +34,33 @@
                     <li>
                         <mat-form-field class="example-full-width">
                             <mat-label>Close Date</mat-label>
-                            <input  type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
-                            <mat-error *ngIf="formGroup.controls.closeDate.hasError('required')">
-                                Close Date is <strong>required</strong>
-                            </mat-error>
+                            <input type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
                         </mat-form-field>
+                        <mat-error *ngIf = "formGroup.errors?.closeDate">
+                            Close Date is <strong>required</strong>
+                        </mat-error>
                     </li>
                     <li>
                         <mat-form-field class="example-full-width">
                             <mat-label>Criminal National ID</mat-label>
-                            <input type="text" matInput formControlName="criminalNationalId" placeholder="1234567890">
-                            <!-- <mat-error *ngIf="formGroup.controls.criminalNationalId.hasError('required')">
-                            Criminal National ID is <strong>required</strong>
-                        </mat-error> -->
+                            <input maxlength="10" type="text" matInput formControlName="criminalNationalId" placeholder="1234567890">
                         </mat-form-field>
-                        <mat-slide-toggle [checked]="formGroup.controls.criminalNationalId.disabled" (change)="formGroup.controls.criminalNationalId.disabled ? formGroup.controls.criminalNationalId.enable() : formGroup.controls.criminalNationalId.disable();formGroup.controls.criminalNationalId.setValue(null);">
+                        <mat-error *ngIf = "criminalNotFound">
+                            National Number does not match any criminal
+                        </mat-error>
+                        <mat-slide-toggle [checked]="formGroup.controls.criminalNationalId.disabled" (change)="notKnownCriminalChange($event)">
                             Criminal Not Known
                         </mat-slide-toggle>
-                        <div *ngIf = "this.criminal" class="criminal-info">
+                        <div *ngIf = "criminalIsKnown" class="criminal-info">
                             <div class="right">
-                                <img class="criminal-image" src="{{this.criminal.image}}">
+                                <img class="criminal-image" src="{{this.criminal?.image}}">
                             </div>
                             <div class="left">
-                                <p><b>Full Name:</b> {{this.criminal.criminalFirstName}} {{this.criminal.criminalLastName}}</p>
-                                <p><b>Height:</b> {{this.criminal.height}}cm</p>
-                                <p><b>Weight:</b> {{this.criminal.weight}}Kg</p>
-                                <p><b>Date Of Birth:</b> {{this.criminal.dateOfBirth | date}}</p>
-                                <p><b>Phone Number:</b> {{this.criminal.phoneNumber}}</p>
+                                <p><b>Full Name:</b> {{this.criminal?.criminalFirstName}} {{this.criminal?.criminalLastName}}</p>
+                                <p><b>Height:</b> {{this.criminal?.height}}cm</p>
+                                <p><b>Weight:</b> {{this.criminal?.weight}}Kg</p>
+                                <p><b>Date Of Birth:</b> {{this.criminal?.dateOfBirth | date}}</p>
+                                <p><b>Phone Number:</b> {{this.criminal?.phoneNumber}}</p>
                             </div>
                         </div>
                     </li>
