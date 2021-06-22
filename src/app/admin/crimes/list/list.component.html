@@ -98,10 +98,12 @@
                         <button mat-mini-fab color="primary" aria-label="list crimes">
                         <mat-icon >edit</mat-icon>
                         </button>
+                        <button mat-mini-fab color="primary" aria-label="list crimes">
+                            <mat-icon (click)="viewCrime(row.crimeId)">edit</mat-icon>
+                        </button>
                     </mat-cell>
                 </ng-container>
             </mat-table>
-
             <mat-paginator [length]="this.crimeService.crimeData.meta.totalItems" [pageSize]="this.crimeService.crimeData.meta.itemsPerPage" [pageSizeOptions]="[2,4,8,10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
             </mat-paginator>
         </div>

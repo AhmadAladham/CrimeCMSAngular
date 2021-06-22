@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrimeService } from 'src/app/services/crime.service';
 
 @Component({
   selector: 'app-view',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public crimeService : CrimeService) { }
+ 
   ngOnInit(): void {
   }
-
 }

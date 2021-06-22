@@ -30,9 +30,7 @@ export class IndexComponent implements OnInit {
         height: '400px',
         width: '600px',
       });
-
     dialogRef.afterClosed().subscribe(result => {
-     // console.log(`Dialog result: ${JSON.stringify(result)}`);
       if (result) {
         this.stationService.createStation(result);
       }

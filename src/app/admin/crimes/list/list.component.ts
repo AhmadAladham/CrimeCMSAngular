@@ -44,7 +44,7 @@ export class ListComponent implements AfterViewInit {
     public stationService : StationService, 
     public crimeCategoryService : CrimeCategoryService,
     private router: Router,
-    private toast: ToastrService,
+    private toastr: ToastrService,
     public dialog: MatDialog 
     ) 
     {  
@@ -152,6 +152,15 @@ export class ListComponent implements AfterViewInit {
         this.crimeService.createCrime(result);
       }
     });
+  }
+
+  viewCrime(id : number) {
+    if (id) {
+      this.crimeService.getCrimeById(id)
+        }
+     else {
+      this.toastr.warning('This item cannot be loaded');
+    }
   }
 }
 

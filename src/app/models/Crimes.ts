@@ -13,6 +13,6 @@ export class Crime {
     criminalFirstName: string | undefined;
     criminalLastName: string | undefined;
     stationName: string | undefined;
-    image? : ArrayBuffer | string | null;
+    image? : string | ArrayBuffer| null;
     criminalId?:number;
 }

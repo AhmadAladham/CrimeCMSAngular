@@ -1,4 +1,4 @@
-.container{
+.container {
     margin-top: 20px;
     border-radius: 3%;
     /* border-color: rgb(94, 116, 158);
@@ -8,33 +8,40 @@
 }
 
 .line-color {
-    color:blue;
+    color: blue;
     height: 3px
 }
 
-.crime-status{
+.crime-status {
     display: grid;
     grid-template-columns: auto auto;
     justify-items: center;
 }
 
-.grid-container{
+.grid-container {
     display: grid;
     grid-template-areas: "a b";
     grid-template-columns: auto auto auto;
 }
 
-h4{
+h4 {
     font-weight: 500;
 }
 
-.b{
-    grid-area:a;
+.b {
+    grid-area: a;
 }
-.image-container{
-    grid-area:b;
-    background-color: blueviolet;
+
+.image-container {
+    grid-area: b;
 }
+
+.image {
+    width: 200px;
+    height: 100px;
+}
+
+
 /* .crime-details{
     display:flex;
     align-content: center;

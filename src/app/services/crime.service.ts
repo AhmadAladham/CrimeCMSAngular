@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
@@ -14,14 +15,18 @@ import { ServiceResult } from '../models/ServiceResult';
   providedIn: 'root'
 })
 export class CrimeService {
+  imageUrl : any
   crimeData:CrimeData = new CrimeData();
+  selectedCrime : Crime = new Crime() ; 
   refresh = new BehaviorSubject(0);
+  message: string = 'You are not logged in..';
   dataSource:MatTableDataSource<Crime> = new MatTableDataSource<Crime>();
 
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private route: Router
   ) { }
 
   getAllCrimes(page: number, size: number, sortingColumn? : string, sortType? : string) {
@@ -86,5 +91,22 @@ export class CrimeService {
        this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
+  }
+
+  getCrimeById(id: number) {
+    this.spinner.show();
+    return this.http.get<ServiceResult>(environment.apiUrl + 'api/Crimes/' + id).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.selectedCrime = result.data;
+        this.route.navigate(['admin/crimes/view']);
+      } else {
+        this.toastr.warning('Could not find the crime');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      this.toastr.error('Something went wrong, Please login again.');
+      this.route.navigate(['account']);
+    });
   }
 }

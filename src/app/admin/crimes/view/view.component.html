@@ -1,47 +1,43 @@
 <div class="container mat-elevation-z8">
     <div class="crime-title">
-        <h1 style="text-align: center;">Crime Title</h1>
+        <h1 style="text-align: center;">Crime Title: {{crimeService.selectedCrime.crimeTtile}}</h1>
     </div>
-
     <hr class="line-color">
-    <h2 style="text-align: center;">Crime Status</h2>
-
+    <h2 style="text-align: center;">Crime Status: {{crimeService.selectedCrime.isClosed}}</h2>
     <div class="crime-status">
         <div>
-            <h4>Crime Date:</h4>
+            <h4>Crime Date: {{crimeService.selectedCrime.crimeDate | date}} </h4>
         </div>
         <div>
-            <h4>Crime Entry Date:</h4>
+            <h4>Crime Entry Date: {{crimeService.selectedCrime.crimeEntryDate | date}}</h4>
         </div>
         <div>
             <h4>Status:</h4>
         </div>
         <div>
-           <!-- ngif only if closed show -->
-        <h4>Close Date:</h4>
+            <!-- ngif only if closed show -->
+            <h4>Close Date: {{crimeService.selectedCrime.closeDate | date}}</h4>
         </div>
-        
     </div>
-
     <hr class="line-color">
     <h2 style="text-align: center;">Crime Information</h2>
     <div class="crime-details">
         <div class="grid-container">
             <div class="image-container">
                 <h2>Crime Image goes here</h2>
+                <img class="image" src="{{crimeService.selectedCrime.image}}">
             </div>
             <div class="a">
-                <h4>Station:</h4>
-                <h4>Crime Category:</h4>
-                <h4>Crime Location:</h4>
-                <h4>Criminal:</h4>
+                <h4>Station:{{crimeService.selectedCrime.stationName}}</h4>
+                <h4>Crime Category:{{crimeService.selectedCrime.crimeCategoryName}}</h4>
+                <h4>Crime Location:{{crimeService.selectedCrime.location}}</h4>
+                <!-- <h4>Criminal:{{crimeService.selectedCrime.criminal}}</h4> -->
             </div>
         </div>
         <div>
-            <h4>Criminal Description:</h4>
             <!-- ngif only if criminal is known -->
-            <h4>Crime Description:</h4>
+            <h4>Criminal Description:{{crimeService.selectedCrime.crimeDescription}}</h4>
+            <h4>Crime Description:{{crimeService.selectedCrime.crimeDescription}}</h4>
         </div>
     </div>
-    
 </div>
