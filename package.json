@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-material-components/file-input": "^6.0.0",
     "@angular/animations": "^12.0.3",
     "@angular/cdk": "^12.0.4",
     "@angular/common": "~12.0.1",
@@ -24,6 +25,7 @@
     "@angular/router": "~12.0.1",
     "@material-ui/icons": "^4.11.2",
     "@ng-bootstrap/ng-bootstrap": "^9.1.2",
+    "angular-file-uploader": "^7.0.3",
     "bootstrap": "^4.5.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",

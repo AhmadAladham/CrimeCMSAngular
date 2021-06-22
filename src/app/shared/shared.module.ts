@@ -19,6 +19,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { AngularFileUploaderModule } from "angular-file-uploader";
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 
 @NgModule({
@@ -44,7 +47,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
      MatPaginatorModule,
      MatSortModule,
      MatSelectModule,
-     MatSlideToggleModule
+     MatSlideToggleModule,
+     MatButtonModule,
+     MatToolbarModule,
+     AngularFileUploaderModule,
+     NgxMatFileInputModule
   ],
   exports:[
     CommonModule,
@@ -67,7 +74,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
      MatPaginatorModule,
      MatSortModule,
      MatSelectModule,
-     MatSlideToggleModule
+     MatSlideToggleModule,
+     MatButtonModule,
+     MatToolbarModule,
+     AngularFileUploaderModule,
+     NgxMatFileInputModule
   ]
 })
 export class SharedModule { 

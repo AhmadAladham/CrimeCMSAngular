@@ -1,17 +1,17 @@
 export class Crime {
-    CrimeId : number | undefined;
-    CrimeCategoryId : number | undefined;
-    StationId : number | undefined;
-    CrimeTtile: string | undefined;
-    CrimeEntryDate : Date | undefined;
-    CrimeDate : Date | undefined;
-    CloseDate: Date | undefined;
-    IsClosed  : boolean | undefined;
-    CrimeDescription : string | undefined;
-    Location: string | undefined;  
-    CrimeCategoryName: string | undefined;
-    CriminalFirstName: string | undefined;
-    CriminalLastName: string | undefined;
-    StationName: string | undefined;
-    Image : string | undefined;
+    crimeId : number | undefined;
+    crimeCategoryId : number | undefined;
+    stationId : number | undefined;
+    crimeTtile: string | undefined;
+    crimeEntryDate : Date | undefined;
+    crimeDate : Date | undefined;
+    closeDate: Date | undefined;
+    isClosed  : boolean | undefined;
+    crimeDescription : string | undefined;
+    location: string | undefined;  
+    crimeCategoryName: string | undefined;
+    criminalFirstName: string | undefined;
+    criminalLastName: string | undefined;
+    stationName: string | undefined;
+    image? : ArrayBuffer | string | null;
 }
