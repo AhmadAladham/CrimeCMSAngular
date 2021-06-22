@@ -1,117 +1,119 @@
-<h2 mat-dialog-title>Create Crime</h2>
-<mat-dialog-content class="mat-typography">
-    <div class="container">
-        <form [formGroup]="formGroup">
-            <ul style="list-style-type:none;">
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Crime Title</mat-label>
-                        <input type="text" matInput formControlName="crimeTtile" placeholder="Ex. Young Boy Murdered">
-                        <mat-error *ngIf="formGroup.controls.crimeTtile.hasError('required')">
-                            Title is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Crime Date</mat-label>
-                        <input type="date" matInput formControlName="crimeDate">
-                        <mat-error *ngIf="formGroup.controls.crimeDate.hasError('required')">
-                            Crime Date is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-radio-group formControlName="isClosed">
-                        <mat-radio-button class="example-margin" [value]=true>Closed</mat-radio-button>
-                        <mat-radio-button class="example-margin" [value]=false>Under Investigation</mat-radio-button>
-                        <mat-error *ngIf="formGroup.controls.isClosed.hasError('required')">
-                            Status is <strong>required</strong>
-                        </mat-error>
-                    </mat-radio-group>
-                </li>
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Close Date</mat-label>
-                        <input type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
-                        <mat-error *ngIf="formGroup.controls.closeDate.hasError('required')">
-                            Close Date is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Criminal National ID</mat-label>
-                        <input type="text" matInput formControlName="criminalNationalId" placeholder="1234567890">
-                        <!-- <mat-error *ngIf="formGroup.controls.criminalNationalId.hasError('required')">
+<div class="pcontainer">
+    <h3 mat-dialog-title>Create Crime</h3>
+    <mat-dialog-content class="mat-typography">
+        <div class="container">
+            <form [formGroup]="formGroup">
+                <ul style="list-style-type:none;">
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Crime Title</mat-label>
+                            <input type="text" matInput formControlName="crimeTtile" placeholder="Ex. Young Boy Murdered">
+                            <mat-error *ngIf="formGroup.controls.crimeTtile.hasError('required')">
+                                Title is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Crime Date</mat-label>
+                            <input type="date" matInput formControlName="crimeDate">
+                            <mat-error *ngIf="formGroup.controls.crimeDate.hasError('required')">
+                                Crime Date is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-radio-group formControlName="isClosed">
+                            <mat-radio-button class="example-margin" [value]=true>Closed</mat-radio-button>
+                            <mat-radio-button class="example-margin" [value]=false>Under Investigation</mat-radio-button>
+                            <mat-error *ngIf="formGroup.controls.isClosed.hasError('required')">
+                                Status is <strong>required</strong>
+                            </mat-error>
+                        </mat-radio-group>
+                    </li>
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Close Date</mat-label>
+                            <input type="date" matInput formControlName="closeDate" placeholder="Ex. 125">
+                            <mat-error *ngIf="formGroup.controls.closeDate.hasError('required')">
+                                Close Date is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Criminal National ID</mat-label>
+                            <input type="text" matInput formControlName="criminalNationalId" placeholder="1234567890">
+                            <!-- <mat-error *ngIf="formGroup.controls.criminalNationalId.hasError('required')">
                             Criminal National ID is <strong>required</strong>
                         </mat-error> -->
-                    </mat-form-field>
-                    <mat-slide-toggle [checked]="formGroup.controls.criminalNationalId.disabled" (change)="formGroup.controls.criminalNationalId.disabled ? formGroup.controls.criminalNationalId.enable() : formGroup.controls.criminalNationalId.disable();formGroup.controls.criminalNationalId.setValue(null)">
-                        Criminal Not Known
-                    </mat-slide-toggle>
-                </li>
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Crime Description</mat-label>
-                        <textarea type="text" matInput formControlName="crimeDescription" placeholder="Describe Crime here"></textarea>
-                        <mat-error *ngIf="formGroup.controls.crimeDescription.hasError('required')">
-                            Crime Description <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Criminal Description</mat-label>
-                        <textarea type="text" matInput formControlName="criminalDescription" placeholder="Describe Criminal here"></textarea>
-                        <mat-error *ngIf="formGroup.controls.criminalDescription.hasError('required')">
-                            Criminal Description <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Location</mat-label>
-                        <input type="text" matInput formControlName="location" placeholder="Ex. 125">
-                        <mat-error *ngIf="formGroup.controls.location.hasError('required')">
-                            Location is <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field class="s1" appearance="fill">
-                        <mat-label>Crime Category</mat-label>
-                        <mat-select formControlName="crimeCategoryId" name="category">
-                            <mat-option>None</mat-option>
-                            <mat-option *ngFor="let Category of this.crimeCategoryService.crimeCategories" [value]="Category.crimeCategoryId">
-                                {{Category.crimeCategoryName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field class="s1" appearance="fill">
-                        <mat-label>Station</mat-label>
-                        <mat-select formControlName="stationId" name="category">
-                            <mat-option>None</mat-option>
-                            <mat-option *ngFor="let station of this.stationService.stations" [value]="station.stationId">
-                                {{station.stationName}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </li>
-                <li>
-                    <mat-form-field>
-                        <mat-label>Image</mat-label>
-                        <ngx-mat-file-input formControlName="image">
-                        </ngx-mat-file-input>
-                    </mat-form-field>
-                </li>
-            </ul>
-        </form>
-    </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
-</mat-dialog-actions>
+                        </mat-form-field>
+                        <mat-slide-toggle [checked]="formGroup.controls.criminalNationalId.disabled" (change)="formGroup.controls.criminalNationalId.disabled ? formGroup.controls.criminalNationalId.enable() : formGroup.controls.criminalNationalId.disable();formGroup.controls.criminalNationalId.setValue(null)">
+                            Criminal Not Known
+                        </mat-slide-toggle>
+                    </li>
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Crime Description</mat-label>
+                            <textarea type="text" matInput formControlName="crimeDescription" placeholder="Describe Crime here"></textarea>
+                            <mat-error *ngIf="formGroup.controls.crimeDescription.hasError('required')">
+                                Crime Description <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Criminal Description</mat-label>
+                            <textarea type="text" matInput formControlName="criminalDescription" placeholder="Describe Criminal here"></textarea>
+                            <mat-error *ngIf="formGroup.controls.criminalDescription.hasError('required')">
+                                Criminal Description <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Location</mat-label>
+                            <input type="text" matInput formControlName="location" placeholder="Ex. 125">
+                            <mat-error *ngIf="formGroup.controls.location.hasError('required')">
+                                Location is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="s1" appearance="fill">
+                            <mat-label>Crime Category</mat-label>
+                            <mat-select formControlName="crimeCategoryId" name="category">
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let Category of this.crimeCategoryService.crimeCategories" [value]="Category.crimeCategoryId">
+                                    {{Category.crimeCategoryName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field class="s1" appearance="fill">
+                            <mat-label>Station</mat-label>
+                            <mat-select formControlName="stationId" name="category">
+                                <mat-option>None</mat-option>
+                                <mat-option *ngFor="let station of this.stationService.stations" [value]="station.stationId">
+                                    {{station.stationName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </li>
+                    <li>
+                        <mat-form-field>
+                            <mat-label>Image</mat-label>
+                            <ngx-mat-file-input formControlName="image">
+                            </ngx-mat-file-input>
+                        </mat-form-field>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
+    </mat-dialog-actions>
+</div>

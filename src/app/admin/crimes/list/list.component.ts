@@ -10,6 +10,10 @@ import { Station } from 'src/app/models/station';
 import { CrimeCategory } from 'src/app/models/CrimeCategory';
 import { StationService } from 'src/app/services/station.service';
 import { CrimeCategoryService } from 'src/app/services/crime-category.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateComponent } from '../create/create.component';
 
 
 @Component({
@@ -19,7 +23,7 @@ import { CrimeCategoryService } from 'src/app/services/crime-category.service';
 })
 export class ListComponent implements AfterViewInit {
   pageEvent!: PageEvent;
-  displayedColumns: string[] = ['crimeTtile', 'crimeDate','isClosed', 'closeDate' ,'location', 'crimeCategoryName', 'stationName'];
+  displayedColumns: string[] = ['crimeTtile', 'crimeDate','isClosed', 'closeDate' ,'location', 'crimeCategoryName', 'stationName','actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   sortingColumn:string = 'title';
@@ -38,7 +42,10 @@ export class ListComponent implements AfterViewInit {
     public crimeService:CrimeService,
     private datePipe: DatePipe,
     public stationService : StationService, 
-    public crimeCategoryService : CrimeCategoryService 
+    public crimeCategoryService : CrimeCategoryService,
+    private router: Router,
+    private toast: ToastrService,
+    public dialog: MatDialog 
     ) 
     {  
       
@@ -132,6 +139,19 @@ export class ListComponent implements AfterViewInit {
 
   resetFilter() {
     this.filterForm.reset();
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(CreateComponent,
+      {
+        height: 'fit-content',
+        width: '800px',
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.crimeService.createCrime(result);
+      }
+    });
   }
 }
 
