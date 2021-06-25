@@ -109,4 +109,37 @@ export class CrimeService {
       this.route.navigate(['account']);
     });
   }
+
+  deleteCrime(id:number) {
+    this.spinner.show();
+    this.http.delete<ServiceResult>(environment.apiUrl + 'api/Crimes/' + id).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.toastr.success('Crime Deleted Successfuly!!');
+        this.crimeData.items = this.crimeData.items?.filter(crime => crime.crimeId != id);
+      } else {
+        this.toastr.error('Could not delete the item');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      this.toastr.error('Something went wrong.');
+    })
+  }
+
+  updateCrime(crime: Crime) {
+     this.spinner.show();
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/stations', crime ).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.toastr.success('Crime Updated Successfuly');
+        this.crimeData.items = this.crimeData.items?.filter(c => c.crimeId != crime.crimeId);
+        this.refresh.next(new Date().getTime());
+      } else {
+        this.toastr.error('Could not update the item');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      this.toastr.error('Something went wrong, Please login again.');
+    })
+  }  
 }

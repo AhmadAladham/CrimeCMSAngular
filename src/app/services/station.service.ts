@@ -80,7 +80,6 @@ export class StationService {
       // this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
-  }
-  
+  }  
 }
 

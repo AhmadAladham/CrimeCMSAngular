@@ -8,6 +8,7 @@ export class Crime {
     closeDate: Date | undefined;
     isClosed  : boolean | undefined;
     crimeDescription : string | undefined;
+    criminalDescription : string | undefined;
     location: string | undefined;  
     crimeCategoryName: string | undefined;
     criminalFirstName: string | undefined;

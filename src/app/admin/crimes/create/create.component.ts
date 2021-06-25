@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { pipe } from 'rxjs';
 import { Crime } from 'src/app/models/Crimes';
 import { Criminal } from 'src/app/models/Criminal';
 import { CrimeCategoryService } from 'src/app/services/crime-category.service';
@@ -38,13 +39,14 @@ export class CreateComponent implements OnInit {
     criminalDescription: new FormControl('', []),
     location: new FormControl('', [Validators.required]),
     crimeCategoryId: new FormControl('', [Validators.required]),
+    criminalId: new FormControl('', []),
     criminalNationalId: new FormControl('',Validators.maxLength(10)),
     stationId: new FormControl('', [Validators.required]),
-    image: new FormControl('Choose Image', [Validators.required])
+    image: new FormControl('Choose Image', [])
   },{validators:closeDateValidator})
 
   constructor(@Inject(MAT_DIALOG_DATA)
-  public data: Crime | null, 
+  public data: Crime, 
   private dialog: MatDialogRef<CreateComponent>,
   public crimeCategoryService:CrimeCategoryService,
   public stationService:StationService,
@@ -58,16 +60,17 @@ export class CreateComponent implements OnInit {
   this.crimeCategoryService.getAllCategories();
   this.stationService.getAllStations();
     if (this.data) {
+      console.log(this.data)
       this.formGroup.controls.crimeTtile.setValue(this.data.crimeTtile);
-      this.formGroup.controls.crimeEntryDate.setValue(this.data.crimeEntryDate);
-      this.formGroup.controls.crimeDate.setValue(this.data.crimeDate);
+      this.formGroup.controls.crimeDate.setValue(this.data.crimeDate)
       this.formGroup.controls.closeDate.setValue(this.data.closeDate);
       this.formGroup.controls.isClosed.setValue(this.data.isClosed);
       this.formGroup.controls.crimeDescription.setValue(this.data.crimeDescription);
+      this.formGroup.controls.criminalDescription.setValue(this.data.criminalDescription);
       this.formGroup.controls.location.setValue(this.data.location);
-      this.formGroup.controls.crimeCategoryName.setValue(this.data.crimeCategoryName);
-      this.formGroup.controls.stationName.setValue(this.data.stationName);
-      this.formGroup.controls.image.setValue(this.data.image);
+      this.formGroup.controls.crimeCategoryId.setValue(this.data.crimeCategoryId);
+      this.formGroup.controls.stationId.setValue(this.data.stationId);
+      this.formGroup.controls.criminalId.setValue(this.data.criminalId);
     }
   }
 
@@ -82,7 +85,6 @@ export class CreateComponent implements OnInit {
         value.image = reader.result
         };
     }
-
     if (this.data) {
       this.dialog.close({
         ...value
@@ -126,7 +128,6 @@ export class CreateComponent implements OnInit {
           this.criminalNotFound = false;
         }
         else this.criminalNotFound = true;
-        // console.log(this.criminal)
     }, err=>{
       console.log(err);
     });

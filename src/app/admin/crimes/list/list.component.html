@@ -93,10 +93,10 @@
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let row">
                         <button mat-mini-fab color="warn" aria-label="list crimes">
-                            <mat-icon >delete</mat-icon>
+                            <mat-icon (click)="deleteCrime(row.crimeId)">delete</mat-icon>
                         </button>
                         <button mat-mini-fab color="primary" aria-label="list crimes">
-                        <mat-icon >edit</mat-icon>
+                        <mat-icon (click)="updateCrime(row.crimeId)">edit</mat-icon>
                         </button>
                         <button mat-mini-fab color="primary" aria-label="list crimes">
                             <mat-icon (click)="viewCrime(row.crimeId)">edit</mat-icon>

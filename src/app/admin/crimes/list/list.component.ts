@@ -140,6 +140,7 @@ export class ListComponent implements AfterViewInit {
   resetFilter() {
     this.filterForm.reset();
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(CreateComponent,
       {
@@ -161,6 +162,26 @@ export class ListComponent implements AfterViewInit {
      else {
       this.toastr.warning('This item cannot be loaded');
     }
+  }
+
+  deleteCrime(id:number) {
+    if (id) {
+      this.crimeService.deleteCrime(id);
+    } else {
+      this.toastr.warning('This item cannot be deleted');
+    }
+  }
+
+  updateCrime(id : number) {
+    const crime = this.crimeService.crimeData.items?.find(crime=> crime.crimeId == id)
+     this.dialog.open(CreateComponent, {
+      data: crime
+    }).afterClosed().subscribe((result) => {
+      if (result) {
+        result.crimeId = crime?.crimeId
+        this.crimeService.updateCrime(result);
+      }
+    });
   }
 }
 
