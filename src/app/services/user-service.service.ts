@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { ServiceResult } from '../models/ServiceResult';
 import { User } from '../models/user';
 import { UserData } from '../models/PaginationData';
+import { UserSearch } from '../models/SearchParams';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,8 @@ export class UserServiceService {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
-    private route: Router
+    private route: Router,
+    private spinner : NgxSpinnerService
   ) 
   { 
   }
@@ -52,6 +55,43 @@ export class UserServiceService {
         this.toastr.error('Could not pull');
       }
     }, err => {
+      this.toastr.error('Something went wrong.');
+    })
+  }
+
+  searchUsers(userSearch:UserSearch) {
+    console.log(userSearch);
+    this.http.post<any>(environment.apiUrl + 'api/Users/UserSearch', userSearch,{observe: 'response'}).subscribe((result) => {
+      if (result.body.isSucceed == true) {
+        let xPagination = result.headers.get('x-pagination') || 'a';
+        let meta = JSON.parse(xPagination);
+        this.userData.meta.currentPage = meta.CurrentPage;
+        this.userData.meta.itemCount = meta.TotalCount;
+        this.userData.meta.itemsPerPage = meta.PageSize;
+        this.userData.meta.totalItems = meta.TotalCount;
+        this.userData.meta.totalPages = meta.TotalPages;
+        this.userData.items = result.body.data;
+      } else {
+        this.toastr.error('Could not pull');
+      }
+    }, err => {
+      this.toastr.error('Something went wrong.');
+    })
+  };
+
+
+  deleteUser(id:number) {
+    this.spinner.show();
+    this.http.delete<ServiceResult>(environment.apiUrl + 'api/Users/' + id).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.toastr.success('User Deleted Successfuly!!');
+        this.userData.items = this.userData.items?.filter(user => user.UserId != id);
+      } else {
+        this.toastr.error('Could not delete the item');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
       this.toastr.error('Something went wrong.');
     })
   }

@@ -2,25 +2,109 @@ table {
     width: 100%;
 }
 
+.mat-form-field {
+    font-size: 14px;
+    width: 50%;
+}
+
+td,
+th {
+    width: 25%;
+}
+
+.form-container {
+    border-radius: 1%;
+    border-width: 1px;
+    border-color: cornflowerblue;
+    border-style: ridge;
+}
+
+.date-block {
+    border-radius: 2px;
+    margin: 1px;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.select {
+    width: 30%;
+    margin: 5px;
+    padding: 5px;
+    border: 5px;
+}
+
+.s1 {
+    padding: 10px;
+}
+
+.date {
+    width: 30%;
+    margin: 5px;
+    padding: 5px;
+    border: 5px;
+    padding-top: 17px;
+}
+
+.d1 {
+    padding: 10px;
+}
+
+.search {
+    width: 11%;
+    margin: 5px;
+    padding: 5px;
+    border: 5px;
+    padding-top: 28px;
+}
+
 .mat-mini-fab {
     margin-left: 10px;
 }
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
+mat-form-field {
     width: 100%;
 }
 
-.example-full-width {
-    width: 100%;
+.example-h2 {
+    margin: 10px;
 }
 
-.example-container {
+.example-section {
     display: flex;
-    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    height: 60px;
 }
 
-.example-container>* {
-    width: 100%;
+.example-margin {
+    margin: 10px 10px 10px 0px;
+}
+
+.criminal-image {
+    height: 128px;
+    width: 128px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.criminal-info {
+    display: grid;
+    grid-template-areas: "a b";
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-style: dotted;
+    border-radius: 2%;
+    border-color: black;
+    border-width: 1px;
+    padding: 10px;
+}
+
+.right {
+    grid-area: b;
+    margin: auto;
+}
+
+.left {
+    grid-area: a;
 }

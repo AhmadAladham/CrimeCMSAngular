@@ -44,13 +44,12 @@ export class CrimeCategoryService {
       if (result.data == 1) {
         this.toastr.success('Crime Category Created Successfuly');
         this.refresh.next(new Date().getTime());
-        // refresh
-      } else {
+        } else {
         this.toastr.error('Could not create the item');
       }
-      // this.spinner.hide();
+      this.spinner.hide();
     }, err => {
-      // this.spinner.hide();
+      this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
   }
@@ -64,7 +63,7 @@ export class CrimeCategoryService {
         this.toastr.success('Crime Category Updated Successfuly');
         this.crimeCategories = this.crimeCategories.filter(s => s.crimeCategoryId != crimeCategory.crimeCategoryId);
         this.refresh.next(new Date().getTime());
-        // refresh
+      
       } else {
         this.toastr.error('Could not update the item');
       }

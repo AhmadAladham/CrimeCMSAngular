@@ -1,9 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { PaginationService } from 'ngx-pagination';
+import { ToastrService } from 'ngx-toastr';
+import { UserSearch } from 'src/app/models/SearchParams';
 import { User } from 'src/app/models/user';
+import { UserRoleService } from 'src/app/services/user-role.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
@@ -14,12 +18,23 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class UserComponent implements AfterViewInit {
   
   pageEvent!: PageEvent;
-  displayedColumns: string[] = ['email', 'firstName', 'roleName', 'phoneNumber', 'dateOfBirth', 'gender', 'emailIsConfirmed'];
+  displayedColumns: string[] = ['email', 'firstName', 'roleName', 'phoneNumber', 'dateOfBirth', 'gender', 'emailIsConfirmed','actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
+  sortingColumn:string = 'Name';
+  sortType:string = 'ASC';
+
+  filterForm = new FormGroup({
+    roleId: new FormControl(),
+    phoneNumber: new FormControl(),
+    firstName : new FormControl(),
+  });
+  
   constructor
   (
-    public userService:UserServiceService
+    public userService:UserServiceService,
+    public userRoleService:UserRoleService,
+    private toastr: ToastrService,
   )
    { 
   }
@@ -28,7 +43,22 @@ export class UserComponent implements AfterViewInit {
     this.userService.refresh.subscribe(()=>{
       this.getUsers();
     })
-    
+    this.filterForm.valueChanges.subscribe(() => {
+      this.paginator.pageIndex = 0;
+      this.applyFilter();
+  })
+
+  this.getAllUserRoles()
+ 
+  }
+
+  getAllUserRoles(){
+    this.userRoleService.getAllUserRoles().subscribe(
+      (results : any)=> {
+        this.userRoleService.userRoles= results.data;
+      }, err => {
+        console.log(err);
+      });
   }
 
   getUsers(page: number = 1, size: number = 10, sortingColum? : string, sortType? : string){
@@ -39,16 +69,55 @@ export class UserComponent implements AfterViewInit {
     let page = event.pageIndex;
     let size = event.pageSize;
     page = page +1;
-      this.getUsers(page, size);
+    if(this.filterForm.controls.phoneNumber.value ||
+      this.filterForm.controls.firstName.value ||
+      this.filterForm.controls.roleId.value){
+     this.applyFilter(page, size);
+   }
+   else{
+     this.getUsers(page, size, this.sortingColumn, this.sortType);
+    }
+  }
+
+    applyFilter(pageNumber:number = 1, pageSize:number = 10) {
+    
+      let filterValues:UserSearch = this.filterForm.value;
+      filterValues.sortType = this.sortType;
+      filterValues.sortingColumn = this.sortingColumn ;
+      filterValues.pageNumber = pageNumber;
+      filterValues.pageSize = pageSize;
+      this.userService.searchUsers(filterValues);
+    }
+
+    resetFilter() {
+      this.filterForm.reset();
     }
 
     sortUsers(event:Sort){
       this.paginator.pageIndex = 0;
-      var sortType = event.direction;
+      this.sortType = event.direction;
       var sortingColumn  = event.active;
-      if(sortingColumn =='firstName') sortingColumn = 'name'
+      if(sortingColumn =='firstName') sortingColumn = 'Name'
 
-      console.log(sortingColumn)
-      this.getUsers(1,this.userService.userData.meta.itemsPerPage, sortingColumn, sortType);
+      if(this.filterForm.controls.phoneNumber.value ||
+        this.filterForm.controls.firstName.value ||
+        this.filterForm.controls.roleId.value
+         ){
+          this.applyFilter(1, this.userService.userData.meta.itemsPerPage);
+        }
+        else{
+          this.getUsers(1,this.userService.userData.meta.itemsPerPage, this.sortingColumn, this.sortType);
+        }
+    }
+
+    deleteUser(id:number) {
+      if (id) {
+        this.userService.deleteUser(id)
+      } else {
+        this.toastr.warning('This item cannot be deleted');
+      }
     }
   }
+
+
+ 

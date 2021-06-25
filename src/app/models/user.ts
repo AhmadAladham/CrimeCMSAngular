@@ -4,6 +4,7 @@ export interface IUser {
 }
 export class User {
     UserId : number | undefined;
+    RoleId:number| undefined;
     Email : string | undefined ;
     FirstName : string | undefined;
     LastName : string | undefined;

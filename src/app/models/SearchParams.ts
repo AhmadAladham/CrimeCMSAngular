@@ -10,3 +10,13 @@ export class CrimeSearch{
     sortingColumn?:string;
     sortType?:string;
 }
+
+export class UserSearch{
+    roleId?:number;
+    phoneNumber?:string;
+    firstName?:string;
+    pageNumber?:number;
+    pageSize?:number;
+    sortingColumn?:string;
+    sortType?:string;
+}

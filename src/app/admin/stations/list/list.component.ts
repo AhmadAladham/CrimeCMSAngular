@@ -30,8 +30,7 @@ export class ListComponent implements OnInit {
   ngOnInit():void {
     this.stationService.refresh.subscribe(()=>{
       this.getAllStations();
-    }
-    )
+    })
   }
   displayedColumns: string[] = ['stationName', 'stationAddress', 'phoneNumber', 'totalStaff', 'actions'];
 

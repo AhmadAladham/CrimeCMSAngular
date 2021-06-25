@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Crime } from '../models/Crimes';
-import { CrimeSearch } from '../models/CrimeSearch';
+import { CrimeSearch } from '../models/SearchParams';
 import { CrimeData } from '../models/PaginationData';
 import { ServiceResult } from '../models/ServiceResult';
 
