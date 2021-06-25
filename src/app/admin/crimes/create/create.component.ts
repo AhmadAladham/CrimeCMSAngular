@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -50,7 +51,8 @@ export class CreateComponent implements OnInit {
   private dialog: MatDialogRef<CreateComponent>,
   public crimeCategoryService:CrimeCategoryService,
   public stationService:StationService,
-  public criminalsService:CriminalsService
+  public criminalsService:CriminalsService,
+  private datePipe:DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -62,8 +64,8 @@ export class CreateComponent implements OnInit {
     if (this.data) {
       console.log(this.data)
       this.formGroup.controls.crimeTtile.setValue(this.data.crimeTtile);
-      this.formGroup.controls.crimeDate.setValue(this.data.crimeDate)
-      this.formGroup.controls.closeDate.setValue(this.data.closeDate);
+      this.formGroup.controls.crimeDate.setValue(this.datePipe.transform(this.data.crimeDate, 'yyyy-MM-dd'));
+      this.formGroup.controls.closeDate.setValue(this.datePipe.transform(this.data.closeDate, 'yyyy-MM-dd'));
       this.formGroup.controls.isClosed.setValue(this.data.isClosed);
       this.formGroup.controls.crimeDescription.setValue(this.data.crimeDescription);
       this.formGroup.controls.criminalDescription.setValue(this.data.criminalDescription);
@@ -71,6 +73,8 @@ export class CreateComponent implements OnInit {
       this.formGroup.controls.crimeCategoryId.setValue(this.data.crimeCategoryId);
       this.formGroup.controls.stationId.setValue(this.data.stationId);
       this.formGroup.controls.criminalId.setValue(this.data.criminalId);
+      this.formGroup.controls.criminalNationalId.setValue(this.data.criminalNationalNumber);
+      this.formGroup.controls.image.setValue(this.data.image);
     }
   }
 

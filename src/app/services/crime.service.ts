@@ -128,7 +128,7 @@ export class CrimeService {
 
   updateCrime(crime: Crime) {
      this.spinner.show();
-    this.http.put<ServiceResult>(environment.apiUrl + 'api/stations', crime ).subscribe((result) => {
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/crimes', crime ).subscribe((result) => {
       if (result.isSucceed == true) {
         this.toastr.success('Crime Updated Successfuly');
         this.crimeData.items = this.crimeData.items?.filter(c => c.crimeId != crime.crimeId);
