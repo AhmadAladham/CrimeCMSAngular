@@ -1,4 +1,5 @@
 import { Crime } from "./Crimes";
+import { Criminal } from "./Criminal";
 import { User } from "./user";
 
 export class UserData {
@@ -6,6 +7,12 @@ export class UserData {
   meta: Meta = new Meta();
   links:Links = new Links();
 };
+
+export class CriminalsData{
+  items?: Criminal[];
+  meta: Meta = new Meta();
+  links:Links = new Links();
+}
 
 export class CrimeData {
   items?: Crime[];

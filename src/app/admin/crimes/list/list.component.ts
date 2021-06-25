@@ -184,8 +184,3 @@ export class ListComponent implements AfterViewInit {
     });
   }
 }
-
-
-
-
-

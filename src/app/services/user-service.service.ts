@@ -54,5 +54,5 @@ export class UserServiceService {
     }, err => {
       this.toastr.error('Something went wrong.');
     })
-  };
+  }
 }

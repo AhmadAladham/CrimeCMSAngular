@@ -7,6 +7,7 @@ export class Criminal {
     weight?:number;
     image?:string;
     phoneNumber?:string;
-    dateOfBirth?:string;
+    dateOfBirth?:Date;
     address?:string;
+    crimes?:[];
 }

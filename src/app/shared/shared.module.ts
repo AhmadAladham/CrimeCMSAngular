@@ -21,6 +21,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import {MatCardModule} from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
      MatSlideToggleModule,
      MatButtonModule,
      MatToolbarModule,
-     NgxMatFileInputModule
+     NgxMatFileInputModule,
+     MatCardModule,
+     FlexLayoutModule
   ],
   exports:[
     CommonModule,
@@ -75,7 +79,9 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
      MatSlideToggleModule,
      MatButtonModule,
      MatToolbarModule,
-     NgxMatFileInputModule
+     NgxMatFileInputModule,
+     MatCardModule,
+     FlexLayoutModule
   ]
 })
 export class SharedModule { 
