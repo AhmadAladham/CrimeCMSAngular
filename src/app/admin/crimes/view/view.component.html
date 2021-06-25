@@ -1,43 +1,47 @@
 <div class="container mat-elevation-z8">
     <div class="crime-title">
-        <h1 style="text-align: center;">Crime Title: {{crimeService.selectedCrime.crimeTtile}}</h1>
+        <h1 style="text-align: center;">{{crimeService.selectedCrime.crimeTtile}}</h1>
     </div>
     <hr class="line-color">
-    <h2 style="text-align: center;">Crime Status: {{crimeService.selectedCrime.isClosed}}</h2>
+    <h1 class="header" style="text-align: center;">Crime Status</h1>
     <div class="crime-status">
         <div>
-            <h4>Crime Date: {{crimeService.selectedCrime.crimeDate | date}} </h4>
+            <p>Crime Date: <strong>{{crimeService.selectedCrime.crimeDate | date}}</strong> </p>
         </div>
         <div>
-            <h4>Crime Entry Date: {{crimeService.selectedCrime.crimeEntryDate | date}}</h4>
+            <p>Crime Entry Date: <strong>{{crimeService.selectedCrime.crimeEntryDate | date}}</strong></p>
         </div>
         <div>
-            <h4>Status:</h4>
+            <p>Status: <strong>{{crimeService.selectedCrime.isClosed}}</strong></p>
         </div>
         <div>
             <!-- ngif only if closed show -->
-            <h4>Close Date: {{crimeService.selectedCrime.closeDate | date}}</h4>
+            <p>Close Date: <strong>{{crimeService.selectedCrime.closeDate | date}}</strong></p>
         </div>
     </div>
     <hr class="line-color">
-    <h2 style="text-align: center;">Crime Information</h2>
+    <h1 class="header">Crime Information</h1>
+    &nbsp;  
     <div class="crime-details">
         <div class="grid-container">
             <div class="image-container">
-                <h2>Crime Image goes here</h2>
-                <img class="image" src="{{crimeService.selectedCrime.image}}">
+                <figure>
+                    <img class="image" src="{{crimeService.selectedCrime.image}}">
+                    <figcaption style="text-align: center;">Crime Image</figcaption>
+                </figure>
             </div>
             <div class="a">
-                <h4>Station:{{crimeService.selectedCrime.stationName}}</h4>
-                <h4>Crime Category:{{crimeService.selectedCrime.crimeCategoryName}}</h4>
-                <h4>Crime Location:{{crimeService.selectedCrime.location}}</h4>
+                <p>Crime Category: <strong>{{crimeService.selectedCrime.stationName}}</strong></p>
+                <p>Crime Category: <strong>{{crimeService.selectedCrime.crimeCategoryName}}</strong></p>
+                <p>Crime Location: <strong>{{crimeService.selectedCrime.location}}</strong></p>
                 <!-- <h4>Criminal:{{crimeService.selectedCrime.criminal}}</h4> -->
+                    <!-- ngif only if criminal is known -->
+                    <p>Criminal Description: <Strong></Strong></p>
+                    <textarea disabled="true" rows="8" cols="70" value="{{crimeService.selectedCrime.crimeDescription}}"></textarea>
+                    <p>Crime Description: <strong></strong></p>
+                    <textarea disabled="true" rows="8" cols="70" value="{{crimeService.selectedCrime.crimeDescription}}"></textarea>
             </div>
         </div>
-        <div>
-            <!-- ngif only if criminal is known -->
-            <h4>Criminal Description:{{crimeService.selectedCrime.crimeDescription}}</h4>
-            <h4>Crime Description:{{crimeService.selectedCrime.crimeDescription}}</h4>
-        </div>
     </div>
+    
 </div>

@@ -1,6 +1,8 @@
 .container {
+    padding:20px;
     margin-top: 20px;
     border-radius: 3%;
+    height: fit-content;
     /* border-color: rgb(94, 116, 158);
     border-style: solid;
     border-bottom-width: 1rem;
@@ -30,17 +32,26 @@ h4 {
 
 .b {
     grid-area: a;
+    margin: auto;
 }
 
 .image-container {
     grid-area: b;
+    float: right;
 }
 
 .image {
-    width: 200px;
-    height: 100px;
+    width: 400px;
+    height: 300px;
 }
+.header{
+    text-align: center;
+    background-color: #3F51B5;
+    border-radius: 15%;
+    color: white;
+    padding: 5px;
 
+}
 
 /* .crime-details{
     display:flex;
