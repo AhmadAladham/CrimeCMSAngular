@@ -4,7 +4,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { CrimeService } from 'src/app/services/crime.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CrimeSearch } from 'src/app/models/CrimeSearch';
+import { CrimeSearch } from 'src/app/models/SearchParams';
 import { DatePipe } from '@angular/common';
 import { Station } from 'src/app/models/station';
 import { CrimeCategory } from 'src/app/models/CrimeCategory';

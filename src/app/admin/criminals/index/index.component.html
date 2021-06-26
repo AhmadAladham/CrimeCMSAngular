@@ -2,20 +2,20 @@
     <div class="form-container" >
         <form class="date-block" [formGroup]="filterForm" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="space-around center">
                 <mat-form-field >
-                    <mat-label>Min. Weight</mat-label>
-                    <input matInput formControlName="heightFrom">
-                </mat-form-field>
-                <mat-form-field class="search">
-                    <mat-label>Max. Weight</mat-label>
-                    <input matInput formControlName="heightTo">
-                </mat-form-field>
-                <mat-form-field class="search">
                     <mat-label>Min. Height</mat-label>
-                    <input matInput formControlName="weightFrom">
+                    <input type="number" matInput formControlName="heightFrom">
                 </mat-form-field>
                 <mat-form-field class="search">
                     <mat-label>Max. Height</mat-label>
-                    <input matInput formControlName="weightTo">
+                    <input type="number" matInput formControlName="heightTo">
+                </mat-form-field>
+                <mat-form-field class="search">
+                    <mat-label>Min. Weight</mat-label>
+                    <input type="number" matInput formControlName="weightFrom">
+                </mat-form-field>
+                <mat-form-field class="search">
+                    <mat-label>Max. Weight</mat-label>
+                    <input type="number" matInput formControlName="weightTo">
                 </mat-form-field>
             <mat-form-field class="search">
                 <mat-label>Criminal Name</mat-label>
@@ -36,7 +36,7 @@
     <mat-paginator 
             [length]="this.criminalsService.criminalsData.meta.totalItems" 
             [pageSize]="this.criminalsService.criminalsData.meta.itemsPerPage" 
-            [pageSizeOptions]="[2,4,8]"
+            [pageSizeOptions]="[8, 10]"
             (page)="pageEvent = $event; onPaginateChange($event)"
             showFirstLastButtons>
          </mat-paginator>  

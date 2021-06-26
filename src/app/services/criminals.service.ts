@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CriminalsData } from '../models/PaginationData';
+import { CriminalSearch } from '../models/SearchParams';
 import { ServiceResult } from '../models/ServiceResult';
 
 @Injectable({
@@ -26,7 +27,7 @@ export class CriminalsService {
 }
 
 getAllCriminals(page: number, size: number, sortingColumn? : string, sortType? : string) {
-  // this.spinner.show();
+  this.spinner.show();
   let params = new HttpParams();
 
   if(sortingColumn) params = params.append('SortingColumn', String(sortingColumn));
@@ -48,9 +49,35 @@ getAllCriminals(page: number, size: number, sortingColumn? : string, sortType? :
     } else {
       this.toastr.error('Could not pull');
     }
+    this.spinner.hide();
   }, err => {
     this.toastr.error('Something went wrong.');
+    this.spinner.hide();
   })
 }
+
+searchCriminals(criminalSearch:CriminalSearch) {
+  this.spinner.show();
+  console.log(criminalSearch);
+  this.http.post<any>(environment.apiUrl + 'api/Criminals/CriminalSearch', criminalSearch,{observe: 'response'}).subscribe((result) => {
+    if (result.body.isSucceed == true) {
+      let xPagination = result.headers.get('x-pagination') || 'a';
+      let meta = JSON.parse(xPagination);
+      this.criminalsData.meta.currentPage = meta.CurrentPage;
+      this.criminalsData.meta.itemCount = meta.TotalCount;
+      this.criminalsData.meta.itemsPerPage = meta.PageSize;
+      this.criminalsData.meta.totalItems = meta.TotalCount;
+      this.criminalsData.meta.totalPages = meta.TotalPages;
+      this.criminalsData.items = result.body.data;
+      this.spinner.hide();
+    } else {
+      this.toastr.error('Could not pull');
+      this.spinner.hide();
+    }
+  }, err => {
+    this.toastr.error('Something went wrong.');
+    this.spinner.hide();
+  })
+};
 
 }
