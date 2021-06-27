@@ -1,4 +1,4 @@
-import { NgModule, AfterViewInit,  } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';  
 import { HttpClientModule } from '@angular/common/http';
@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OrderModule } from 'ngx-order-pipe';
-import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -40,8 +39,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatInputModule,
     Ng2SearchPipeModule,
     OrderModule,
-    NgbPaginationModule,
-     NgbAlertModule,
      MatRadioModule,
      MatDatepickerModule,
      MatNativeDateModule,
@@ -68,8 +65,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatInputModule,
     Ng2SearchPipeModule,
     OrderModule,
-    NgbPaginationModule,
-     NgbAlertModule,
      MatRadioModule,
      MatDatepickerModule,
      MatNativeDateModule,

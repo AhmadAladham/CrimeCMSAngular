@@ -15,12 +15,12 @@ import { ServiceResult } from '../models/ServiceResult';
   providedIn: 'root'
 })
 export class CrimeService {
-  imageUrl : any
-  crimeData:CrimeData = new CrimeData();
-  selectedCrime : Crime = new Crime() ; 
+  imageUrl: any
+  crimeData: CrimeData = new CrimeData();
+  selectedCrime: Crime = new Crime();
   refresh = new BehaviorSubject(0);
   message: string = 'You are not logged in..';
-  dataSource:MatTableDataSource<Crime> = new MatTableDataSource<Crime>();
+  dataSource: MatTableDataSource<Crime> = new MatTableDataSource<Crime>();
 
   constructor(
     private http: HttpClient,
@@ -29,20 +29,20 @@ export class CrimeService {
     private route: Router
   ) { }
 
-  getAllCrimes(page: number, size: number, sortingColumn? : string, sortType? : string) {
+  getAllCrimes(page: number, size: number, sortingColumn?: string, sortType?: string) {
     // this.spinner.show();
     let params = new HttpParams();
 
-    if(sortingColumn) params = params.append('SortingColumn', String(sortingColumn));
-    if(sortType) params = params.append('SortType', String(sortType));
+    if (sortingColumn) params = params.append('SortingColumn', String(sortingColumn));
+    if (sortType) params = params.append('SortType', String(sortType));
     params = params.append('PageNumber', String(page));
-     params = params.append('PageSize', String(size));
+    params = params.append('PageSize', String(size));
 
-    this.http.get<any>(environment.apiUrl + 'api/Crimes',{params,  observe: 'response'}).subscribe((result) => {
+    this.http.get<any>(environment.apiUrl + 'api/Crimes', { params, observe: 'response' }).subscribe((result) => {
       if (result.body.isSucceed == true) {
         let xPagination = '1';
         xPagination = result.headers.get('x-pagination') || 'a';
-        let meta =JSON.parse(xPagination);
+        let meta = JSON.parse(xPagination);
         this.crimeData.meta.currentPage = meta.CurrentPage;
         this.crimeData.meta.itemCount = meta.TotalCount;
         this.crimeData.meta.itemsPerPage = meta.PageSize;
@@ -56,9 +56,9 @@ export class CrimeService {
       this.toastr.error('Something went wrong.');
     })
   };
-  
-  searchCrimes(crimeSearch:CrimeSearch) {
-    this.http.post<any>(environment.apiUrl + 'api/Crimes/CrimeSearch', crimeSearch,{observe: 'response'}).subscribe((result) => {
+
+  searchCrimes(crimeSearch: CrimeSearch) {
+    this.http.post<any>(environment.apiUrl + 'api/Crimes/CrimeSearch', crimeSearch, { observe: 'response' }).subscribe((result) => {
       if (result.body.isSucceed == true) {
         let xPagination = result.headers.get('x-pagination') || 'a';
         let meta = JSON.parse(xPagination);
@@ -77,18 +77,18 @@ export class CrimeService {
   };
 
   createCrime(crime: Crime) {
-     this.spinner.show();
-     this.http.post<ServiceResult>(environment.apiUrl + 'api/crimes', crime).subscribe((result) => {
+    this.spinner.show();
+    this.http.post<ServiceResult>(environment.apiUrl + 'api/crimes', crime).subscribe((result) => {
       if (result.isSucceed == true) {
-        this.toastr.success('Station Created Successfuly');
+        this.toastr.success('Crime Created Successfuly');
         this.refresh.next(new Date().getTime());
         // refresh
       } else {
         this.toastr.error('Could not create the item');
       }
-       this.spinner.hide();
+      this.spinner.hide();
     }, err => {
-       this.spinner.hide();
+      this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
   }
@@ -110,7 +110,7 @@ export class CrimeService {
     });
   }
 
-  deleteCrime(id:number) {
+  deleteCrime(id: number) {
     this.spinner.show();
     this.http.delete<ServiceResult>(environment.apiUrl + 'api/Crimes/' + id).subscribe((result) => {
       if (result.isSucceed == true) {
@@ -127,8 +127,8 @@ export class CrimeService {
   }
 
   updateCrime(crime: Crime) {
-     this.spinner.show();
-    this.http.put<ServiceResult>(environment.apiUrl + 'api/crimes', crime ).subscribe((result) => {
+    this.spinner.show();
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/crimes', crime).subscribe((result) => {
       if (result.isSucceed == true) {
         this.toastr.success('Crime Updated Successfuly');
         this.crimeData.items = this.crimeData.items?.filter(c => c.crimeId != crime.crimeId);
@@ -141,5 +141,5 @@ export class CrimeService {
       this.spinner.hide();
       this.toastr.error('Something went wrong, Please login again.');
     })
-  }  
+  }
 }

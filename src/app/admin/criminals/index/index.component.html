@@ -1,22 +1,23 @@
 <div class="container">
-    <div class="form-container" >
+    <button mat-raised-button color="primary" (click)="openDialog()">Create Criminal</button>
+    <div class="form-container">
         <form class="date-block" [formGroup]="filterForm" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="space-around center">
-                <mat-form-field >
-                    <mat-label>Min. Height</mat-label>
-                    <input type="number" matInput formControlName="heightFrom">
-                </mat-form-field>
-                <mat-form-field class="search">
-                    <mat-label>Max. Height</mat-label>
-                    <input type="number" matInput formControlName="heightTo">
-                </mat-form-field>
-                <mat-form-field class="search">
-                    <mat-label>Min. Weight</mat-label>
-                    <input type="number" matInput formControlName="weightFrom">
-                </mat-form-field>
-                <mat-form-field class="search">
-                    <mat-label>Max. Weight</mat-label>
-                    <input type="number" matInput formControlName="weightTo">
-                </mat-form-field>
+            <mat-form-field>
+                <mat-label>Min. Height</mat-label>
+                <input type="number" matInput formControlName="heightFrom">
+            </mat-form-field>
+            <mat-form-field class="search">
+                <mat-label>Max. Height</mat-label>
+                <input type="number" matInput formControlName="heightTo">
+            </mat-form-field>
+            <mat-form-field class="search">
+                <mat-label>Min. Weight</mat-label>
+                <input type="number" matInput formControlName="weightFrom">
+            </mat-form-field>
+            <mat-form-field class="search">
+                <mat-label>Max. Weight</mat-label>
+                <input type="number" matInput formControlName="weightTo">
+            </mat-form-field>
             <mat-form-field class="search">
                 <mat-label>Criminal Name</mat-label>
                 <input matInput formControlName="criminalName">
@@ -24,21 +25,13 @@
             <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
         </form>
     </div>
-<div class="content">
-    <div class="cards" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="space-around center"  >
-            <app-criminal-card fxFlex="25" *ngFor="let card of this.criminalsService.criminalsData.items" [firstName]="card.criminalFirstName"
-            [lastName]="card.criminalLastName"   [phoneNumber]="card.phoneNumber" [crimes]="card.crimes"
-            [image]="card.image" [criminalId]="card.criminalId" [height]="card.height"
-            [weight]="card.weight"  [nationalNumber]="card.criminalNationalNumber"
-            [dateOfBirth]="card.dateOfBirth" [address]="card.address">
+    <div class="content">
+        <div class="cards" fxLayout="row wrap" fxLayoutGap="16px grid" fxLayoutAlign="space-around center">
+            <app-criminal-card fxFlex="25" *ngFor="let card of this.criminalsService.criminalsData.items" [firstName]="card.criminalFirstName" [lastName]="card.criminalLastName" [phoneNumber]="card.phoneNumber" [crimes]="card.crimes" [image]="card.image" [criminalId]="card.criminalId"
+                [height]="card.height" [weight]="card.weight" [nationalNumber]="card.criminalNationalNumber" [dateOfBirth]="card.dateOfBirth" [address]="card.address">
             </app-criminal-card>
+        </div>
+        <mat-paginator [length]="this.criminalsService.criminalsData.meta.totalItems" [pageSize]="this.criminalsService.criminalsData.meta.itemsPerPage" [pageSizeOptions]="[2,8, 10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
     </div>
-    <mat-paginator 
-            [length]="this.criminalsService.criminalsData.meta.totalItems" 
-            [pageSize]="this.criminalsService.criminalsData.meta.itemsPerPage" 
-            [pageSizeOptions]="[2,8, 10]"
-            (page)="pageEvent = $event; onPaginateChange($event)"
-            showFirstLastButtons>
-         </mat-paginator>  
-</div>
 </div>

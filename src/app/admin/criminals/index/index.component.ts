@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ToastrService } from 'ngx-toastr';
 import { CriminalSearch } from 'src/app/models/SearchParams';
 import { CriminalsService } from 'src/app/services/criminals.service';
+import { CreateCriminalComponent } from '../create-criminal/create-criminal.component';
 import { ViewCriminalComponent } from '../view-criminal/view-criminal.component';
 
 @Component({
@@ -14,8 +16,8 @@ import { ViewCriminalComponent } from '../view-criminal/view-criminal.component'
 export class IndexComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   pageEvent!: PageEvent;
-  sortingColumn:string = 'title';
-  sortType:string = 'asc';
+  sortingColumn: string = 'title';
+  sortType: string = 'asc';
   filterForm = new FormGroup({
     heightFrom: new FormControl(),
     heightTo: new FormControl(),
@@ -24,55 +26,69 @@ export class IndexComponent implements OnInit {
     criminalName: new FormControl()
   });
   constructor(
-    public criminalsService:CriminalsService,
+    public criminalsService: CriminalsService,
+    private toastr: ToastrService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.criminalsService.refresh.subscribe(()=>{
+    this.criminalsService.refresh.subscribe(() => {
       this.getCriminals();
     })
     this.filterForm.valueChanges.subscribe(() => {
       this.paginator.pageIndex = 0;
       this.applyFilter();
-  })
+    })
   }
 
-  getCriminals(page: number = 1, size: number = 10, sortingColum? : string, sortType? : string){
-    this.criminalsService.getAllCriminals(page, size,sortingColum, sortType);
+  getCriminals(page: number = 1, size: number = 10, sortingColum?: string, sortType?: string) {
+    this.criminalsService.getAllCriminals(page, size, sortingColum, sortType);
   }
 
-    onPaginateChange(event: PageEvent) {
-      let page = event.pageIndex;
-      let size = event.pageSize;
-      page = page +1;
-  
-      if(this.filterForm.controls.heightFrom.value ||
-         this.filterForm.controls.heightTo.value ||
-         this.filterForm.controls.weightFrom.value||
-         this.filterForm.controls.weightTo.value||
-         this.filterForm.controls.criminalName.value){
-        this.applyFilter(page, size);
+  onPaginateChange(event: PageEvent) {
+    let page = event.pageIndex;
+    let size = event.pageSize;
+    page = page + 1;
+
+    if (this.filterForm.controls.heightFrom.value ||
+      this.filterForm.controls.heightTo.value ||
+      this.filterForm.controls.weightFrom.value ||
+      this.filterForm.controls.weightTo.value ||
+      this.filterForm.controls.criminalName.value) {
+      this.applyFilter(page, size);
+    }
+    else {
+      this.getCriminals(page, size, this.sortingColumn, this.sortType);
+    }
+  }
+  applyFilter(pageNumber: number = 1, pageSize: number = 10) {
+    let filterValues: CriminalSearch = this.filterForm.value;
+    filterValues.sortType = this.sortType;
+    filterValues.sortingColumn = this.sortingColumn;
+    filterValues.pageNumber = pageNumber;
+    filterValues.pageSize = pageSize;
+    filterValues.heightFrom = this.filterForm.controls.heightFrom.value;
+    filterValues.heightTo = this.filterForm.controls.heightTo.value;
+    filterValues.weightFrom = this.filterForm.controls.weightFrom.value;
+    filterValues.weightTo = this.filterForm.controls.weightTo.value;
+    if (this.filterForm.controls.criminalName.value) filterValues.criminalName = this.filterForm.controls.criminalName.value.replace(/\s*/g, "");
+    console.log(filterValues);
+    this.criminalsService.searchCriminals(filterValues);
+  }
+  resetFilter() {
+    this.filterForm.reset();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CreateCriminalComponent,
+      {
+        height: '500px',
+        width: '400px',
+      });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.criminalsService.createCriminal(result);
       }
-      else{
-        this.getCriminals(page, size, this.sortingColumn, this.sortType);
-      }
-    }
-    applyFilter(pageNumber:number = 1, pageSize:number = 10) {
-      let filterValues:CriminalSearch = this.filterForm.value;
-      filterValues.sortType = this.sortType;
-      filterValues.sortingColumn = this.sortingColumn ;
-      filterValues.pageNumber = pageNumber;
-      filterValues.pageSize = pageSize;
-      filterValues.heightFrom = this.filterForm.controls.heightFrom.value;
-      filterValues.heightTo = this.filterForm.controls.heightTo.value;
-      filterValues.weightFrom = this.filterForm.controls.weightFrom.value;
-      filterValues.weightTo = this.filterForm.controls.weightTo.value;
-      if(this.filterForm.controls.criminalName.value) filterValues.criminalName = this.filterForm.controls.criminalName.value.replace(/\s*/g, "");
-      console.log(filterValues);
-      this.criminalsService.searchCriminals(filterValues);
-    }
-    resetFilter() {
-      this.filterForm.reset();
-    }
-   
+    });
+  }
 }
