@@ -30,7 +30,6 @@ export class IndexComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-     //console.log(`Dialog result: ${JSON.stringify(result)}`);
       if (result) {
         this.crimeCategoryService.createCategory(result);
       }

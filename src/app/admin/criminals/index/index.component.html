@@ -36,7 +36,7 @@
     <mat-paginator 
             [length]="this.criminalsService.criminalsData.meta.totalItems" 
             [pageSize]="this.criminalsService.criminalsData.meta.itemsPerPage" 
-            [pageSizeOptions]="[8, 10]"
+            [pageSizeOptions]="[2,8, 10]"
             (page)="pageEvent = $event; onPaginateChange($event)"
             showFirstLastButtons>
          </mat-paginator>  

@@ -1,0 +1,33 @@
+.details-container{
+    display: grid;
+    grid-template-areas: "a b";
+    justify-content:space-between ;
+}
+
+.criminal-image{
+    max-height: 325px;
+    max-width: 350px;
+    grid-area: b;
+}
+
+.criminal-info{
+    grid-area: a;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+}

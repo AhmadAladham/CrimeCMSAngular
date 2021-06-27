@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewCriminalComponent } from '../view-criminal/view-criminal.component';
 
 @Component({
   selector: 'app-criminal-card',
@@ -19,9 +21,17 @@ export class CriminalCardComponent implements OnInit {
   @Input() dateOfBirth?: Date = new Date();
   @Input() address?: string = 'N/K';
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog 
+  ) { }
 
   ngOnInit(): void {
   }
 
+  openDialog(criminalId:number|undefined) {
+    const dialogRef = this.dialog.open(ViewCriminalComponent,
+   {data: criminalId,
+    height: '700px',
+    width: '1000px'});
+  }
 }

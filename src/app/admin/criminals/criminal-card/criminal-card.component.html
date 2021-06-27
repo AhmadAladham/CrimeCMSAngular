@@ -10,13 +10,10 @@
           <mat-card-subtitle>Criminal Information</mat-card-subtitle>
             <p>Height: <b>{{height}}cm</b></p>
             <p>Weight: <b>{{weight}}kg</b></p>
-            <!-- <p>Date Of Birth: <b>{{dateOfBirth | date}}</b></p> -->
             <p>National Number: <b>{{nationalNumber}}</b></p>
-            <!-- <p>Phone Number: <b>{{phoneNumber}}</b></p>
-            <p>Address: <b>{{address}}</b></p> -->
         </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>View Crimes</button>
+      <button (click) = "openDialog(criminalId)" mat-button>View Crimes</button>
     </mat-card-actions>
 </mat-card>

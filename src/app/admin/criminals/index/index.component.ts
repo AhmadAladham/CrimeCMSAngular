@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { CriminalSearch } from 'src/app/models/SearchParams';
 import { CriminalsService } from 'src/app/services/criminals.service';
+import { ViewCriminalComponent } from '../view-criminal/view-criminal.component';
 
 @Component({
   selector: 'app-index',
@@ -22,7 +24,7 @@ export class IndexComponent implements OnInit {
     criminalName: new FormControl()
   });
   constructor(
-    public criminalsService:CriminalsService
+    public criminalsService:CriminalsService,
   ) { }
 
   ngOnInit(): void {
@@ -72,4 +74,5 @@ export class IndexComponent implements OnInit {
     resetFilter() {
       this.filterForm.reset();
     }
+   
 }

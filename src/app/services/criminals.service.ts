@@ -1,10 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ResourceLoader } from '@angular/compiler';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Crime } from '../models/Crimes';
+import { Criminal } from '../models/Criminal';
 import { CriminalsData } from '../models/PaginationData';
 import { CriminalSearch } from '../models/SearchParams';
 import { ServiceResult } from '../models/ServiceResult';
@@ -15,13 +20,30 @@ import { ServiceResult } from '../models/ServiceResult';
 export class CriminalsService {
   criminalsData:CriminalsData = new CriminalsData();
   refresh = new BehaviorSubject(0);
-
+  crimesRefresh = new BehaviorSubject(0);
+  criminal:Criminal  = new Criminal();
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService
   ) { }
 
+  getCriminal(criminalId : number) {
+    this.spinner.show();
+    this.http.get<ServiceResult>('https://localhost:5001/api/Criminals/' + criminalId).subscribe((result)=>{
+      if(result.isSucceed == true) {
+        this.criminal = result.data;
+        this.crimesRefresh.next(new Date().getTime());
+      } else {
+        this.toastr.error('Could not delete the item');
+      }
+      this.spinner.hide();
+    }, err =>{
+      this.toastr.error('Something went wrong.');
+      this.spinner.hide();
+    })
+  }
+  
   getCriminalByNationalNumber(nationalNumber:string) {
     return this.http.get(environment.apiUrl + 'api/Criminals/NationalNumber/' + nationalNumber,{});
 }

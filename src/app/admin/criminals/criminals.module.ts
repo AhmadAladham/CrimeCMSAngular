@@ -5,12 +5,14 @@ import { CriminalsRoutingModule } from './criminals-routing.module';
 import { CriminalCardComponent } from './criminal-card/criminal-card.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IndexComponent } from './index/index.component';
+import { ViewCriminalComponent } from './view-criminal/view-criminal.component';
 
 
 @NgModule({
   declarations: [
     CriminalCardComponent,
-    IndexComponent
+    IndexComponent,
+    ViewCriminalComponent
   ],
   imports: [
     CommonModule,

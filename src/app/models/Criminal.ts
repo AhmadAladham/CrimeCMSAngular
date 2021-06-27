@@ -1,3 +1,5 @@
+import { Crime } from "./Crimes";
+
 export class Criminal {
     criminalId?:number;
     criminalNationalNumber?:string;
@@ -9,5 +11,5 @@ export class Criminal {
     phoneNumber?:string;
     dateOfBirth?:Date;
     address?:string;
-    crimes?:[];
+    crimes:Crime[] = [];
 }
