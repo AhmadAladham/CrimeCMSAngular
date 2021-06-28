@@ -10,5 +10,4 @@ export class Complaint {
     complaintDescription?: string
     criminalDescription?: string
     crimeLocation?: string
-    image?: string | ArrayBuffer | undefined | null;
 }

@@ -16,15 +16,14 @@ import { connectableObservableDescriptor } from "rxjs/internal/observable/Connec
   providedIn: 'root'
 })
 export class AuthService {
-  
 
-  constructor(  
-  private router: Router,
-  private httpClient: HttpClient,
-  private spinner: NgxSpinnerService,
-  private toastr: ToastrService
-  )
-  {
+
+  constructor(
+    private router: Router,
+    private httpClient: HttpClient,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
+  ) {
 
   }
 
@@ -37,40 +36,41 @@ export class AuthService {
     loginDTO.Password = password;
     this.spinner.show();
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/signin', loginDTO).subscribe((result) => {
-      if(result.status == '200'){
+      console.log(result.status)
+      if (result.status == '200') {
         console.log(result.data)
         localStorage.setItem('token', result.data);
       }
-      else if(result.status == '401'){
-        this.toastr.error('Please try again' ,'Invalid Email or Password');
-        
+      else if (result.status == '401') {
+        this.toastr.error('Please try again', 'Invalid Email or Password');
+
       }
       this.spinner.hide();
-    },err=>{
+    }, err => {
       this.spinner.hide();
     })
 
-    
+
     // setTimeout(() => {
     //   // this.homeService.message = 'Welcome, you are logged in..'
-      // const data: any = jwt_decode(result.data);
+    // const data: any = jwt_decode(result.data);
     //   // const data: any = jwt_decode(response.token);
     //   // Go to home page
     //   this.router.navigate(['c/home']);
     // }, 2000);
   }
 
-  Register(registerDTO:RegisterDTO) {
+  Register(registerDTO: RegisterDTO) {
     this.spinner.show();
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/register', registerDTO).subscribe((result) => {
-      if(result.status == '201'){
+      if (result.status == '201') {
         localStorage.setItem('token', result.data);
       }
-      else if(result.status == '401'){
-        this.toastr.error('Please try again' ,'Invalid Email or Password');
+      else if (result.status == '401') {
+        this.toastr.error('Please try again', 'Invalid Email or Password');
       }
       this.spinner.hide();
-    },err=>{
+    }, err => {
       this.toastr.error('Something went wrong');
       this.spinner.hide();
     })
