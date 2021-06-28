@@ -11,7 +11,7 @@ div.loginCard {
 
 p.sign {
     padding-top: 20px;
-    color: #f00d2b;
+    color: #3F51B5;
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
     font-size: 26px;
@@ -85,7 +85,7 @@ button.submit {
     cursor: pointer;
     border-radius: 5em;
     color: #FFFFFF;
-    background: linear-gradient(to right, #f00d2b, hsl(352, 90%, 62%));
+    background: linear-gradient(to right,#3F51B5, hsl(246, 97%, 25%));
     border: 0;
     padding-left: 90px;
     padding-right: 90px;

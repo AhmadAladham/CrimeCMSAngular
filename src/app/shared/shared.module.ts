@@ -22,7 +22,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list'
 
 @NgModule({
   declarations: [],
@@ -50,7 +52,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
      MatToolbarModule,
      NgxMatFileInputModule,
      MatCardModule,
-     FlexLayoutModule
+     FlexLayoutModule,
+     MatDividerModule,
+     MatSidenavModule,
+     MatToolbarModule,
+     MatListModule
   ],
   exports:[
     CommonModule,
@@ -76,7 +82,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
      MatToolbarModule,
      NgxMatFileInputModule,
      MatCardModule,
-     FlexLayoutModule
+     FlexLayoutModule,
+     MatDividerModule,
+     MatSidenavModule,
+     MatToolbarModule,
+     MatListModule
   ]
 })
 export class SharedModule { 

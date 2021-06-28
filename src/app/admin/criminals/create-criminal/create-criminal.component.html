@@ -1,7 +1,4 @@
-<div class="pcontainer">
     <h3 mat-dialog-title>Create Criminal</h3>
-    <mat-dialog-content class="mat-typography">
-        <div class="container">
             <form [formGroup]="formGroup">
                 <ul style="list-style-type:none;">
                     <li>
@@ -67,10 +64,7 @@
                     </li>
                 </ul>
             </form>
-        </div>
-    </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
         <button mat-button [mat-dialog-close]="true" (click)="saveItem()" cdkFocusInitial [disabled]="formGroup.invalid">Save</button>
     </mat-dialog-actions>
-</div>

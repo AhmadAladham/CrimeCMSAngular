@@ -82,8 +82,8 @@ export class IndexComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(CreateCriminalComponent,
       {
-        height: '500px',
-        width: '400px',
+        height: '80vh',
+        width: '80vw',
       });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

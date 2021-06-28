@@ -13,6 +13,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ComponentsModule } from './components/components.module';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +31,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     FlexLayoutModule,
     NgxSpinnerModule,
     NgbModule,
-    NgxMatFileInputModule
+    NgxMatFileInputModule,
+    ComponentsModule  
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
