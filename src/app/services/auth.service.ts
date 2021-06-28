@@ -10,6 +10,7 @@ import { SharedModule } from "../shared/shared.module";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { RegisterDTO } from "../models/RegisterDTO";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,8 @@ export class AuthService {
     loginDTO.Password = password;
     this.spinner.show();
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/signin', loginDTO).subscribe((result) => {
-      if(result.status == '201'){
+      if(result.status == '200'){
+        console.log(result.data)
         localStorage.setItem('token', result.data);
       }
       else if(result.status == '401'){
