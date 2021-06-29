@@ -14,7 +14,11 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
-
+import { JwtModule, JwtModuleOptions } from "@auth0/angular-jwt";
+const JWT_Module_Options: JwtModuleOptions = {
+  config: {
+  }
+};
 
 
 @NgModule({
@@ -32,7 +36,8 @@ import { ComponentsModule } from './components/components.module';
     NgxSpinnerModule,
     NgbModule,
     NgxMatFileInputModule,
-    ComponentsModule  
+    ComponentsModule,
+    JwtModule.forRoot(JWT_Module_Options)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

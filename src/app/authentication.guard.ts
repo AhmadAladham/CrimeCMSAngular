@@ -4,47 +4,37 @@ import { Observable } from 'rxjs';
 import { Role } from './enum/role';
 import jwt_decode from "jwt-decode";
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationGuard implements CanActivate, CanActivateChild {
-  constructor(private route: Router, private toastr: ToastrService) {
+  constructor(
+    private route: Router,
+    private toastr: ToastrService,
+    private authService:AuthService 
+     ) {
 
   }
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-   // return = true ? the user can go the path/route
+    // return = true ? the user can go the path/route
     // return = false ? the user can't go to the path/route
-    const tokenString = localStorage.getItem('token') || 'invalid token';
-    console.log(tokenString);
-    let token:any = jwt_decode(tokenString); // decode token    
-    let expireDate = token.exp; // get token expiration dateTime
-    console.log(token); // show decoded token object in console
-    
-    if (token) {
-      var currentTime = new Date().getTime() / 1000;  
-      if(!(currentTime>expireDate)){
-        if (state.url.indexOf('Admin') >= 0) {
-            if (token.role == Role.Admin) {
+    const expectedRole = route.data.expectedRole;
+    if (this.authService.isAuthenticated()) {
+      let userRole = this.authService.getRole();
+        if (userRole == expectedRole || userRole == Role.Admin) {
               return true;
             } else {
-              this.toastr.warning('This page is only for admin')
+              this.toastr.warning('You do not have access to this page')
               return false;
             }
         }
-        return true;
-      }
-      else{
-        this.toastr.warning('Please login Again');
-        this.route.navigate(['account']);
-        return false;
-      }
-    }
      else {
       this.route.navigate(['account']);
-      this.toastr.warning('Un-Authorized')
+      this.toastr.warning('Please login')
       return false;
     }
   }

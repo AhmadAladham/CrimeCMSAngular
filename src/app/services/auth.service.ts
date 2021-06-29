@@ -11,6 +11,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { RegisterDTO } from "../models/RegisterDTO";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class AuthService {
   private router: Router,
   private httpClient: HttpClient,
   private spinner: NgxSpinnerService,
-  private toastr: ToastrService
+  private toastr: ToastrService,
+  public jwtHelper: JwtHelperService
   )
   {
 
@@ -38,7 +40,6 @@ export class AuthService {
     this.spinner.show();
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/signin', loginDTO).subscribe((result) => {
       if(result.status == '200'){
-        console.log(result.data)
         localStorage.setItem('token', result.data);
       }
       else if(result.status == '401'){
@@ -72,6 +73,19 @@ export class AuthService {
       this.toastr.error('Something went wrong');
       this.spinner.hide();
     })
+  }
+  public isAuthenticated(): boolean {
+    // Check whether the token is expired and return
+    // true or false
+    const token = localStorage.getItem('token') || undefined;
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  public getRole(){
+    const tokenString = localStorage.getItem('token') || 'invalid token';
+    let token:any = jwt_decode(tokenString);
+    if(token.Role) return token.Role;
+    else return null;
   }
 }
 

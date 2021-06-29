@@ -27,7 +27,7 @@ export class ViewCriminalComponent implements OnInit {
   ngOnInit(): void {
     this.getCriminal(this.criminalId);
     this.criminalsService.crimesRefresh.subscribe(() => {
-      this.crimes = new MatTableDataSource<Crime>(this.criminalsService.criminal.crimes);
+      this.crimes.data = this.criminalsService.criminal.crimes;
       this.crimes.sort = this.sort;
       setTimeout(() => this.crimes.paginator = this.paginator);
     });
