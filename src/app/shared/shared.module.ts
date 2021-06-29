@@ -24,7 +24,8 @@ import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list'
+import {MatListModule} from '@angular/material/list';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [],
@@ -56,7 +57,8 @@ import {MatListModule} from '@angular/material/list'
      MatDividerModule,
      MatSidenavModule,
      MatToolbarModule,
-     MatListModule
+     MatListModule,
+     MatTabsModule
   ],
   exports:[
     CommonModule,
@@ -86,7 +88,8 @@ import {MatListModule} from '@angular/material/list'
      MatDividerModule,
      MatSidenavModule,
      MatToolbarModule,
-     MatListModule
+     MatListModule,
+     MatTabsModule
   ]
 })
 export class SharedModule { 

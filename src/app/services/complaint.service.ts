@@ -26,11 +26,13 @@ export class ComplaintService {
     return this.http.get(environment.apiUrl + 'api/Complaints', {
     });
   }
+
   getComplaintsByUserId() {
     this.spinner.show();
     this.http.get<ServiceResult>(environment.apiUrl + 'api/Complaints/User').subscribe((result) => {
       if (result.isSucceed == true) {
         this.complaints = result.data;
+        console.log(this.complaints)
         this.refresh.next(new Date().getTime());
       } else {
         this.toastr.error('Could not delete the item');
@@ -39,6 +41,36 @@ export class ComplaintService {
     }, err => {
       this.toastr.error('Something went wrong.');
       this.spinner.hide();
+    })
+  }
+
+  deleteComplaint(id : number) {
+    this.http.delete<ServiceResult>(environment.apiUrl + 'api/Complaints/' + id).subscribe((result :any)=>{
+      if(result.isSucceed == true) {
+        this.toastr.success('Complaint Deleted Successfuly!!');
+        this.complaints = this.complaints.filter(complaint => complaint.complaintId != id);
+      } else {
+        this.toastr.error('Could Not Delete The Item');
+      }
+    }, err =>{
+      this.toastr.error('Something Went Wrong.');
+    })
+  }
+
+  createComplaint(complaint: Complaint) {
+    console.log(complaint)
+    this.spinner.show();
+    this.http.post<ServiceResult>(environment.apiUrl + 'api/Complaints', complaint).subscribe((result) => {
+      if (result.data == 1) {
+        this.toastr.success('Complaint Created Successfuly');
+        this.refresh.next(new Date().getTime());
+        } else {
+        this.toastr.error('Could not create the item');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      this.toastr.error('Something went wrong, Please login again.');
     })
   }
 }

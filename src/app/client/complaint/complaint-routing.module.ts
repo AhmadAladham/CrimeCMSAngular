@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListComplaintsComponent } from './list-complaints/list-complaints.component';
+import { IndexComponent } from './index/index.component';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: ListComplaintsComponent
+    component: IndexComponent
   }
 ];
 @NgModule({

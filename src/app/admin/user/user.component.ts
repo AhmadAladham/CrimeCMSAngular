@@ -47,9 +47,7 @@ export class UserComponent implements AfterViewInit {
       this.paginator.pageIndex = 0;
       this.applyFilter();
   })
-
   this.getAllUserRoles()
- 
   }
 
   getAllUserRoles(){

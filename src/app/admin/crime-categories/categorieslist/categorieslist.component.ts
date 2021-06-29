@@ -36,7 +36,6 @@ export class CategorieslistComponent implements OnInit {
     this.crimeCategoryService.getAllCategories().subscribe(
       (results : any)=>{
         this.crimeCategoryService.crimeCategories = results.data;
-        //console.log(JSON.stringify(this.crimeCategoryService.crimeCategories))
     }, err=>{
       console.log(err);
     });

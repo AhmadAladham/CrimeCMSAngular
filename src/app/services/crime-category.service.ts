@@ -29,7 +29,7 @@ export class CrimeCategoryService {
   deleteCategory(id : number) {
     this.http.delete<ServiceResult>('https://localhost:5001/api/CrimeCategories/' + id).subscribe((result :any)=>{
       if(result.isSucceed == true) {
-        this.toastr.success('Station Deleted Successfuly!!');
+        this.toastr.success('Category Deleted Successfuly!!');
         this.crimeCategories = this.crimeCategories.filter(category => category.crimeCategoryId != id);
       } else {
         this.toastr.error('Could not delete the item');

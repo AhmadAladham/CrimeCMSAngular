@@ -62,7 +62,6 @@ export class CreateComponent implements OnInit {
   this.crimeCategoryService.getAllCategories();
   this.stationService.getAllStations();
     if (this.data) {
-      console.log(this.data)
       this.formGroup.controls.crimeTtile.setValue(this.data.crimeTtile);
       this.formGroup.controls.crimeDate.setValue(this.datePipe.transform(this.data.crimeDate, 'yyyy-MM-dd'));
       this.formGroup.controls.closeDate.setValue(this.datePipe.transform(this.data.closeDate, 'yyyy-MM-dd'));
@@ -96,7 +95,6 @@ export class CreateComponent implements OnInit {
     } else {
       this.dialog.close(value)
     }
-    console.log(value)
   }
   getAllCrimeCategories() {
     this.crimeCategoryService.getAllCategories().subscribe(
