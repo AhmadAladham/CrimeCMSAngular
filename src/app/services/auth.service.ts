@@ -12,12 +12,14 @@ import { ToastrService } from "ngx-toastr";
 import { RegisterDTO } from "../models/RegisterDTO";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Role } from "../enum/role";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
+  authRefresh = new BehaviorSubject(0);
 
   constructor(  
   private router: Router,
@@ -41,6 +43,11 @@ export class AuthService {
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/signin', loginDTO).subscribe((result) => {
       if(result.status == '200'){
         localStorage.setItem('token', result.data);
+        this.toastr.success('You are logged in' ,'Welcome');
+        let role = this.getRole();
+        if(role == Role.Admin) this.router.navigate(['admin/crimes']);
+        if(role == Role.User) this.router.navigate(['client/complaints']);
+        this.authRefresh.next(new Date().getTime());
       }
       else if(result.status == '401'){
         this.toastr.error('Please try again' ,'Invalid Email or Password');
@@ -49,14 +56,8 @@ export class AuthService {
       this.spinner.hide();
     },err=>{
       this.spinner.hide();
-    })    
-    // setTimeout(() => {
-    //   // this.homeService.message = 'Welcome, you are logged in..'
-      // const data: any = jwt_decode(result.data);
-    //   // const data: any = jwt_decode(response.token);
-    //   // Go to home page
-    //   this.router.navigate(['c/home']);
-    // }, 2000);
+    }) 
+    
   }
 
   Register(registerDTO:RegisterDTO) {
@@ -86,6 +87,12 @@ export class AuthService {
     let token:any = jwt_decode(tokenString);
     if(token.Role) return token.Role;
     else return null;
+  }
+  Logout(){
+    localStorage.removeItem('token');
+    this.authRefresh.next(new Date().getTime());
+    
+    this.router.navigate(['/account']);
   }
 }
 
