@@ -26,6 +26,7 @@ export class AppComponent {
       if(this.isAuthenticated){
         this.userRole = authService.getRole();
         if(this.userRole == Role.Admin){
+          this.routeLinks = [];
           this.routeLinks.push(['admin/stations', 'Stations'])
           this.routeLinks.push(['admin/complaints', 'Complaints'])
           this.routeLinks.push(['admin/users', 'Website Users'])
@@ -34,6 +35,7 @@ export class AppComponent {
           this.routeLinks.push(['admin/crimecategories', 'Crime Categories'])
         }
         if(this.userRole == Role.User){
+          this.routeLinks = [];
           this.routeLinks.push(['client/complaints', 'Complaints'])
           this.routeLinks.push(['client/profile', 'Profile'])
         }
