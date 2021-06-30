@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: 'complaints',
     loadChildren: () => import('./complaint/complaint.module').then(m => m.ComplaintModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   }
 ];
 

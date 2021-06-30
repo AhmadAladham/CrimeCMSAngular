@@ -7,10 +7,13 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ServiceResult } from '../models/ServiceResult';
-import { User } from '../models/user';
+import { User, UserInfo } from '../models/user';
 import { UserData } from '../models/PaginationData';
 import { UserSearch } from '../models/SearchParams';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import jwt_decode from "jwt-decode";
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +28,14 @@ export class UserServiceService {
     private http: HttpClient,
     private toastr: ToastrService,
     private route: Router,
-    private spinner : NgxSpinnerService
+    private spinner : NgxSpinnerService,
+    public jwtHelper: JwtHelperService
   ) 
   { 
   }
 
   getAllUsers(page: number, size: number, sortingColumn? : string, sortType? : string) {
-    // this.spinner.show();
+    this.spinner.show();
     let params = new HttpParams();
 
     if(sortingColumn) params = params.append('SortingColumn', String(sortingColumn));
@@ -79,7 +83,6 @@ export class UserServiceService {
     })
   };
 
-
   deleteUser(id:number) {
     this.spinner.show();
     this.http.delete<ServiceResult>(environment.apiUrl + 'api/Users/' + id).subscribe((result) => {
@@ -95,4 +98,28 @@ export class UserServiceService {
       this.toastr.error('Something went wrong.');
     })
   }
+
+  public getCurrentUser(){
+    const tokenString = localStorage.getItem('token') || 'invalid token';
+    let token:UserInfo = jwt_decode(tokenString);
+    return token
+  }
+
+
+  // updateUser(user: User) {
+  //   this.spinner.show();
+  //   this.http.put<ServiceResult>(environment.apiUrl + 'api/users/edit', user ).subscribe((result) => {
+  //     if (result.isSucceed == true) {
+  //       this.toastr.success('Save Info Successfuly');
+  //       this.stations = this.stations.filter(s => s.stationId != station.stationId);
+  //       this.refresh.next(new Date().getTime());
+  //     } else {
+  //       this.toastr.error('Could not update the item');
+  //     }
+  //      this.spinner.hide();
+  //   }, err => {
+  //      this.spinner.hide();
+  //     this.toastr.error('Something went wrong, Please login again.');
+  //   })
+  // }  
 }

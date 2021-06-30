@@ -17,3 +17,11 @@ export class User {
     password: string | undefined
 }
 
+export class UserInfo {
+    Email : string | undefined ;
+    FirstName : string | undefined;
+    LastName : string | undefined;  
+    PhoneNumber : string | undefined;
+    DateOfBirth : Date | undefined; 
+}
+

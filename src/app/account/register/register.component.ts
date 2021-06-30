@@ -42,7 +42,6 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     if (this.registerForm.valid){
-      console.log('h5h');
       this.authService.Register(this.registerForm.value)
     }
     else{
@@ -50,7 +49,6 @@ export class RegisterComponent implements OnInit {
     }
     const formValue = this.registerForm.value;
     console.log(formValue)
-    //console.log(this.registerForm.controls)
   }
 
   validateAllFormFields(formGroup: FormGroup) {   

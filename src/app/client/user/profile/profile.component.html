@@ -1,0 +1,92 @@
+<div class="edit-user">
+    <div class="info-container">
+        <h2 style="color: rgb(78, 78, 78); font-family: 'Roboto Condensed', sans-serif; "> <strong>Information</strong> </h2>
+        <form [formGroup]="editUserForm">
+            <mat-form-field class="email first-name" align="center">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="FirstName" placeholder="Ex. John Doe">
+                <mat-error *ngIf="editUserForm.controls.FirstName.hasError('required')">
+                    First Name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="email last-name" align="center">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="LastName" [value]="user.LastName" placeholder="Ex. John Doe">
+                <mat-error *ngIf="editUserForm.controls.LastName.hasError('required')">
+                    Last Name is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="email" align="center">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="Email" placeholder="Ex. pat@example.com">
+                <mat-error *ngIf="editUserForm.controls.Email.hasError('email') && !editUserForm.controls.Email.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="editUserForm.controls.Email.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="email" align="center">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="PhoneNumber" placeholder="Ex. 079000000">
+                <mat-error *ngIf="editUserForm.controls.PhoneNumber.hasError('required')">
+                    Phone Number is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="email" align="center">
+                <mat-label>Date Of Birth</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="DateOfBirth">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="editUserForm.controls.DateOfBirth.hasError('required')">
+                    Date of Birth is required</mat-error>
+            </mat-form-field>
+            <div class="col d-flex justify-content-end">
+                <button mat-raised-button color="primary" type="submit" align="center">
+                    Save Changes </button>
+            </div>
+        </form>
+    </div>
+    <div class="password-container">
+        <h2 style="color: rgb(78, 78, 78); font-family: 'Roboto Condensed', sans-serif;"> <strong>Change Password</strong> </h2>
+        <form [formGroup]="passwordForm">
+            <mat-form-field class="password" align="center">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="oldPassword" type="password">
+                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('minlength') && !passwordForm.controls.password.hasError('required')">
+                                            Please enter a password that is at least 8 cahracters long
+                                        </mat-error> -->
+                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('required')">
+                                            Password is <strong>required</strong>
+                                        </mat-error> -->
+            </mat-form-field>
+            <mat-form-field class="password" align="center">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="newPassword" type="password">
+                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('minlength') && !passwordForm.controls.password.hasError('required')">
+                                            Please enter a password that is at least 8 cahracters long
+                                        </mat-error> -->
+                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('required')">
+                                            Password is <strong>required</strong>
+                                        </mat-error> -->
+            </mat-form-field>
+            <mat-form-field class="password confirm-password" align="center">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="passwordConfirm" type="password">
+            </mat-form-field>
+            <div style="margin-bottom: 10px;;" align="center" *ngIf="passwordForm.errors?.passwordMatch" class="cross-validation-error-message alert alert-danger">
+                <mat-error>
+                    Password and Password confirm do not macth
+                </mat-error>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button mat-raised-button color="primary" type="submit" align="center">
+                    Save Changes </button>
+            </div>
+        </form>
+    </div>
+</div>

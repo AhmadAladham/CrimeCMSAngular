@@ -1,0 +1,31 @@
+.mat-form-field {
+    width: 100%;
+}
+
+.edit-user {
+    display: grid;
+    grid-template-areas: "a a b";
+    padding: 10px;
+}
+
+.info-container {
+    background-color: rgba(240, 240, 240, 0.507);
+    grid-area: a;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+}
+
+.password-container {
+    background-color: rgba(240, 240, 240, 0.507);
+    grid-area: b;
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+}
