@@ -1,11 +1,20 @@
-<mat-tab-group animationDuration="0ms">
-    <mat-tab label="First">
-        <app-list-complaints></app-list-complaints>
-    </mat-tab>
-    <mat-tab label="Second">
-        <app-list-complaints></app-list-complaints>
-    </mat-tab>
-    <mat-tab label="Third">
-        <app-list-complaints></app-list-complaints>
-    </mat-tab>
+<div class="controls">
+    <button mat-raised-button color="primary" (click)="openDialog()">Add Complaint</button>
+    <div style="float: right;">
+        <span>Solved: </span><span class="dot dot-green"></span> &nbsp; &nbsp;
+        <span>Pending: </span><span class="dot dot-yellow"></span>
+    </div>
+</div>
+
+<mat-tab-group animationDuration="300ms">
+        <mat-tab label="All Complaints">
+            <app-list-complaints [complaints]="allComplaints"></app-list-complaints>
+        </mat-tab> 
+        <mat-tab label="Pending Complaints">
+            <app-list-complaints [complaints]="pendingComplaints"></app-list-complaints>
+        </mat-tab>
+        <mat-tab label="Solved Complaints">
+            <app-list-complaints [complaints]="solvedComplaints"></app-list-complaints>
+        </mat-tab>
+        
 </mat-tab-group>

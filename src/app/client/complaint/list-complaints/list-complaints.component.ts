@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,76 +15,25 @@ import { CrimeCategoryService } from 'src/app/services/crime-category.service';
   templateUrl: './list-complaints.component.html',
   styleUrls: ['./list-complaints.component.css']
 })
-export class ListComplaintsComponent implements OnInit, AfterViewInit {
+export class ListComplaintsComponent implements OnInit {
+  @Input() complaints:Complaint[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
-  complaints: MatTableDataSource<Complaint> = new MatTableDataSource<Complaint>();
-  //'complaintStatus',
-  displayedColumns: string[] = ['complaintTitle', 'expectedCrimeDate', 'complaintDate', 'complaintDescription', 'crimeLocation', 'actions'];
+  complaintsTable: MatTableDataSource<Complaint> = new MatTableDataSource<Complaint>();
+  
+  displayedColumns: string[] = ['complaintTitle', 'expectedCrimeDate', 'complaintDate', 'complaintDescription', 'crimeLocation','complaintStatus', 'actions'];
   constructor(
-    public complaintService: ComplaintService,
-    private toastr:ToastrService,
-    public stationService : StationService, 
-    public crimeCategoryService : CrimeCategoryService,
-    public dialog: MatDialog 
+    private complaintService:ComplaintService,
+    private toastr:ToastrService
   ) { }
-  ngAfterViewInit(): void {
-    this.getComplaintsByUserId();
-    this.complaintService.refresh.subscribe(() => {
-    
-      switch(status) {
-        case '0' :{
-          this.complaintService.complaints = this.complaintService.complaints.filter(c => {
-            return c.complaintStatus = 0;
-          });
-          break; 
-        }
-             
-        case '1' :
-          this.complaintService.complaints = this.complaintService.complaints.filter(c => {
-            return c.complaintStatus = 1;
-          });
-        break;  
-        case '2' :
-          this.complaintService.complaints = this.complaintService.complaints.filter(c => {
-            return c.complaintStatus = 2;
-          });
-          break;      
-      }
-      this.complaints = new MatTableDataSource<Complaint>(this.complaintService.complaints);
-      this.complaints.sort = this.sort;
-      this.complaints.paginator = this.paginator;
-    });
+  ngOnInit(): void {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-   this.getAllStations()
-   this.getAllCrimeCategories()
+    console.log(this.complaints)
   }
-
-  ngOnInit(
-  ): void {
-    
-    
-  }
-  getAllStations(){
-    this.stationService.getAllStations().subscribe(
-      (results : any)=>{
-        this.stationService.stations = results.data;
-    }, err=>{
-      console.log(err);
-    });
-  }
-
-  getAllCrimeCategories() {
-    this.crimeCategoryService.getAllCategories().subscribe(
-      (results : any)=>{
-        this.crimeCategoryService.crimeCategories = results.data;
-    }, err=>{
-      console.log(err);
-    });
-  }
-
-  getComplaintsByUserId() {
-    this.complaintService.getComplaintsByUserId();
+  ngOnChanges(changes: SimpleChanges): void {
+    this.complaintsTable = new MatTableDataSource<Complaint>(this.complaints);
+    this.complaintsTable.sort = this.sort;
+    this.complaintsTable.paginator = this.paginator;
   }
 
   deleteComplaint(id:number) {
@@ -93,18 +42,5 @@ export class ListComplaintsComponent implements OnInit, AfterViewInit {
     } else {
       this.toastr.warning('This item cannot be deleted');
     }
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(CreateComplaintComponent,
-      {
-        height: '80vh',
-        width: '80vw',
-      });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.complaintService.createComplaint(result);
-      }
-    });
   }
 }

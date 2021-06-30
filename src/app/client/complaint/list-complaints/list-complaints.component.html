@@ -1,5 +1,5 @@
 <div class="example-table-container mat-elevation-z8">
-    <table mat-table [dataSource]="this.complaints" matSort>
+    <table mat-table [dataSource]="this.complaintsTable" matSort>
 
         <ng-container matColumnDef="complaintTitle">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
@@ -27,16 +27,21 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-            <mat-header-cell *matHeaderCellDef>
-                <button mat-icon-button color="primary" (click)="openDialog()">
-                  <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
-                </button>
-            </mat-header-cell>
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let complaint">
-                <button mat-mini-fab color="warn" aria-label="list complaints">
-                    <mat-icon (click) = "deleteComplaint(complaint.complaintId)">delete</mat-icon>
-                </button>
+            <td mat-cell *matCellDef="let complaint" >
+                    <button *ngIf="complaint.complaintStatus == 0" mat-mini-fab color="warn" aria-label="list complaints">
+                        <mat-icon (click) = "deleteComplaint(complaint.complaintId)">delete</mat-icon>
+                    </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="complaintStatus">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell  *matCellDef="let complaint"> 
+                <span class="dot" [ngClass]="{
+                    'dot-yellow' : complaint.complaintStatus == 0,
+                    'dot-green' : complaint.complaintStatus == 1}">
+                </span>
             </td>
         </ng-container>
 
@@ -44,7 +49,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="3">You have no Complaints</td>
+            <td class="mat-cell" colspan="4">You have no Complaints</td>
         </tr>
     </table>
 </div>

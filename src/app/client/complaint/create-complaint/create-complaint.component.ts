@@ -14,7 +14,6 @@ import { StationService } from 'src/app/services/station.service';
 export class CreateComplaintComponent implements OnInit {
   formGroup = new FormGroup({
     complaintTitle: new FormControl('', [Validators.required]),
-    complaintDate: new FormControl('', [Validators.required]),
     expectedCrimeDate: new FormControl('',),
     complaintStatus: new FormControl(0, [Validators.required]),
     criminalDescription: new FormControl('', []),

@@ -12,8 +12,8 @@ import { ServiceResult } from '../models/ServiceResult';
   providedIn: 'root'
 })
 export class ComplaintService {
-  complaints: Complaint[] = []
-  refresh = new BehaviorSubject(0)
+  complaints: Complaint[] = [];
+  refresh = new BehaviorSubject(0);
 
   constructor(
     private http: HttpClient,
@@ -32,7 +32,6 @@ export class ComplaintService {
     this.http.get<ServiceResult>(environment.apiUrl + 'api/Complaints/User').subscribe((result) => {
       if (result.isSucceed == true) {
         this.complaints = result.data;
-        console.log(this.complaints)
         this.refresh.next(new Date().getTime());
       } else {
         this.toastr.error('Could not delete the item');
@@ -49,6 +48,7 @@ export class ComplaintService {
       if(result.isSucceed == true) {
         this.toastr.success('Complaint Deleted Successfuly!!');
         this.complaints = this.complaints.filter(complaint => complaint.complaintId != id);
+        this.refresh.next(new Date().getTime());
       } else {
         this.toastr.error('Could Not Delete The Item');
       }
@@ -58,12 +58,11 @@ export class ComplaintService {
   }
 
   createComplaint(complaint: Complaint) {
-    console.log(complaint)
     this.spinner.show();
     this.http.post<ServiceResult>(environment.apiUrl + 'api/Complaints', complaint).subscribe((result) => {
       if (result.data == 1) {
         this.toastr.success('Complaint Created Successfuly');
-        this.refresh.next(new Date().getTime());
+        this.getComplaintsByUserId();
         } else {
         this.toastr.error('Could not create the item');
       }
