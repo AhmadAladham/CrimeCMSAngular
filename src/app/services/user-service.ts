@@ -19,7 +19,7 @@ import jwt_decode from "jwt-decode";
   providedIn: 'root'
 })
 
-export class UserServiceService {
+export class UserService {
   userData:UserData = new UserData();
   refresh = new BehaviorSubject(0);
   dataSource:MatTableDataSource<User> = new MatTableDataSource<User>();
@@ -132,8 +132,11 @@ export class UserServiceService {
     this.http.post<ServiceResult>(environment.apiUrl + 'api/Users/ChangePassword' ,userPassowrd).subscribe((result) => {
       if (result.isSucceed == true) {
         this.toastr.success('Password Changed Successfuly!!');
+        this.route.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+        this.route.navigate(['client/profile']));
       } else {
-        this.toastr.error('Error');
+       
+        this.toastr.error('Password Entered Does not Match Old Password');
       }
       this.spinner.hide();
     }, err => {

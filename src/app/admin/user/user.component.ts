@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserSearch } from 'src/app/models/SearchParams';
 import { User } from 'src/app/models/user';
 import { UserRoleService } from 'src/app/services/user-role.service';
-import { UserServiceService } from 'src/app/services/user-service.service';
+import { UserService } from 'src/app/services/user-service';
 
 @Component({
   selector: 'app-user',
@@ -32,7 +32,7 @@ export class UserComponent implements AfterViewInit {
   
   constructor
   (
-    public userService:UserServiceService,
+    public userService:UserService,
     public userRoleService:UserRoleService,
     private toastr: ToastrService,
   )

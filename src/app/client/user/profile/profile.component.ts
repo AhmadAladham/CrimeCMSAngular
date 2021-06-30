@@ -4,7 +4,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User, UserInfo } from 'src/app/models/user';
-import { UserServiceService } from 'src/app/services/user-service.service';
+import { UserService } from 'src/app/services/user-service';
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('newPassword')!.value;
@@ -30,12 +30,12 @@ export class ProfileComponent implements OnInit {
     passwordForm: FormGroup = new FormGroup({
       oldPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
       newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      confirmPassword: new FormControl('', [Validators.required])});
+      confirmPassword: new FormControl('', [Validators.required])}, { validators: passwordMatchValidator });
     isPasswordConfirmMatch: boolean = false;
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
-    private userService: UserServiceService,
+    private userService: UserService,
     private datePipe: DatePipe
     
   ) { 
@@ -58,7 +58,6 @@ export class ProfileComponent implements OnInit {
 
  changePassword() {
   const userPassowrd = this.passwordForm.value
-  console.log(userPassowrd);
   this.userService.changePassword(userPassowrd);
  }
 }

@@ -84,7 +84,7 @@
                 </mat-error>
             </div>
             <div class="col d-flex justify-content-end">
-                <button mat-raised-button color="primary" type="submit" (click)="changePassword()" align="center">
+                <button mat-raised-button color="primary" type="submit" (click)="changePassword()" align="center" cdkFocusInitial [disabled]="passwordForm.invalid">
                     Save Changes </button>
             </div>
         </form>
