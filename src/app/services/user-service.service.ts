@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ServiceResult } from '../models/ServiceResult';
-import { User, UserInfo } from '../models/user';
+import { User, UserInfo, UserPassowrd } from '../models/user';
 import { UserData } from '../models/PaginationData';
 import { UserSearch } from '../models/SearchParams';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -55,10 +55,13 @@ export class UserServiceService {
         this.userData.meta.totalPages = meta.TotalPages;
         this.userData.items = result.body.data;
         //this.refresh.next(new Date().getTime());
+        
       } else {
         this.toastr.error('Could not pull');
       }
+      this.spinner.hide();
     }, err => {
+      this.spinner.hide();
       this.toastr.error('Something went wrong.');
     })
   }
@@ -106,20 +109,36 @@ export class UserServiceService {
   }
 
 
-  // updateUser(user: User) {
-  //   this.spinner.show();
-  //   this.http.put<ServiceResult>(environment.apiUrl + 'api/users/edit', user ).subscribe((result) => {
-  //     if (result.isSucceed == true) {
-  //       this.toastr.success('Save Info Successfuly');
-  //       this.stations = this.stations.filter(s => s.stationId != station.stationId);
-  //       this.refresh.next(new Date().getTime());
-  //     } else {
-  //       this.toastr.error('Could not update the item');
-  //     }
-  //      this.spinner.hide();
-  //   }, err => {
-  //      this.spinner.hide();
-  //     this.toastr.error('Something went wrong, Please login again.');
-  //   })
-  // }  
+  updateUser(user: User) {
+    this.spinner.show();
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/users/edit', user ).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.toastr.success('Save Info Successfuly');
+        this.userData.items = this.userData.items?.filter(u => u.UserId != user.UserId);
+        this.refresh.next(new Date().getTime());
+      } else {
+        this.toastr.error('Could not update the item');
+      }
+       this.spinner.hide();
+    }, err => {
+       this.spinner.hide();
+      this.toastr.error('Something went wrong, Please login again.');
+    })
+  }
+
+  changePassword(userPassowrd : UserPassowrd) {
+    this.spinner.show();
+    console.log(userPassowrd)
+    this.http.post<ServiceResult>(environment.apiUrl + 'api/Users/ChangePassword' ,userPassowrd).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.toastr.success('Password Changed Successfuly!!');
+      } else {
+        this.toastr.error('Error');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      this.toastr.error('Something went wrong.');
+    })
+  }
 }

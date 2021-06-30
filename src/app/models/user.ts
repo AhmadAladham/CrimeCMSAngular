@@ -25,3 +25,9 @@ export class UserInfo {
     DateOfBirth : Date | undefined; 
 }
 
+export class UserPassowrd {
+    OldPassword : string | undefined;
+    ConfirmPassowrd : string | undefined;
+    NewPassword : string | undefined;
+}
+

@@ -7,8 +7,8 @@ import { User, UserInfo } from 'src/app/models/user';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const password = control.get('password')!.value;
-  const passwordConfirm = control.get('passwordConfirm')!.value;
+  const password = control.get('newPassword')!.value;
+  const passwordConfirm = control.get('confirmPassword')!.value;
   return password != passwordConfirm ? { passwordMatch: true } : null;
 };
 
@@ -19,6 +19,7 @@ const passwordMatchValidator: ValidatorFn = (control: AbstractControl): Validati
 })
 export class ProfileComponent implements OnInit {
   user : UserInfo
+ 
   editUserForm: FormGroup = new FormGroup({
     FirstName: new FormControl('', [Validators.required]),
     LastName: new FormControl('', [Validators.required]),
@@ -27,9 +28,9 @@ export class ProfileComponent implements OnInit {
     DateOfBirth: new FormControl('', [Validators.required])});
 
     passwordForm: FormGroup = new FormGroup({
-      oldPassword: new FormControl('123456789', [Validators.required, Validators.minLength(8)]),
-      newPassword: new FormControl('123456789', [Validators.required, Validators.minLength(8)]),
-      passwordConfirm: new FormControl('1234567895', [Validators.required])});
+      oldPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required])});
     isPasswordConfirmMatch: boolean = false;
   constructor(
     private router: Router,
@@ -50,16 +51,14 @@ export class ProfileComponent implements OnInit {
   }
 
   
-  // registerUser() {
-  //   if (this.editUserForm.valid){
-  //     this.userService.UpdateUser(this.editUserForm.value)
-  //   }
-  //   else{
-  //     this.validateAllFormFields(this.editUserForm);
-  //   }
-  //   const formValue = this.editUserForm.value;
-  //   console.log(formValue)
-  // }
+ updateUser() {
+  const user = this.editUserForm.value
+  this.userService.updateUser(user);
+ }
 
-
+ changePassword() {
+  const userPassowrd = this.passwordForm.value
+  console.log(userPassowrd);
+  this.userService.changePassword(userPassowrd);
+ }
 }

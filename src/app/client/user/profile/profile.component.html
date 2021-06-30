@@ -46,7 +46,7 @@
                     Date of Birth is required</mat-error>
             </mat-form-field>
             <div class="col d-flex justify-content-end">
-                <button mat-raised-button color="primary" type="submit" align="center">
+                <button mat-raised-button color="primary" type="submit" (click)="updateUser()" align="center">
                     Save Changes </button>
             </div>
         </form>
@@ -55,36 +55,36 @@
         <h2 style="color: rgb(78, 78, 78); font-family: 'Roboto Condensed', sans-serif;"> <strong>Change Password</strong> </h2>
         <form [formGroup]="passwordForm">
             <mat-form-field class="password" align="center">
-                <mat-label>Password</mat-label>
+                <mat-label>Old Password</mat-label>
                 <input matInput formControlName="oldPassword" type="password">
-                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('minlength') && !passwordForm.controls.password.hasError('required')">
-                                            Please enter a password that is at least 8 cahracters long
-                                        </mat-error> -->
-                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('required')">
-                                            Password is <strong>required</strong>
-                                        </mat-error> -->
+                <mat-error *ngIf="passwordForm.controls.oldPassword.hasError('minlength') && !passwordForm.controls.oldPassword.hasError('required')">
+                    Please enter a password that is at least 8 cahracters long
+                </mat-error>
+                <mat-error *ngIf="passwordForm.controls.oldPassword.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="password" align="center">
-                <mat-label>Password</mat-label>
+                <mat-label>New Password</mat-label>
                 <input matInput formControlName="newPassword" type="password">
-                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('minlength') && !passwordForm.controls.password.hasError('required')">
-                                            Please enter a password that is at least 8 cahracters long
-                                        </mat-error> -->
-                <!-- <mat-error *ngIf="passwordForm.controls.password.hasError('required')">
-                                            Password is <strong>required</strong>
-                                        </mat-error> -->
+                <mat-error *ngIf="passwordForm.controls.newPassword.hasError('minlength') && !passwordForm.controls.newPassword.hasError('required')">
+                    Please enter a password that is at least 8 cahracters long
+                </mat-error>
+                <mat-error *ngIf="passwordForm.controls.newPassword.hasError('required')">
+                    Password is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="password confirm-password" align="center">
                 <mat-label>Confirm Password</mat-label>
-                <input matInput formControlName="passwordConfirm" type="password">
+                <input matInput formControlName="confirmPassword" type="password">
             </mat-form-field>
             <div style="margin-bottom: 10px;;" align="center" *ngIf="passwordForm.errors?.passwordMatch" class="cross-validation-error-message alert alert-danger">
                 <mat-error>
-                    Password and Password confirm do not macth
+                    New Password and Password confirm do not macth
                 </mat-error>
             </div>
             <div class="col d-flex justify-content-end">
-                <button mat-raised-button color="primary" type="submit" align="center">
+                <button mat-raised-button color="primary" type="submit" (click)="changePassword()" align="center">
                     Save Changes </button>
             </div>
         </form>
