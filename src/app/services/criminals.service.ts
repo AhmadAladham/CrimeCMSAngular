@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Crime } from '../models/Crimes';
 import { Criminal } from '../models/Criminal';
-import { CriminalsData } from '../models/PaginationData';
+import { PaginatedData } from '../models/PaginationData';
 import { CriminalSearch } from '../models/SearchParams';
 import { ServiceResult } from '../models/ServiceResult';
 
@@ -18,7 +18,7 @@ import { ServiceResult } from '../models/ServiceResult';
   providedIn: 'root'
 })
 export class CriminalsService {
-  criminalsData: CriminalsData = new CriminalsData();
+  criminalsData: PaginatedData<Criminal> = new PaginatedData<Criminal>();
   refresh = new BehaviorSubject(0);
   crimesRefresh = new BehaviorSubject(0);
   criminal: Criminal = new Criminal();

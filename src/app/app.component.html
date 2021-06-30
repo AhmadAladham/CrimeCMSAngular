@@ -13,6 +13,7 @@
            <a *ngFor = "let route of routeLinks" mat-button [routerLink]="route[0]">{{route[1]}}</a>
         </div>
         <div *ngIf="isAuthenticated" fxFlex fxLayoutAlign="flex-end center">
+          <a  mat-button mat-button routerLink="client/profile">Profile</a>
           <a  mat-button mat-button (click) = "Logout()">Logout</a>
         </div>
       </div>

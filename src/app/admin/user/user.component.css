@@ -12,12 +12,12 @@ th {
     width: 25%;
 }
 
-.form-container {
+/* .form-container {
     border-radius: 1%;
     border-width: 1px;
     border-color: cornflowerblue;
     border-style: ridge;
-}
+} */
 
 .date-block {
     border-radius: 2px;
@@ -58,7 +58,7 @@ th {
     padding-top: 28px;
 }
 
-.mat-mini-fab {
+/* .mat-mini-fab {
     margin-left: 10px;
 }
 
@@ -107,4 +107,4 @@ mat-form-field {
 
 .left {
     grid-area: a;
-}
+} */

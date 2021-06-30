@@ -37,8 +37,8 @@ export class CriminalCardComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewCriminalComponent,
       {
         data: criminalId,
-        height: '700px',
-        width: '1000px'
+        height: '80vh',
+        width: '80vw'
       });
   }
 

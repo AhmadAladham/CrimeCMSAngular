@@ -16,7 +16,6 @@ import { UserService } from 'src/app/services/user-service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements AfterViewInit {
-  
   pageEvent!: PageEvent;
   displayedColumns: string[] = ['email', 'firstName', 'roleName', 'phoneNumber', 'dateOfBirth', 'gender', 'emailIsConfirmed','actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;

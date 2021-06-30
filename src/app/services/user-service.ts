@@ -8,11 +8,11 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ServiceResult } from '../models/ServiceResult';
 import { User, UserInfo, UserPassowrd } from '../models/user';
-import { UserData } from '../models/PaginationData';
 import { UserSearch } from '../models/SearchParams';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import jwt_decode from "jwt-decode";
+import { PaginatedData } from '../models/PaginationData';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ import jwt_decode from "jwt-decode";
 })
 
 export class UserService {
-  userData:UserData = new UserData();
+  userData:PaginatedData<User> = new PaginatedData<User>();
   refresh = new BehaviorSubject(0);
   dataSource:MatTableDataSource<User> = new MatTableDataSource<User>();
   
@@ -54,8 +54,6 @@ export class UserService {
         this.userData.meta.totalItems = meta.TotalCount;
         this.userData.meta.totalPages = meta.TotalPages;
         this.userData.items = result.body.data;
-        //this.refresh.next(new Date().getTime());
-        
       } else {
         this.toastr.error('Could not pull');
       }

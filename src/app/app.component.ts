@@ -14,30 +14,30 @@ export class AppComponent {
   /**
    *
    */
+  private readonly adminRoutes:Array<[string,string]> = [
+                                          ['admin/stations', 'Stations'],
+                                          ['admin/complaints', 'Complaints'],
+                                          ['admin/users', 'Website Users'],
+                                          ['admin/crimes', 'Crimes'],
+                                          ['admin/criminals', 'Criminals'],
+                                          ['admin/crimecategories', 'Crime Categories']];
+  private readonly userRoutes:Array<[string,string]> = [
+                                        ['client/complaints', 'Complaints']];
   userRole:string ='';
   title = 'CrimeCMS';
   isAuthenticated:boolean = false;
   routeLinks:Array<[string,string]> = new Array<[string,string]>();
   constructor(public authService:AuthService, private router:Router) {
     this.isAuthenticated = authService.isAuthenticated();
-    
     this.authService.authRefresh.subscribe(()=>{
       this.isAuthenticated = authService.isAuthenticated();
       if(this.isAuthenticated){
         this.userRole = authService.getRole();
         if(this.userRole == Role.Admin){
-          this.routeLinks = [];
-          this.routeLinks.push(['admin/stations', 'Stations'])
-          this.routeLinks.push(['admin/complaints', 'Complaints'])
-          this.routeLinks.push(['admin/users', 'Website Users'])
-          this.routeLinks.push(['admin/crimes', 'Crimes'])
-          this.routeLinks.push(['admin/criminals', 'Criminals'])
-          this.routeLinks.push(['admin/crimecategories', 'Crime Categories'])
+          this.routeLinks = this.adminRoutes;
         }
         if(this.userRole == Role.User){
-          this.routeLinks = [];
-          this.routeLinks.push(['client/complaints', 'Complaints'])
-          this.routeLinks.push(['client/profile', 'Profile'])
+          this.routeLinks = this.userRoutes;
         }
       }  
     });

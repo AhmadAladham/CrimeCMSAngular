@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -21,11 +21,6 @@ export class ComplaintService {
     private route: Router,
     private spinner: NgxSpinnerService
   ) { }
-
-  getAllComplaints() {
-    return this.http.get(environment.apiUrl + 'api/Complaints', {
-    });
-  }
 
   getComplaintsByUserId() {
     this.spinner.show();

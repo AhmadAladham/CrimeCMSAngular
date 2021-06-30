@@ -7,8 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Crime } from '../models/Crimes';
+import { PaginatedData } from '../models/PaginationData';
 import { CrimeSearch } from '../models/SearchParams';
-import { CrimeData } from '../models/PaginationData';
 import { ServiceResult } from '../models/ServiceResult';
 
 @Injectable({
@@ -16,7 +16,7 @@ import { ServiceResult } from '../models/ServiceResult';
 })
 export class CrimeService {
   imageUrl: any
-  crimeData: CrimeData = new CrimeData();
+  crimeData: PaginatedData<Crime> = new PaginatedData<Crime>();
   selectedCrime: Crime = new Crime();
   refresh = new BehaviorSubject(0);
   message: string = 'You are not logged in..';
