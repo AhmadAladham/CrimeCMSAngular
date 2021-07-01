@@ -6,8 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Complaint } from '../models/Complaint';
+import { EditComplaintStatusDTO } from '../models/EditComplaintDTO';
 import { PaginatedData } from '../models/PaginationData';
 import { ComplaintSearch } from '../models/SearchParams';
+import { ServiceResult } from '../models/ServiceResult';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +55,20 @@ export class AdminComplaintsService {
     })
   }
 
+  editComplaintStatus(editComplaintStatusDTO:EditComplaintStatusDTO) {
+    this.spinner.show();
+    this.http.put<ServiceResult>(environment.apiUrl + 'api/Complaints/ComplaintStatus',editComplaintStatusDTO).subscribe((result) => {
+      if (result.isSucceed == true) {
+        this.refresh.next(new Date().getTime());
+      } else {
+        this.toastr.error('Could not pull');
+      }
+      this.spinner.hide();
+    }, err => {
+      this.spinner.hide();
+      this.toastr.error('Something went wrong.');
+    })
+  }
 
   searchComplaints(complaint: ComplaintSearch) {
     this.http.post<any>(environment.apiUrl + 'api/Complaints/ComplaintSearch', complaint, { observe: 'response' }).subscribe((result) => {

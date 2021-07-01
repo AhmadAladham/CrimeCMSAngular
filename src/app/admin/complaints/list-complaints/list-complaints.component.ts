@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
+import { EditComplaintStatusDTO } from 'src/app/models/EditComplaintDTO';
 import { ComplaintSearch } from 'src/app/models/SearchParams';
 import { AdminComplaintsService } from 'src/app/services/admin-complaints.service';
 import { CrimeCategoryService } from 'src/app/services/crime-category.service';
@@ -18,7 +19,7 @@ import { ViewComplaintComponent } from '../view-complaint/view-complaint.compone
 })
 export class ListComplaintsComponent implements OnInit {
   pageEvent!: PageEvent;
-  displayedColumns: string[] = ['complainant', 'complaintTitle','complaintDate', 'crimeCategory', 'crimeLocation', 'expectedCrimeTime', 'stationName', 'actions'];
+  displayedColumns: string[] = ['complainant', 'complaintTitle','complaintDate', 'crimeCategory', 'crimeLocation', 'expectedCrimeTime', 'stationName','complaintStatus', 'actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   sortingColumn:string = 'title';
@@ -128,17 +129,30 @@ export class ListComplaintsComponent implements OnInit {
       }
   }
 
-  openDialog(complainantId:number) {
-    let criminalDescription = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complainantId)?.criminalDescription;
-    let complaintDescription = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complainantId)?.complaintDescription;
-      this.dialog.open(ViewComplaintComponent,
+  openDialog(complaintId:number) {
+    let criminalDescription = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complaintId)?.criminalDescription;
+    let complaintDescription = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complaintId)?.complaintDescription;
+    let complaintStatus = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complaintId)?.complaintStatus;
+     const dialogRef = this.dialog.open(ViewComplaintComponent,
         {
           height: '60vh',
           width: '60vw',
           data:{
              criminalDescription: criminalDescription,
-             complaintDescription: complaintDescription
+             complaintDescription: complaintDescription,
+             complaintStatus: complaintStatus,
+             complaintId:complaintId
             }
-        });    
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            console.log(result)
+            this.editComplaintStatus(result);
+          }
+        });  
+  }
+  editComplaintStatus(newComplaintStatus:EditComplaintStatusDTO){
+    this.complaintsService.editComplaintStatus(newComplaintStatus);
   }
 }

@@ -8,13 +8,13 @@
       </button>
       <h1>{{title}}</h1>
       <div *ngIf="isAuthenticated" fxFlex fxLayout = "row">
-        <div fxFlex fxLayoutAlign="flex-start center">
+        <div fxFlex fxLayoutAlign="flex-start center" >
           <span class="menu-spacer"></span>
-           <a *ngFor = "let route of routeLinks" mat-button [routerLink]="route[0]">{{route[1]}}</a>
+           <a *ngFor = "let route of routeLinks" mat-button class="toolbar-buttons" [routerLink]="route[0]">{{route[1]}}</a>
         </div>
         <div *ngIf="isAuthenticated" fxFlex fxLayoutAlign="flex-end center">
-          <a  mat-button mat-button routerLink="client/profile">Profile</a>
-          <a  mat-button mat-button (click) = "Logout()">Logout</a>
+          <a  mat-button class="toolbar-buttons" routerLink="client/profile">Profile</a>
+          <a  mat-button class="toolbar-buttons" (click) = "Logout()">Logout</a>
         </div>
       </div>
     </mat-toolbar-row>
@@ -25,6 +25,11 @@
       <mat-nav-list *ngIf="isAuthenticated">
       <div *ngFor = "let route of routeLinks">
         <a mat-list-item  [routerLink]="route[0]">{{route[1]}}</a>
+      </div>
+      <hr>
+      <div *ngIf="isAuthenticated">
+        <a  mat-list-item  routerLink="client/profile">Profile</a>
+        <a  mat-list-item style="color:red;" (click) = "Logout()">Logout</a>
       </div>
       </mat-nav-list>
     </mat-sidenav>

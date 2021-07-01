@@ -33,7 +33,7 @@ export class AuthService {
   }
 
 
-  Login(username: string, password: string) {
+  Login(username: string | undefined, password: string | undefined) {
     // api request login
     // show loader
     const loginDTO: LoginDTO = new LoginDTO();
@@ -63,12 +63,12 @@ export class AuthService {
   Register(registerDTO:RegisterDTO) {
     this.spinner.show();
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/register', registerDTO).subscribe((result) => {
-      if(result.status == '201'){
-        localStorage.setItem('token', result.data);
-        this.router.navigate(['account/verifyemail'])
+      if(result.status == '200'){
+        this.Login(registerDTO.email, registerDTO.password);
+        
       }
       else if(result.status == '401'){
-        this.toastr.error('Please try again' ,'Invalid Email or Password');
+        this.toastr.error('Email is already used');
       }
       this.spinner.hide();
     },err=>{

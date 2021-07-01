@@ -10,7 +10,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 7px;
     overflow-y: scroll;
     background: grey;
@@ -30,4 +30,4 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-}
+} */
