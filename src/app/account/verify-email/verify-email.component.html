@@ -1,0 +1,17 @@
+<div class="loginCard">
+    <h2 align="center">Email Verification</h2>
+    <p>We have sent a code to  <strong>{{currentUser.Email}}</strong></p>
+        <form [formGroup]="verifyEmailFrom" (submit)="VerifyEmail()">
+            <mat-form-field  align="center">
+                <mat-label>Code</mat-label>
+                <input matInput formControlName="code" type="number">
+                <mat-error *ngIf="verifyEmailFrom.controls.code.hasError('minlength')">
+                    The code is 6 cahracters long
+                </mat-error>
+                <mat-error *ngIf="verifyEmailFrom.controls.code.hasError('required')">
+                    Code is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button  align="center">Verify</button>
+        </form>
+</div>

@@ -63,7 +63,7 @@
                 <mat-label>Confirm Password</mat-label>
                 <input matInput formControlName="passwordConfirm" type="password">
             </mat-form-field>
-            <div style="margin-bottom: 10px;;" align="center" *ngIf="registerForm.errors?.passwordMatch" class="cross-validation-error-message alert alert-danger">
+            <div style="margin-bottom: 10px;" align="center" *ngIf="registerForm.errors?.passwordMatch" class="cross-validation-error-message alert alert-danger">
                 <mat-error>
                     Password and Password confirm do not macth
                 </mat-error>
@@ -87,7 +87,7 @@
             
             <button mat-raised-button class="submit" type="submit" align="center" >
                     <span style="color: white; cursor: pointer;">Register</span> </button>
-            <p class="register" align="center">
+            <p class="register" align="bottom">
                 <span style="color: #3F51B5
                 ">Already have an account? &nbsp;<strong  
                             (click)="goToLoginPage()" style="cursor: pointer;" >Login here</strong></span></p>

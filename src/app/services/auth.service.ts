@@ -65,6 +65,7 @@ export class AuthService {
     this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/users/register', registerDTO).subscribe((result) => {
       if(result.status == '201'){
         localStorage.setItem('token', result.data);
+        this.router.navigate(['account/verifyemail'])
       }
       else if(result.status == '401'){
         this.toastr.error('Please try again' ,'Invalid Email or Password');
@@ -93,6 +94,40 @@ export class AuthService {
     this.authRefresh.next(new Date().getTime());
     
     this.router.navigate(['/account']);
+  }
+  VerifyEmail(code:number, email:string | undefined){
+    let emailVerification : any ;
+    this.spinner.show();
+    this.httpClient.post<ServiceResult>(environment.apiUrl + 'api/Users/VerifyEmail', {code :code,email :email},).subscribe((result) => {
+      if(result.status == '201'){
+        this.RefreshToken();
+        this.router.navigate(['']);
+        this.toastr.success(result.data);
+      }
+      else if(result.status == '403'){
+        this.toastr.error(result.data);
+      }
+      this.spinner.hide();
+    },err=>{
+      this.toastr.error('Something went wrong');
+      this.spinner.hide();
+    })
+  }
+
+  RefreshToken(){
+    // this.spinner.show();
+    this.httpClient.get<ServiceResult>(environment.apiUrl + 'api/users/RefreshToken').subscribe((result) => {
+      if(result.status == '200'){
+        localStorage.setItem('token', result.data);
+      }
+      else if(result.status == '401'){
+        this.toastr.error('Something Went Wrong');
+      }
+      // this.spinner.hide();
+    },err=>{
+      this.toastr.error('Something went wrong');
+      // this.spinner.hide();
+    })
   }
 }
 

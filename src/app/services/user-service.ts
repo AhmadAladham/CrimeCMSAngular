@@ -102,7 +102,7 @@ export class UserService {
 
   public getCurrentUser(){
     const tokenString = localStorage.getItem('token') || 'invalid token';
-    let token:UserInfo = jwt_decode(tokenString);
+    let token:User = jwt_decode(tokenString);
     return token
   }
 

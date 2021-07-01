@@ -4,11 +4,13 @@ import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SharedModule } from '../shared/shared.module';
 import { RegisterComponent } from './register/register.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    VerifyEmailComponent
   ],
   imports: [
     CommonModule,
