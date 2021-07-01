@@ -1,49 +1,51 @@
 <h1 mat-dialog-title>Criminal Details</h1>
 <hr>
-        <div class="details-container">
-            <div class="criminal-image">
-                <img style="max-width: 225px; max-height: 250;" [src]="this.criminalsService.criminal?.image" >
-            </div>
-            <div class="criminal-info">
-                <p>Name: <b>{{this.criminalsService.criminal?.criminalFirstName}} {{this.criminalsService.criminal?.criminalLastName}}</b></p>
-                <p>National Number: <b>{{this.criminalsService.criminal?.criminalNationalNumber}}</b></p>
-                <p>Height: <b>{{this.criminalsService.criminal?.height}}cm</b></p>
-                <p>Weight: <b>{{this.criminalsService.criminal?.weight}}kg</b></p>
-                <p>Phone Number: <b>{{this.criminalsService.criminal?.phoneNumber}}</b></p>
-                <p>Date Of Birth:<b>{{this.criminalsService.criminal?.dateOfBirth}}</b></p>
-                <p>Address: <b>{{this.criminalsService.criminal?.address}}</b></p>
-            </div>
-        </div>
-        <hr>
-        <h2>Crimes:</h2>
-        <div class="example-table-container mat-elevation-z8">
-            <table mat-table  [dataSource]="this.crimes"  matSort>
-            
-              <ng-container matColumnDef="crimeTtile">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
-                <td mat-cell *matCellDef="let crime">{{crime.crimeTtile}}</td>
-              </ng-container>
-        
-              <ng-container matColumnDef="crimeDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-                <td mat-cell *matCellDef="let crime">{{crime.crimeDate | date}}</td>
-              </ng-container>
-        
-              <ng-container matColumnDef="location">
-                <th mat-header-cell *matHeaderCellDef>Location</th>
-                <td mat-cell *matCellDef="let crime">{{crime.location}}</td>
-              </ng-container>
-        
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<button class="btn btn-primary btn-block" (click)="exportHtmlToPDF()">Download PDF</button>
+<div class="details-container" id="htmltable" #htmltable>
+    <div class="criminal-image">
+        <img style="max-width: 225px; max-height: 250;" [src]="this.criminalsService.criminal?.image">
+    </div>
+    <button class="btn btn-primary btn-block" (click)="exportHtmlToPDF()">Download PDF</button>
+    <div class="criminal-info">
+        <p>Name: <b>{{this.criminalsService.criminal?.criminalFirstName}} {{this.criminalsService.criminal?.criminalLastName}}</b></p>
+        <p>National Number: <b>{{this.criminalsService.criminal?.criminalNationalNumber}}</b></p>
+        <p>Height: <b>{{this.criminalsService.criminal?.height}}cm</b></p>
+        <p>Weight: <b>{{this.criminalsService.criminal?.weight}}kg</b></p>
+        <p>Phone Number: <b>{{this.criminalsService.criminal?.phoneNumber}}</b></p>
+        <p>Date Of Birth:<b>{{this.criminalsService.criminal?.dateOfBirth}}</b></p>
+        <p>Address: <b>{{this.criminalsService.criminal?.address}}</b></p>
+    </div>
+</div>
+<hr>
+<h2>Crimes:</h2>
+<div class="example-table-container mat-elevation-z8">
+    <table mat-table [dataSource]="this.crimes" matSort>
 
-              <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="3">Criminal has no crimes</td>
-              </tr>
-            </table>
-          </div>
-        
-          <mat-paginator pageSize = "5" class="mat-elevation-z8" showFirstLastButtons></mat-paginator>
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close>Close</button>
-    </mat-dialog-actions>
+        <ng-container matColumnDef="crimeTtile">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+            <td mat-cell *matCellDef="let crime">{{crime.crimeTtile}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="crimeDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+            <td mat-cell *matCellDef="let crime">{{crime.crimeDate | date}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef>Location</th>
+            <td mat-cell *matCellDef="let crime">{{crime.location}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="3">Criminal has no crimes</td>
+        </tr>
+    </table>
+</div>
+
+<mat-paginator pageSize="5" class="mat-elevation-z8" showFirstLastButtons></mat-paginator>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

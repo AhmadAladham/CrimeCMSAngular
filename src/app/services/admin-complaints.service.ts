@@ -7,12 +7,14 @@ import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Complaint } from '../models/Complaint';
 import { PaginatedData } from '../models/PaginationData';
+import { ComplaintSearch } from '../models/SearchParams';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminComplaintsService {
-  complaints:PaginatedData<Complaint> = new PaginatedData<Complaint>();
+  
+  complaintsData:PaginatedData<Complaint> = new PaginatedData<Complaint>();
   refresh = new BehaviorSubject(0);
   constructor(
     private http:HttpClient,
@@ -34,13 +36,13 @@ export class AdminComplaintsService {
       if (result.body.isSucceed == true) {
         let xPagination = result.headers.get('x-pagination') || 'a';
         let meta =JSON.parse(xPagination);
-        this.complaints.meta.currentPage = meta.CurrentPage;
-        this.complaints.meta.itemCount = meta.TotalCount;
-        this.complaints.meta.itemsPerPage = meta.PageSize;
-        this.complaints.meta.totalItems = meta.TotalCount;
-        this.complaints.meta.totalPages = meta.TotalPages;
-        this.complaints.items = result.body.data;
-        console.log(this.complaints)
+        this.complaintsData.meta.currentPage = meta.CurrentPage;
+        this.complaintsData.meta.itemCount = meta.TotalCount;
+        this.complaintsData.meta.itemsPerPage = meta.PageSize;
+        this.complaintsData.meta.totalItems = meta.TotalCount;
+        this.complaintsData.meta.totalPages = meta.TotalPages;
+        this.complaintsData.items = result.body.data;
+        console.log(this.complaintsData)
       } else {
         this.toastr.error('Could not pull');
       }
@@ -50,4 +52,24 @@ export class AdminComplaintsService {
       this.toastr.error('Something went wrong.');
     })
   }
+
+
+  searchComplaints(complaint: ComplaintSearch) {
+    this.http.post<any>(environment.apiUrl + 'api/Complaints/ComplaintSearch', complaint, { observe: 'response' }).subscribe((result) => {
+      if (result.body.isSucceed == true) {
+        let xPagination = result.headers.get('x-pagination') || 'a';
+        let meta = JSON.parse(xPagination);
+        this.complaintsData.meta.currentPage = meta.CurrentPage;
+        this.complaintsData.meta.itemCount = meta.TotalCount;
+        this.complaintsData.meta.itemsPerPage = meta.PageSize;
+        this.complaintsData.meta.totalItems = meta.TotalCount;
+        this.complaintsData.meta.totalPages = meta.TotalPages;
+        this.complaintsData.items = result.body.data;
+      } else {
+        this.toastr.error('Could not pull');
+      }
+    }, err => {
+      this.toastr.error('Something went wrong.');
+    })
+  };
 }

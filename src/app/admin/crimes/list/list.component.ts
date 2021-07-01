@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { CrimeService } from 'src/app/services/crime.service';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateComponent } from '../create/create.component';
+import { MatTableExporterDirective } from 'mat-table-exporter';
 
 
 @Component({
@@ -22,10 +23,13 @@ import { CreateComponent } from '../create/create.component';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements AfterViewInit {
+  @Input() hiddenColumns : any[] = [7]
   pageEvent!: PageEvent;
   displayedColumns: string[] = ['crimeTtile', 'crimeDate','isClosed', 'closeDate' ,'location', 'crimeCategoryName', 'stationName','actions'];
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
+  @ViewChild(MatTableExporterDirective) matTableExporter?: MatTableExporterDirective;
   sortingColumn:string = 'title';
   sortType:string = 'asc';
 
@@ -64,6 +68,10 @@ export class ListComponent implements AfterViewInit {
    this.getAllCrimeCategories()
   
   }
+
+  importAsXlsx(){
+    this.matTableExporter?.exportTable('xlsx', {fileName:'crime excel', sheet: 'sheet_name'});
+    }
 
   getAllStations(){
     this.stationService.getAllStations().subscribe(
@@ -133,7 +141,6 @@ export class ListComponent implements AfterViewInit {
     filterValues.pageSize = pageSize;
     if(filterValues.dateFrom) filterValues.dateFrom = new Date(this.datePipe.transform(filterValues.dateFrom, 'yyyy-MM-dd')||'1000-01-01');
     if(filterValues.dateTo)filterValues.dateTo = new Date(this.datePipe.transform(filterValues.dateTo, 'yyyy-MM-dd')||'3100-01-01');
-    console.log(filterValues);
     this.crimeService.searchCrimes(filterValues);
   }
 

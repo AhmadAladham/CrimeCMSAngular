@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -8,13 +8,17 @@ import { Crime } from 'src/app/models/Crimes';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { CriminalsService } from 'src/app/services/criminals.service';
 import { AfterViewInit } from '@angular/core';
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-view-criminal',
   templateUrl: './view-criminal.component.html',
-  styleUrls: ['./view-criminal.component.css']
+  styleUrls: ['./view-criminal.component.css'],
+ 
 })
 export class ViewCriminalComponent implements OnInit {
+ 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   crimes: MatTableDataSource<Crime> = new MatTableDataSource<Crime>();
@@ -36,5 +40,22 @@ export class ViewCriminalComponent implements OnInit {
 
   getCriminal(criminalId: number) {
     this.criminalsService.getCriminal(criminalId);
+  }
+
+  public exportHtmlToPDF(){
+    let data = document.getElementById('htmltable')!;
+      
+      html2canvas(data).then(canvas => {
+          
+          let docWidth = 208;
+          let docHeight = canvas.height * docWidth / canvas.width;
+          
+          const contentDataURL = canvas.toDataURL('image/png')
+          let doc = new jsPDF('p', 'mm', 'a4');
+          let position = 0;
+          doc.addImage(contentDataURL, 'PNG', 0, position, docWidth, docHeight)
+          
+          doc.save('exportedPdf.pdf');
+      });
   }
 }

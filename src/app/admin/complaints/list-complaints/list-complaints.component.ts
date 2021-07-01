@@ -1,10 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { ToastrService } from 'ngx-toastr';
+import { ComplaintSearch } from 'src/app/models/SearchParams';
 import { AdminComplaintsService } from 'src/app/services/admin-complaints.service';
+import { CrimeCategoryService } from 'src/app/services/crime-category.service';
+import { StationService } from 'src/app/services/station.service';
 import { ViewComplaintComponent } from '../view-complaint/view-complaint.component';
 
 @Component({
@@ -14,21 +18,27 @@ import { ViewComplaintComponent } from '../view-complaint/view-complaint.compone
 })
 export class ListComplaintsComponent implements OnInit {
   pageEvent!: PageEvent;
-  displayedColumns: string[] = ['complainant', 'complaintDate', 'crimeCategory', 'crimeLocation', 'expectedCrimeTime', 'stationName', 'actions'];
+  displayedColumns: string[] = ['complainant', 'complaintTitle','complaintDate', 'crimeCategory', 'crimeLocation', 'expectedCrimeTime', 'stationName', 'actions'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort: MatSort = new MatSort();
-  sortingColumn:string = 'Name';
-  sortType:string = 'ASC';
+  sortingColumn:string = 'title';
+  sortType:string = 'asc';
 
   filterForm = new FormGroup({
-    roleId: new FormControl(),
-    phoneNumber: new FormControl(),
-    firstName : new FormControl(),
+    dateFrom: new FormControl(),
+    dateTo: new FormControl(),
+    crimeCategoryId : new FormControl(),
+    stationId : new FormControl(),
+    complaintStatus : new FormControl(),
+    complaintTitle: new FormControl()
   });
   constructor(
     public complaintsService:AdminComplaintsService,
     private toastr: ToastrService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public stationService : StationService, 
+    public crimeCategoryService : CrimeCategoryService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -37,9 +47,31 @@ export class ListComplaintsComponent implements OnInit {
     })
     this.filterForm.valueChanges.subscribe(() => {
       this.paginator.pageIndex = 0;
-      // this.applyFilter();
+      this.applyFilter();
   })
+
+  this.getAllStations()
+  this.getAllCrimeCategories()
   }
+
+  getAllStations(){
+    this.stationService.getAllStations().subscribe(
+      (results : any)=>{
+        this.stationService.stations = results.data;
+    }, err=>{
+      console.log(err);
+    });
+  }
+
+  getAllCrimeCategories() {
+    this.crimeCategoryService.getAllCategories().subscribe(
+      (results : any)=>{
+        this.crimeCategoryService.crimeCategories = results.data;
+    }, err=>{
+      console.log(err);
+    });
+  }
+
   getComplaints(page: number = 1, size: number = 10, sortingColum? : string, sortType? : string){
     this.complaintsService.getAllComplaints(page, size,sortingColum, sortType);
   }
@@ -47,27 +79,66 @@ export class ListComplaintsComponent implements OnInit {
     let page = event.pageIndex;
     let size = event.pageSize;
     page = page +1;
-  //   if(this.filterForm.controls.phoneNumber.value ||
-  //     this.filterForm.controls.firstName.value ||
-  //     this.filterForm.controls.roleId.value){
-  //    this.applyFilter(page, size);
-  //  }
-  //  else{
+    if(this.filterForm.controls.dateFrom.value ||
+      this.filterForm.controls.dateTo.value ||
+      this.filterForm.controls.crimeCategoryId.value||
+      this.filterForm.controls.stationId.value||
+      this.filterForm.controls.complaintTitle.value || 
+      this.filterForm.controls.complaintStatus.value){
+     this.applyFilter(page, size);
+   }
+   else{
      this.getComplaints(page, size, this.sortingColumn, this.sortType);
-    // }
+    }
   }
+
+  applyFilter(pageNumber:number = 1, pageSize:number = 10) {
+    
+    let filterValues:ComplaintSearch = this.filterForm.value;
+    filterValues.sortType = this.sortType;
+    filterValues.sortingColumn = this.sortingColumn ;
+    filterValues.pageNumber = pageNumber;
+    filterValues.pageSize = pageSize;
+    if(filterValues.dateFrom) filterValues.dateFrom = new Date(this.datePipe.transform(filterValues.dateFrom, 'yyyy-MM-dd')||'1000-01-01');
+    if(filterValues.dateTo)filterValues.dateTo = new Date(this.datePipe.transform(filterValues.dateTo, 'yyyy-MM-dd')||'3100-01-01');
+        this.complaintsService.searchComplaints(filterValues);
+  }
+
+  resetFilter() {
+    this.filterForm.reset();
+  }
+
+  sortComplaints(event:Sort){
+    console.log(event)
+    this.paginator.pageIndex = 0;
+    this.sortType = event.direction;
+    this.sortingColumn = event.active;
+    if(this.sortingColumn =='complaintTitle') this.sortingColumn = 'title';
+
+    if(this.filterForm.controls.dateFrom.value ||
+      this.filterForm.controls.dateTo.value ||
+      this.filterForm.controls.crimeCategoryId.value||
+      this.filterForm.controls.stationId.value||
+      this.filterForm.controls.complaintTitle.value || 
+      this.filterForm.controls.complaintStatus.value){
+        this.applyFilter(1, this.complaintsService.complaintsData.meta.itemsPerPage);
+      }
+      else{ 
+        this.getComplaints(1,this.complaintsService.complaintsData.meta.itemsPerPage, this.sortingColumn, this.sortType);
+      }
+  }
+
   openDialog(complainantId:number) {
-    let criminalDescription = this.complaintsService.complaints.items?.find(c=>c.complaintId == complainantId)?.criminalDescription;
-    let complaintDescription = this.complaintsService.complaints.items?.find(c=>c.complaintId == complainantId)?.complaintDescription;
+    let criminalDescription = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complainantId)?.criminalDescription;
+    let complaintDescription = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complainantId)?.complaintDescription;
       this.dialog.open(ViewComplaintComponent,
         {
-          height: '80vh',
-          width: '80vw',
+          height: '60vh',
+          width: '60vw',
           data:{
              criminalDescription: criminalDescription,
              complaintDescription: complaintDescription
             }
-        });
-    
+        });    
   }
 }

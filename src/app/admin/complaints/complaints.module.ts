@@ -7,6 +7,7 @@ import { ListComplaintsComponent } from './list-complaints/list-complaints.compo
 import { ViewComplaintComponent } from './view-complaint/view-complaint.component';
 
 
+
 @NgModule({
   declarations: [
     ListComplaintsComponent,

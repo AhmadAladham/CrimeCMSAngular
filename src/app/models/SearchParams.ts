@@ -25,3 +25,12 @@ export class CriminalSearch extends SearchParams{
     weightFrom?:number;
     weightTo?:number;
 }
+
+export class ComplaintSearch extends SearchParams{
+    ComplaintTitle?:string;
+    dateFrom?:Date;
+    dateTo?:Date;
+    ComplaintStatus?:number;
+    crimeCategoryId?:number;
+    stationId?:number;   
+}

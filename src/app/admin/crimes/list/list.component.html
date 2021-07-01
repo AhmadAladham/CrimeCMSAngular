@@ -1,107 +1,108 @@
-    <div>
-        <form class="date-block mat-elevation-z8" [formGroup]="filterForm">
-            <div class="select">
-                <mat-form-field class="s1" appearance="fill">
-                    <mat-label>Crime Category</mat-label>
-                    <mat-select formControlName="crimeCategoryId" name="category">
-                        <mat-option>None</mat-option>
-                        <mat-option *ngFor="let Category of this.crimeCategoryService.crimeCategories" [value]="Category.crimeCategoryId">
-                            {{Category.crimeCategoryName}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="s1" appearance="fill">
-                    <mat-label>Station</mat-label>
-                    <mat-select formControlName="stationId" name="station">
-                        <mat-option>None</mat-option>
-                        <mat-option *ngFor="let Station of  this.stationService.stations" [value]="Station.stationId">
-                            {{Station.stationName}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="date">
-                <mat-form-field class="d1">
-                    <input readonly matInput type="datetime" date-time [matDatepicker]="dateFrom" placeholder="Date From" formControlName="dateFrom" format="yyyy-MM-dd" view="date" min-view="date" auto-close="true">
-                    <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
-                    <mat-datepicker #dateFrom></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field class="d1">
-                    <input readonly matInput [matDatepicker]="dateTo" placeholder="Date to" formControlName="dateTo">
-                    <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
-                    <mat-datepicker #dateTo></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <mat-form-field class="search">
-                <mat-label>Crime Title</mat-label>
-                <input matInput formControlName="crimeTtile">
+<div>
+    <form class="date-block mat-elevation-z8" [formGroup]="filterForm">
+        <div class="select">
+            <mat-form-field class="s1" appearance="fill">
+                <mat-label>Crime Category</mat-label>
+                <mat-select formControlName="crimeCategoryId" name="category">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let Category of this.crimeCategoryService.crimeCategories" [value]="Category.crimeCategoryId">
+                        {{Category.crimeCategoryName}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
-            <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
-        </form>
-    </div>
-    <div class="example-container mat-elevation-z8">
-        <div *ngIf="this.crimeService.crimeData.items">
-            <mat-table [dataSource]="this.crimeService.crimeData.items" matSort (matSortChange)="sortCrimes($event)" matSortActive="crimeTtile" matSortDisableClear matSortDirection="asc">
-                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <mat-form-field class="s1" appearance="fill">
+                <mat-label>Station</mat-label>
+                <mat-select formControlName="stationId" name="station">
+                    <mat-option>None</mat-option>
+                    <mat-option *ngFor="let Station of  this.stationService.stations" [value]="Station.stationId">
+                        {{Station.stationName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="date">
+            <mat-form-field class="d1">
+                <input readonly matInput type="datetime" date-time [matDatepicker]="dateFrom" placeholder="Date From" formControlName="dateFrom" format="yyyy-MM-dd" view="date" min-view="date" auto-close="true">
+                <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+                <mat-datepicker #dateFrom></mat-datepicker>
+            </mat-form-field>
 
-                <ng-container matColumnDef="crimeTtile">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.crimeTtile}}</mat-cell>
-                </ng-container>
+            <mat-form-field class="d1">
+                <input readonly matInput [matDatepicker]="dateTo" placeholder="Date to" formControlName="dateTo">
+                <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+                <mat-datepicker #dateTo></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <mat-form-field class="search">
+            <mat-label>Crime Title</mat-label>
+            <input matInput formControlName="crimeTtile">
+        </mat-form-field>
+        <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
+    </form>
+</div>
+<div class="example-container mat-elevation-z8">
+    <div *ngIf="this.crimeService.crimeData.items">
+        <mat-table matTableExporter [dataSource]="this.crimeService.crimeData.items" matSort (matSortChange)="sortCrimes($event)" matSortActive="crimeTtile" matSortDisableClear matSortDirection="asc" #exporter="matTableExporter">
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
-                <ng-container matColumnDef="crimeDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Crime Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.crimeDate | date}}</mat-cell>
-                </ng-container>
+            <ng-container matColumnDef="crimeTtile">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.crimeTtile}}</mat-cell>
+            </ng-container>
 
-                <ng-container matColumnDef="isClosed">
-                    <mat-header-cell *matHeaderCellDef>Is Closed</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.isClosed}}</mat-cell>
-                </ng-container>
+            <ng-container matColumnDef="crimeDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Crime Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.crimeDate | date}}</mat-cell>
+            </ng-container>
 
-                <ng-container matColumnDef="closeDate">
-                    <mat-header-cell *matHeaderCellDef>Close Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.closeDate | date}}</mat-cell>
-                </ng-container>
+            <ng-container matColumnDef="isClosed">
+                <mat-header-cell *matHeaderCellDef>Is Closed</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.isClosed}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="closeDate">
+                <mat-header-cell *matHeaderCellDef>Close Date</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.closeDate | date}}</mat-cell>
+            </ng-container>
 
 
-                <ng-container matColumnDef="location">
-                    <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.location}}</mat-cell>
-                </ng-container>
+            <ng-container matColumnDef="location">
+                <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.location}}</mat-cell>
+            </ng-container>
 
-                <ng-container matColumnDef="crimeCategoryName">
-                    <mat-header-cell *matHeaderCellDef>Categoty</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.crimeCategoryName}}</mat-cell>
-                </ng-container>
+            <ng-container matColumnDef="crimeCategoryName">
+                <mat-header-cell *matHeaderCellDef>Categoty</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.crimeCategoryName}}</mat-cell>
+            </ng-container>
 
-                <ng-container matColumnDef="stationName">
-                    <mat-header-cell *matHeaderCellDef>Station</mat-header-cell>
-                    <mat-cell *matCellDef="let row">{{row.stationName}}</mat-cell>
-                </ng-container>
+            <ng-container matColumnDef="stationName">
+                <mat-header-cell *matHeaderCellDef>Station</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.stationName}}</mat-cell>
+            </ng-container>
 
-                <ng-container matColumnDef="actions">
-                    <mat-header-cell *matHeaderCellDef>
-                        <button mat-icon-button color="primary" (click)="openDialog()">
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>
+                    <button mat-icon-button color="primary" (click)="openDialog()">
                           <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
                         </button>
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                        <button mat-mini-fab color="warn" aria-label="list crimes">
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <button mat-mini-fab color="warn" aria-label="list crimes">
                             <mat-icon (click)="deleteCrime(row.crimeId)">delete</mat-icon>
                         </button>
-                        <button mat-mini-fab color="primary" aria-label="list crimes">
+                    <button mat-mini-fab color="primary" aria-label="list crimes">
                         <mat-icon (click)="updateCrime(row.crimeId)">edit</mat-icon>
                         </button>
-                        <button mat-mini-fab color="primary" aria-label="list crimes">
+                    <button mat-mini-fab color="primary" aria-label="list crimes">
                             <mat-icon (click)="viewCrime(row.crimeId)">edit</mat-icon>
                         </button>
-                    </mat-cell>
-                </ng-container>
-            </mat-table>
-            <mat-paginator [length]="this.crimeService.crimeData.meta.totalItems" [pageSize]="this.crimeService.crimeData.meta.itemsPerPage" [pageSizeOptions]="[2,4,8,10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
-            </mat-paginator>
-        </div>
+                </mat-cell>
+            </ng-container>
+        </mat-table>
+        <mat-paginator [length]="this.crimeService.crimeData.meta.totalItems" [pageSize]="this.crimeService.crimeData.meta.itemsPerPage" [pageSizeOptions]="[2,4,8,10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
+        </mat-paginator>
     </div>
+    <button mat-button (click)="importAsXlsx()">Excel</button>
+</div>

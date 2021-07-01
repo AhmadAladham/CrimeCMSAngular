@@ -26,6 +26,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatTableExporterModule } from 'mat-table-exporter';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -58,7 +60,9 @@ import {MatTabsModule} from '@angular/material/tabs';
      MatSidenavModule,
      MatToolbarModule,
      MatListModule,
-     MatTabsModule
+     MatTabsModule,
+     MatTableExporterModule,
+     MatBadgeModule
   ],
   exports:[
     CommonModule,
@@ -89,7 +93,9 @@ import {MatTabsModule} from '@angular/material/tabs';
      MatSidenavModule,
      MatToolbarModule,
      MatListModule,
-     MatTabsModule
+     MatTabsModule,
+     MatTableExporterModule,
+     MatBadgeModule
   ]
 })
 export class SharedModule { 

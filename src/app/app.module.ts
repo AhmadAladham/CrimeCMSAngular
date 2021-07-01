@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -15,6 +14,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 import { JwtModule, JwtModuleOptions } from "@auth0/angular-jwt";
+import { MatTableExporterModule } from 'mat-table-exporter';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 const JWT_Module_Options: JwtModuleOptions = {
   config: {
   }
@@ -37,7 +38,9 @@ const JWT_Module_Options: JwtModuleOptions = {
     NgbModule,
     NgxMatFileInputModule,
     ComponentsModule,
-    JwtModule.forRoot(JWT_Module_Options)
+    JwtModule.forRoot(JWT_Module_Options),
+    MatTableExporterModule,
+    PdfViewerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
