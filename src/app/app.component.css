@@ -23,7 +23,7 @@ mat-sidenav {
     margin-right: 5vw;
     margin-left: 5vw;
     padding: 10px;
-    height: auto;
+    height: 80vh;
     border-radius: 5px;
     align-content: center;
 }
