@@ -2,13 +2,11 @@
 
 <mat-toolbar color="primary">
     <mat-toolbar-row >
-      
-      
-      <a  href=""><h1 style="color: white;">{{title}}</h1></a>
-      <div *ngIf="isAuthenticated" fxFlex fxLayout = "row">
-        <button mat-icon-button>
+        <button *ngIf="isAuthenticated" mat-icon-button>
           <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
         </button>
+      <a  href=""><h1 style="color: white;">{{title}}</h1></a>
+      <div *ngIf="isAuthenticated" fxFlex fxLayout = "row">
         <div fxFlex fxLayoutAlign="flex-start center" >
           <span class="menu-spacer"></span>
            <a *ngFor = "let route of routeLinks" mat-button class="toolbar-buttons" [routerLink]="route[0]">{{route[1]}}</a>
@@ -24,7 +22,6 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-
 <mat-sidenav-container >
     <mat-sidenav #sidenav color="primary">
       <mat-nav-list *ngIf="isAuthenticated">
@@ -38,20 +35,22 @@
       </div>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content >
       <div class="custom-container">
         <router-outlet></router-outlet>
       </div>
-      <!-- Footer -->
-<footer color="primary" class="page-footer font-small blue">
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">© 2020 Copyright:
-    <a> MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
+      
     </mat-sidenav-content>
+
 </mat-sidenav-container>
+    <!-- Footer -->
+    <footer  color="primary" class="page-footer font-small blue">
+
+      <!-- Copyright -->
+      <div style="background-color: #283593; color: white;" class="footer-copyright text-center py-3">© 2020 Copyright: Ahmad Aladham & Mohammad Mazen
+      </div>
+      <!-- Copyright -->
+    
+    </footer>
+    <!-- Footer -->
+

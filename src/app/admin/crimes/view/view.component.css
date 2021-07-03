@@ -5,11 +5,6 @@
     height: fit-content;
 }
 
-.line-color {
-    color: blue;
-    height: 3px
-}
-
 .crime-status {
     display: grid;
     grid-template-columns: auto auto;
@@ -19,7 +14,8 @@
 .grid-container {
     display: grid;
     grid-template-areas: "a b";
-    grid-template-columns: auto auto auto;
+    padding: 20px;
+    /* grid-template-columns: auto auto auto; */
 }
 
 h4 {
@@ -33,23 +29,23 @@ h4 {
 
 .image-container {
     grid-area: b;
-    float: left;
     align-content: flex-end;
 }
 
 .image {
-    width: 400px;
-    height: 300px;
+    /* width: 400px;
+    height: 300px; */
+    min-width: fit-content;
+    height: fit-content;
     padding: 4px;
-    width: 50%
+    width: 50%;
 }
 
 .header {
+    background-color: rgb(43, 50, 54);
+    color: rgba(255, 255, 255, 0.884);
     text-align: center;
-    background-color: #3F51B5;
-    border-radius: 15%;
-    color: white;
-    padding: 5px;
+    padding: 7px;
 }
 
 .crime-title {

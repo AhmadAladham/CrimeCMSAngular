@@ -15,12 +15,7 @@ mat-sidenav {
     text-align: center;
     height: 85vh;
 }
-mat-sidenav-container {
-    height: 90vh;
-    width: 100%;
-    min-width: 100%;
-    overflow: auto;
- }
+
 
 .custom-container{
     margin-top: 20px;
