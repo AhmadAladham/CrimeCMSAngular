@@ -22,7 +22,7 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-<mat-sidenav-container >
+<mat-sidenav-container  >
     <mat-sidenav #sidenav color="primary">
       <mat-nav-list *ngIf="isAuthenticated">
       <div *ngFor = "let route of routeLinks">
@@ -35,22 +35,21 @@
       </div>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content >
-      <div class="custom-container">
+    <mat-sidenav-content style="height: 91vh;">
+      <div class="custom-container" >
         <router-outlet></router-outlet>
       </div>
-      <!-- Footer -->
-    <footer  color="primary" class="footer page-footer font-small blue">
+      <footer style="bottom: 0; position: absolute; width: 100%;" color="primary" class="page-footer font-small blue">
 
-      <!-- Copyright -->
-      <div style="background-color: #283593; color: white;" class="footer-copyright text-center py-3">© 2020 Copyright: Ahmad Aladham & Mohammad Mazen
-      </div>
-      <!-- Copyright -->
-    
-    </footer>
-    <!-- Footer -->
+        <!-- Copyright -->
+        <div style="background-color: #283593; color: white;" class="footer-copyright text-center py-3">© 2020 Copyright: Ahmad Aladham & Mohammad Mazen
+        </div>
+        <!-- Copyright -->
+      
+      </footer>
     </mat-sidenav-content>
 
 </mat-sidenav-container>
+
     
 
