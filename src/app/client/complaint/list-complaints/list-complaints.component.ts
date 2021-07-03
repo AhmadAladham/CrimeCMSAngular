@@ -28,7 +28,6 @@ export class ListComplaintsComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    console.log(this.complaints)
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.complaintsTable = new MatTableDataSource<Complaint>(this.complaints);

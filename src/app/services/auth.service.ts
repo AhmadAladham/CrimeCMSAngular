@@ -6,11 +6,9 @@ import { User } from "../models/user";
 import { LoginDTO } from "../models/LoginDTO";
 import { environment } from "src/environments/environment";
 import { ServiceResult } from "../models/ServiceResult";
-import { SharedModule } from "../shared/shared.module";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { RegisterDTO } from "../models/RegisterDTO";
-import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Role } from "../enum/role";
 import { BehaviorSubject } from "rxjs";
@@ -34,8 +32,6 @@ export class AuthService {
 
 
   Login(username: string | undefined, password: string | undefined) {
-    // api request login
-    // show loader
     const loginDTO: LoginDTO = new LoginDTO();
     loginDTO.Email = username;
     loginDTO.Password = password;
@@ -89,12 +85,16 @@ export class AuthService {
     if(token.Role) return token.Role;
     else return null;
   }
+
+
   Logout(){
     localStorage.removeItem('token');
     this.authRefresh.next(new Date().getTime());
     
     this.router.navigate(['/account']);
   }
+
+
   VerifyEmail(code:number, email:string | undefined){
     let emailVerification : any ;
     this.spinner.show();
@@ -115,7 +115,6 @@ export class AuthService {
   }
 
   RefreshToken(){
-    // this.spinner.show();
     this.httpClient.get<ServiceResult>(environment.apiUrl + 'api/users/RefreshToken').subscribe((result) => {
       if(result.status == '200'){
         localStorage.setItem('token', result.data);
@@ -123,10 +122,8 @@ export class AuthService {
       else if(result.status == '401'){
         this.toastr.error('Something Went Wrong');
       }
-      // this.spinner.hide();
     },err=>{
       this.toastr.error('Something went wrong');
-      // this.spinner.hide();
     })
   }
 }
