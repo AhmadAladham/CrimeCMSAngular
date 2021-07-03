@@ -1,6 +1,5 @@
-div.loginCard {
+.loginCard {
     background-color: #ffff;
-    position: static;
     width: 600px;
     height: fit-content;
     margin: 2em auto;
