@@ -12,7 +12,7 @@
                 <p>Crime Entry Date: <strong>{{crimeService.selectedCrime.crimeEntryDate | date}}</strong></p>
             </div>
             <div>
-                <p>Is Crime Closed?: <strong>{{crimeService.selectedCrime.isClosed }}</strong></p>
+                <p>Crime Status: <strong *ngIf="crimeService.selectedCrime.isClosed">Closed</strong><strong *ngIf="!crimeService.selectedCrime.isClosed">Opened</strong></p>
             </div>
             <div>
                 <p>Close Date: <strong>{{crimeService.selectedCrime.closeDate | date}}</strong></p>
