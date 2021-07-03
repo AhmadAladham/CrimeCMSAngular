@@ -1,7 +1,7 @@
 <div class="container">
     <div class="form-container mat-elevation-z8">
         <form class="date-block" [formGroup]="filterForm">
-            <div class="select">
+            <div class="form-container">
                 <mat-form-field class="s1" appearance="fill">
                     <mat-label>User Role</mat-label>
                     <mat-select formControlName="roleId" name="role">
@@ -11,16 +11,17 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+
+                <mat-form-field class="search">
+                    <mat-label>User Name</mat-label>
+                    <input matInput formControlName="firstName">
+                </mat-form-field>
+                <mat-form-field class="search">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phoneNumber">
+                </mat-form-field>
+                <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
             </div>
-            <mat-form-field class="search">
-                <mat-label>User Name</mat-label>
-                <input matInput formControlName="firstName">
-            </mat-form-field>
-            <mat-form-field class="search">
-                <mat-label>Phone Number</mat-label>
-                <input matInput formControlName="phoneNumber">
-            </mat-form-field>
-            <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
         </form>
     </div>
     <div class="example-container mat-elevation-z8">

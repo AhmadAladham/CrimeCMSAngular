@@ -1,12 +1,8 @@
 .container {
-    padding:20px;
+    padding: 20px;
     margin-top: 20px;
     border-radius: 3%;
     height: fit-content;
-    /* border-color: rgb(94, 116, 158);
-    border-style: solid;
-    border-bottom-width: 1rem;
-    border-width: 1px; */
 }
 
 .line-color {
@@ -37,24 +33,32 @@ h4 {
 
 .image-container {
     grid-area: b;
-    float: right;
+    float: left;
+    align-content: flex-end;
 }
 
 .image {
     width: 400px;
     height: 300px;
+    padding: 4px;
+    width: 50%
 }
-.header{
+
+.header {
     text-align: center;
     background-color: #3F51B5;
     border-radius: 15%;
     color: white;
     padding: 5px;
-
 }
 
-/* .crime-details{
-    display:flex;
-    align-content: center;
-    justify-content: space-evenly;
-} */
+.crime-title {
+    background-color: rgb(43, 50, 54);
+    color: rgba(255, 255, 255, 0.884);
+    text-align: center;
+    padding: 7px;
+}
+
+.a {
+    padding: 5px;
+}

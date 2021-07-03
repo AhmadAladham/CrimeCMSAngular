@@ -1,6 +1,7 @@
+<button mat-raised-button color="primary" (click)="importAsXlsx()">Download Excel</button>
 <div>
     <form class="date-block mat-elevation-z8" [formGroup]="filterForm">
-        <div class="select">
+        <div class="form-container">
             <mat-form-field class="s1" appearance="fill">
                 <mat-label>Crime Category</mat-label>
                 <mat-select formControlName="crimeCategoryId" name="category">
@@ -19,8 +20,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-        </div>
-        <div class="date">
+
             <mat-form-field class="d1">
                 <input readonly matInput type="datetime" date-time [matDatepicker]="dateFrom" placeholder="Date From" formControlName="dateFrom" format="yyyy-MM-dd" view="date" min-view="date" auto-close="true">
                 <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
@@ -32,12 +32,13 @@
                 <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
                 <mat-datepicker #dateTo></mat-datepicker>
             </mat-form-field>
+
+            <mat-form-field class="search">
+                <mat-label>Crime Title</mat-label>
+                <input matInput formControlName="crimeTtile">
+            </mat-form-field>
+            <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
         </div>
-        <mat-form-field class="search">
-            <mat-label>Crime Title</mat-label>
-            <input matInput formControlName="crimeTtile">
-        </mat-form-field>
-        <button mat-button color="primary" class="primary" (click)="resetFilter()">Reset</button>
     </form>
 </div>
 <div class="example-container mat-elevation-z8">
@@ -96,7 +97,7 @@
                         <mat-icon (click)="updateCrime(row.crimeId)">edit</mat-icon>
                         </button>
                     <button mat-mini-fab color="primary" aria-label="list crimes">
-                            <mat-icon (click)="viewCrime(row.crimeId)">edit</mat-icon>
+                            <mat-icon (click)="viewCrime(row.crimeId)">assignment</mat-icon>
                         </button>
                 </mat-cell>
             </ng-container>
@@ -104,5 +105,4 @@
         <mat-paginator [length]="this.crimeService.crimeData.meta.totalItems" [pageSize]="this.crimeService.crimeData.meta.itemsPerPage" [pageSizeOptions]="[2,4,8,10]" (page)="pageEvent = $event; onPaginateChange($event)" showFirstLastButtons>
         </mat-paginator>
     </div>
-    <button mat-button (click)="importAsXlsx()">Excel</button>
 </div>

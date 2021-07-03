@@ -1,8 +1,6 @@
 <mat-card class="example-card mat-elevation-z4">
     <mat-card-header>
         <mat-card-title style="text-align: center;">{{firstName}} {{lastName}}</mat-card-title>
-        <!-- <div mat-card-avatar class="example-header-image"></div> -->
-        <!-- <mat-card-subtitle>National Number: {{nationalNumber}}</mat-card-subtitle> -->
     </mat-card-header>
     <img mat-card-image class="card-image" src="{{image}}" alt="Photo of {{firstName}} {{lastName}}">
     <mat-card-content>
@@ -14,12 +12,10 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button (click)="openDialog(criminalId)" mat-button>View Crimes</button>
-        <button mat-mini-fab color="warn" aria-label="list criminals">
-        <mat-icon (click)="deleteCriminal(criminalId)">delete</mat-icon>
-      </button>
-        <button mat-mini-fab color="primary" aria-label="list criminals">
-        <mat-icon (click)="updateCriminal(criminalId)">edit</mat-icon>
-      </button>
+
+        <button mat-raised-button (click)="openDialog(criminalId)">View Crimes</button>
+        <button mat-raised-button color="warn" (click)="deleteCriminal(criminalId)">Delete</button>
+        <button mat-raised-button color="primary" (click)="updateCriminal(criminalId)">Edit</button>
+
     </mat-card-actions>
 </mat-card>
