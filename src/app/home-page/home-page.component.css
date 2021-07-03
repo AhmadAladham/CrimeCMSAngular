@@ -1,0 +1,46 @@
+
+.home-container{
+    display: grid;
+    grid-template-areas: "a b c";
+}
+.a{
+    background-color: aliceblue;
+    grid-area: a;
+}
+
+.b{
+    background-color: aliceblue;
+    grid-area: b;
+}
+
+.c{
+    background-color: aliceblue;
+    grid-area: c;
+}
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+/* .svg-icon {
+    width: 50vw;
+    height: 50vh;
+  } */
+  
+  .svg-icon path,
+  .svg-icon polygon,
+  .svg-icon rect {
+    fill: #4691f6;
+  }
+  
+  .svg-icon circle {
+    stroke: #4691f6;
+    stroke-width: 1;
+  }
+  
+  .svgs{
+    margin: 10px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: #283593;
+    border-radius: 5%;
+  }

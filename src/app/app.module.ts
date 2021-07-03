@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 import { JwtModule, JwtModuleOptions } from "@auth0/angular-jwt";
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { HomePageComponent } from './home-page/home-page.component';
 const JWT_Module_Options: JwtModuleOptions = {
   config: {
   }
@@ -25,6 +26,7 @@ const JWT_Module_Options: JwtModuleOptions = {
 @NgModule({
   declarations: [
     AppComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,

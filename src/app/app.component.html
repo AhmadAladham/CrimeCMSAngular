@@ -3,11 +3,12 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row >
       
-      <button mat-icon-button>
-        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-      </button>
-      <h1>{{title}}</h1>
+      
+      <a  href=""><h1 style="color: white;">{{title}}</h1></a>
       <div *ngIf="isAuthenticated" fxFlex fxLayout = "row">
+        <button mat-icon-button>
+          <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        </button>
         <div fxFlex fxLayoutAlign="flex-start center" >
           <span class="menu-spacer"></span>
            <a *ngFor = "let route of routeLinks" mat-button class="toolbar-buttons" [routerLink]="route[0]">{{route[1]}}</a>
@@ -16,6 +17,10 @@
           <a  mat-button class="toolbar-buttons" routerLink="client/profile">Profile</a>
           <a  mat-button class="toolbar-buttons" (click) = "Logout()">Logout</a>
         </div>
+      </div>
+      <div *ngIf="!isAuthenticated" fxFlex fxLayoutAlign="flex-end center">
+        <a  mat-button class="toolbar-buttons" routerLink="account">Login</a>
+        <a  mat-button class="toolbar-buttons" routerLink="account/register">Sign up</a>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
@@ -37,5 +42,16 @@
       <div class="custom-container">
         <router-outlet></router-outlet>
       </div>
+      <!-- Footer -->
+<footer color="primary" class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a> MDBootstrap.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
     </mat-sidenav-content>
 </mat-sidenav-container>

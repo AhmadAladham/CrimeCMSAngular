@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthenticationGuard } from './authentication.guard';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { Role } from './enum/role';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 const routes: Routes = [
@@ -33,9 +34,14 @@ const routes: Routes = [
     } 
   },
   {
+    path: '',
+    component:HomePageComponent
+  },
+  {
     path: '**',
     component: NotFoundComponent
-  }
+  },
+  
 ];
 
 @NgModule({
