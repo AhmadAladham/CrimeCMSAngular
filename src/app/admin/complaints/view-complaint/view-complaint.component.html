@@ -1,3 +1,4 @@
+
 <h2>Criminal Description:</h2>
 <p>{{data.criminalDescription}}</p>
 <hr>
@@ -8,7 +9,7 @@
     <mat-radio-button [checked] = "data.complaintStatus == 0" [value]=0>Under Investigation</mat-radio-button>
     <mat-radio-button [checked] = "data.complaintStatus == 1" [value]=1>Solved</mat-radio-button>
 </mat-radio-group>
-<mat-dialog-actions align="end ">
+<mat-dialog-actions style="float: right;" align="end ">
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-button [mat-dialog-close]="true " (click)="saveItem()" cdkFocusInitial>Save</button>
 </mat-dialog-actions>

@@ -135,7 +135,7 @@ export class ListComplaintsComponent implements OnInit {
     let complaintStatus = this.complaintsService.complaintsData.items?.find(c=>c.complaintId == complaintId)?.complaintStatus;
      const dialogRef = this.dialog.open(ViewComplaintComponent,
         {
-          height: '60vh',
+          height: 'fit-content',
           width: '60vw',
           data:{
              criminalDescription: criminalDescription,
